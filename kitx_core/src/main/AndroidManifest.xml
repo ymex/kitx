@@ -1,0 +1,9 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="cn.ymex.kitx.core" >
+    <application>
+        <provider
+            android:authorities="${applicationId}.kitx-core-process"
+            android:multiprocess="true"
+            android:name=".Kitx$Initializer" />
+    </application>
+</manifest>

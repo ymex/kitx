@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="GlideImageView">
+
+        <attr name="glide_src" format="reference|string" />
+        <attr name="glide_placeholder" format="reference" />
+        <attr name="glide_error" format="reference" />
+        <attr name="glide_round_radius" format="dimension" />
+        <attr name="glide_auto_load" format="boolean" />
+
+        <attr name="glide_scale_type" format="enum">
+            <enum name="matrix" value="0" />
+            <enum name="fit_xy" value="1" />
+            <enum name="fit_start" value="2" />
+            <enum name="fit_center" value="3" />
+            <enum name="fit_end" value="4" />
+            <enum name="center" value="5" />
+            <enum name="center_crop" value="6" />
+            <enum name="center_inside" value="7" />
+        </attr>
+    </declare-styleable>
+</resources>
