@@ -30,9 +30,11 @@ public class PermissionFragment extends Fragment {
     private PermissionRequest.OnResultCallBack onResultCallBack;
     private static final int PERMISSIONS_REQUEST_CODE = 0x0811;
     private static final int ACTION_PERMISSIONS_REQUEST_CODE = 0x0215;
-    private String[] requestPermissions = new String[]{};
+
     private Queue<String> permissionQueue = new LinkedList<>();
+    private String[] requestPermissions;
     private String currentRequestPermission;
+    private boolean isRequestEach = false;
 
     private static final List<String> SPECIAL_PERMISSIONS = new ArrayList<String>() {
         {
@@ -52,33 +54,39 @@ public class PermissionFragment extends Fragment {
 
 
     void requestPermissions(@NonNull String[] permissions, @NonNull PermissionRequest.OnResultCallBack onResultCallBack, boolean each) {
-        this.requestPermissions = permissions;
+        isRequestEach = each;
+        requestPermissions = permissions;
         setOnResultCallBack(onResultCallBack);
+        permissionQueue.clear();
         if (each) {
-            permissionQueue.clear();
             permissionQueue.addAll(Arrays.asList(permissions));
             requestQueuePermission();
         } else {
-            requestPermissions(permissions, PERMISSIONS_REQUEST_CODE);
+            for (String permission : permissions) {
+                if (isSpecialPermission(permission)) {
+                    permissionQueue.add(permission);
+                }
+            }
+            if (!permissionQueue.isEmpty()) {
+                requestQueuePermission();
+            } else {
+                requestPermissions(permissions, PERMISSIONS_REQUEST_CODE);
+            }
+
         }
     }
 
-    boolean isSpecialPermission(String permission) {
+    private boolean isSpecialPermission(String permission) {
         return SPECIAL_PERMISSIONS.contains(permission);
     }
 
-    boolean containsSpecialPermissions(String[] permissions) {
-        for (String permission : permissions) {
-            if (SPECIAL_PERMISSIONS.contains(permission)) {
-                return true;
-            }
-        }
-        return false;
-    }
 
     private void requestQueuePermission() {
         currentRequestPermission = "";
         if (permissionQueue.isEmpty()) {
+            if (!isRequestEach) {
+                requestPermissions(requestPermissions, PERMISSIONS_REQUEST_CODE);
+            }
             return;
         }
         String permission = permissionQueue.poll();
@@ -86,6 +94,7 @@ public class PermissionFragment extends Fragment {
         if (TextUtils.isEmpty(permission)) {
             throw new IllegalArgumentException("permission con`t be null or empty!");
         }
+
         switch (permission) {
             case Manifest.permission.REQUEST_INSTALL_PACKAGES:
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && !canRequestPackageInstalls()) {
@@ -118,7 +127,7 @@ public class PermissionFragment extends Fragment {
 
 
         for (int i = 0; i < permissions.length; i++) {
-            granteds[i] = grantResults[i] == PackageManager.PERMISSION_GRANTED;
+            granteds[i] = grantResults[i] == PackageManager.PERMISSION_GRANTED || isGranted(permissions[i]);
             rationales[i] = shouldShowRequestPermissionRationale(permissions[i]);
         }
         onRequestPermissionsResult(permissions, granteds, rationales);
@@ -128,12 +137,13 @@ public class PermissionFragment extends Fragment {
 
         List<Permission> pls = new ArrayList<>();
         for (int i = 0; i < permissions.length; i++) {
+
             pls.add(new Permission(permissions[i], grantResults[i], shouldShowRequestPermissionRationale[i]));
-            log("onRequestPermissionsResult " + pls.get(i));
+            System.out.println("---- onRequestPermissionsResult: " + pls.get(i));
         }
         if (onResultCallBack != null) {
             boolean next = onResultCallBack.onResult(new Permission(pls));
-            if (next) {
+            if (next && isRequestEach) {
                 requestQueuePermission();
             }
         }
@@ -146,32 +156,36 @@ public class PermissionFragment extends Fragment {
         if (requestCode != ACTION_PERMISSIONS_REQUEST_CODE || currentRequestPermission.isEmpty()) {
             return;
         }
-        boolean granted = true;
-        switch (currentRequestPermission) {
-            case Manifest.permission.REQUEST_INSTALL_PACKAGES:
-
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    granted = canRequestPackageInstalls();
-                }
-                break;
-            case Manifest.permission.SYSTEM_ALERT_WINDOW:
-
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    granted = canDrawOverlays();
-                }
-                break;
+        if (isRequestEach) {
+            onRequestPermissionsResult(new String[]{currentRequestPermission}, new boolean[]{isGranted(currentRequestPermission)}, new boolean[]{false});
+        } else {
+            requestQueuePermission();
         }
-        onRequestPermissionsResult(new String[]{currentRequestPermission}, new boolean[]{granted}, new boolean[]{false});
-
     }
 
-    @TargetApi(Build.VERSION_CODES.M)
+
     boolean isGranted(String permission) {
         final FragmentActivity fragmentActivity = getActivity();
+        boolean granted = true;
         if (fragmentActivity == null) {
             throw new IllegalStateException("This fragment must be attached to an activity.");
         }
-        return fragmentActivity.checkSelfPermission(permission) == PackageManager.PERMISSION_GRANTED;
+
+        switch (permission) {
+            case Manifest.permission.REQUEST_INSTALL_PACKAGES:
+                granted = canRequestPackageInstalls();
+                break;
+            case Manifest.permission.SYSTEM_ALERT_WINDOW:
+                granted = canDrawOverlays();
+                break;
+            default:
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    granted = fragmentActivity.checkSelfPermission(permission) == PackageManager.PERMISSION_GRANTED;
+                }
+                break;
+        }
+
+        return granted;
     }
 
     @TargetApi(Build.VERSION_CODES.M)
@@ -197,14 +211,21 @@ public class PermissionFragment extends Fragment {
         startActivityForResult(intent, ACTION_PERMISSIONS_REQUEST_CODE);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
+
     private boolean canRequestPackageInstalls() {
-        return Objects.requireNonNull(getContext()).getPackageManager().canRequestPackageInstalls();
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            return Objects.requireNonNull(getContext()).getPackageManager().canRequestPackageInstalls();
+        }
+        return true;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
+
     private boolean canDrawOverlays() {
-        return Settings.canDrawOverlays(getContext());
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            return Settings.canDrawOverlays(getContext());
+        }
+        return true;
     }
 
     void log(String message) {

@@ -18,6 +18,7 @@ class PermissionActivity : AppCompatActivity() {
             PermissionRequest(this).request(
                 arrayOf(
                     Manifest.permission.CAMERA,
+                    Manifest.permission.REQUEST_INSTALL_PACKAGES,
                     Manifest.permission.WRITE_EXTERNAL_STORAGE
                 )
             ) {

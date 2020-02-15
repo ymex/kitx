@@ -1,2 +1,2 @@
-include ':app', ':kitx_adapter', ':kitx_utils', ':kitx_core', ':kitx_widget', ':kitx_glide'
+include ':app', ':kitx_utils', ':kitx_core', ':kitx_widget', ':kitx_glide'
 rootProject.name='ymex.kitx'

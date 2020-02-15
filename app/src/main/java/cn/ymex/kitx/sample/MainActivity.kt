@@ -4,15 +4,16 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import cn.ymex.kitx.adapter.decoration.itemDecorationDrawable
-import cn.ymex.kitx.adapter.decoration.verticalItemDecoration
-import cn.ymex.kitx.adapter.recycler.DelegateAdapter
+
+import cn.ymex.kitx.core.adapter.recycler.DelegateAdapter
 import cn.ymex.kitx.core.storage.SharedPreferences
 import cn.ymex.kitx.sample.adapter.ActInt
 import cn.ymex.kitx.sample.adapter.AdapterActivity
 import cn.ymex.kitx.sample.adapter.BinderItemAction
 import cn.ymex.kitx.sample.permission.PermissionActivity
+import cn.ymex.kitx.utils.itemDecorationDrawable
 import cn.ymex.kitx.utils.todip
+import cn.ymex.kitx.utils.verticalItemDecoration
 import kotlinx.android.synthetic.main.main_activity.*
 
 class MainActivity : AppCompatActivity() {

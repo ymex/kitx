@@ -1,4 +1,4 @@
-package cn.ymex.kitx.adapter.empty;
+package cn.ymex.kitx.core.adapter.empty;
 
 
 import android.util.Log;
@@ -6,15 +6,15 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import cn.ymex.kitx.adapter.WrapType;
-import cn.ymex.kitx.adapter.recycler.DelegateAdapter;
-import cn.ymex.kitx.adapter.recycler.ItemViewBinder;
+import cn.ymex.kitx.core.adapter.WrapType;
+import cn.ymex.kitx.core.adapter.recycler.DelegateAdapter;
+import cn.ymex.kitx.core.adapter.recycler.ItemViewBinder;
 
 /**
  * Created by ymexc on 2018/8/23.
  * About:AdapterDataObserver
  * demo:
- *      RecyclerEmptyStatus.attach(rvContent).data(EmptyDataWrap<String>("暂无通知")).binder(EmptyDataBinder()).notifyData()
+ * RecyclerEmptyStatus.attach(rvContent).data(EmptyDataWrap<String>("暂无通知")).binder(EmptyDataBinder()).notifyData()
  */
 public class RecyclerEmptyStatus extends RecyclerView.AdapterDataObserver {
 

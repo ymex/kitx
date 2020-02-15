@@ -8,13 +8,14 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
-import cn.ymex.kitx.adapter.decoration.itemDecorationDrawable
-import cn.ymex.kitx.adapter.decoration.verticalItemDecoration
-import cn.ymex.kitx.adapter.recycler.DelegateAdapter
+import cn.ymex.kitx.core.adapter.recycler.DelegateAdapter
+
 import cn.ymex.kitx.sample.R
 import cn.ymex.kitx.sample.adapter.BinderItemCata
 import cn.ymex.kitx.sample.adapter.BinderItemVideo
 import cn.ymex.kitx.sample.adapter.Video
+import cn.ymex.kitx.utils.itemDecorationDrawable
+import cn.ymex.kitx.utils.verticalItemDecoration
 import kotlinx.android.synthetic.main.main_fragment.*
 
 class MainFragment : Fragment() {

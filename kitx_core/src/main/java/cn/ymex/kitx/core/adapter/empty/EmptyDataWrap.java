@@ -1,4 +1,4 @@
-package cn.ymex.kitx.adapter.empty;
+package cn.ymex.kitx.core.adapter.empty;
 
 /**
  * Created by ymexc on 2018/8/23.

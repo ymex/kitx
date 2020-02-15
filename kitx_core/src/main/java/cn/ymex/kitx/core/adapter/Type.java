@@ -1,4 +1,4 @@
-package cn.ymex.kitx.adapter;
+package cn.ymex.kitx.core.adapter;
 
 /**
  * Created by ymexc.

@@ -1,4 +1,4 @@
-package cn.ymex.kitx.adapter.decoration
+package cn.ymex.kitx.utils
 
 import android.content.Context
 import android.graphics.Color

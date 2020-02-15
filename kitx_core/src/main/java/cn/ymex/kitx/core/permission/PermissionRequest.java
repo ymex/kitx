@@ -10,7 +10,7 @@ import androidx.fragment.app.FragmentManager;
 
 public class PermissionRequest {
     static final String TAG = PermissionRequest.class.getSimpleName();
-    Lazy<PermissionFragment> fragmentLazy;
+    private Lazy<PermissionFragment> fragmentLazy;
 
 
     public PermissionRequest(@NonNull final FragmentActivity activity) {

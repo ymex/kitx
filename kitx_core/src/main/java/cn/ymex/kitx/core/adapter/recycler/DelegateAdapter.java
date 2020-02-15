@@ -1,4 +1,4 @@
-package cn.ymex.kitx.adapter.recycler;
+package cn.ymex.kitx.core.adapter.recycler;
 
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -9,9 +9,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.ymex.kitx.adapter.RecyclerAdapter;
-import cn.ymex.kitx.adapter.Type;
-import cn.ymex.kitx.adapter.WrapType;
+import cn.ymex.kitx.core.adapter.RecyclerAdapter;
+import cn.ymex.kitx.core.adapter.Type;
+import cn.ymex.kitx.core.adapter.WrapType;
 
 /**
  * Created by ymex on 2017/08/12.

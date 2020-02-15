@@ -4,8 +4,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import cn.ymex.kitx.adapter.recycler.ItemViewBinder
-import cn.ymex.kitx.adapter.recycler.ItemViewHolder
+import cn.ymex.kitx.core.adapter.recycler.ItemViewBinder
+import cn.ymex.kitx.core.adapter.recycler.ItemViewHolder
 import cn.ymex.kitx.sample.R
 
 data class ActInt(val name: String, val block: (view: View) -> Unit = {})

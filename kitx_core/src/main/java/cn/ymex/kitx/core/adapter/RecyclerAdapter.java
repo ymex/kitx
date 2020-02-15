@@ -14,7 +14,7 @@
  *     limitations under the License.
  */
 
-package cn.ymex.kitx.adapter;
+package cn.ymex.kitx.core.adapter;
 
 import android.content.Context;
 import android.util.Log;
@@ -24,7 +24,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.ymex.kitx.adapter.recycler.ItemViewHolder;
+import cn.ymex.kitx.core.adapter.recycler.ItemViewHolder;
 
 
 /**
