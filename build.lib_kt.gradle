@@ -1,0 +1,11 @@
+apply from: "../build.lib.gradle"
+apply plugin: 'kotlin-android'
+
+
+android {
+    //编译环境
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+}

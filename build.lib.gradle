@@ -1,12 +1,8 @@
 apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
 
 
 android {
     compileSdkVersion 29
-
-
     defaultConfig {
         minSdkVersion 14
         targetSdkVersion 29
@@ -24,11 +20,6 @@ android {
         }
     }
 
-
-    //编译环境
-    kotlinOptions {
-        jvmTarget = '1.8'
-    }
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
