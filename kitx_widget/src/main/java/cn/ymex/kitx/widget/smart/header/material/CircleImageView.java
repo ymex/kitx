@@ -16,7 +16,6 @@
 
 package cn.ymex.kitx.widget.smart.header.material;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -27,7 +26,8 @@ import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
 import android.os.Build;
 import android.view.View;
-import android.widget.ImageView;
+
+import androidx.appcompat.widget.AppCompatImageView;
 
 
 /**
@@ -35,8 +35,8 @@ import android.widget.ImageView;
  * called before the animation is actually complete and support shadows on older
  * platforms.
  */
-@SuppressLint("ViewConstructor")
-public class CircleImageView extends ImageView {
+
+public class CircleImageView extends AppCompatImageView {
 
     protected static final int KEY_SHADOW_COLOR = 0x1E000000;
     protected static final int FILL_SHADOW_COLOR = 0x3D000000;
@@ -46,7 +46,7 @@ public class CircleImageView extends ImageView {
     protected static final float SHADOW_RADIUS = 3.5f;
     protected static final int SHADOW_ELEVATION = 4;
 
-//    private Animation.AnimationListener mListener;
+    //    private Animation.AnimationListener mListener;
     int mShadowRadius;
 
     public CircleImageView(Context context, int color) {
@@ -162,7 +162,7 @@ public class CircleImageView extends ImageView {
 
         private void updateRadialGradient(int diameter) {
             mRadialGradient = new RadialGradient(diameter / 2f, diameter / 2f,
-                    mShadowRadius, new int[] { FILL_SHADOW_COLOR, Color.TRANSPARENT },
+                    mShadowRadius, new int[]{FILL_SHADOW_COLOR, Color.TRANSPARENT},
                     null, Shader.TileMode.CLAMP);
             mShadowPaint.setShader(mRadialGradient);
         }
