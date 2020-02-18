@@ -1,6 +1,9 @@
-# kitx-widget
+# kitx-widget[ ![Download](https://api.bintray.com/packages/ymex/maven/widget/images/download.svg) ](https://bintray.com/ymex/maven/widget/_latestVersion)
 android 开发常用组件
 
+```groovy
+implementation 'cn.ymex.kitx:widget:1.0.0'
+```
 
 ## banner
 Android Viewpager rotation control, application guide page controls, support vertical, 

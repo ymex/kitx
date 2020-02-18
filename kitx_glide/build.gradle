@@ -1,15 +1,5 @@
 apply from: "../build.lib.gradle"
 
-apply plugin: 'com.novoda.bintray-release'
-publish {
-    userOrg = 'ymex'
-    groupId = 'cn.ymex.kitx'
-    artifactId = 'widget-glide'
-    publishVersion = "1.0.0"
-    desc = 'A simplifies and accelerates Android developer tools and widget.'
-    website = 'https://github.com/ymex/kitx/tree/master/kitx_glide'
-}
-
 android {
     defaultConfig {
         //renderscript 兼容配置;
@@ -17,6 +7,19 @@ android {
         renderscriptSupportModeEnabled  true
     }
 }
+
+
+//apply plugin: 'com.novoda.bintray-release'
+//publish {
+//    userOrg = 'ymex'
+//    groupId = 'cn.ymex.kitx'
+//    artifactId = 'widget-glide'
+//    publishVersion = "1.0.0"
+//    desc = 'A simplifies and accelerates Android developer tools and widget.'
+//    website = 'https://github.com/ymex/kitx/tree/master/kitx_glide'
+//}
+
+
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
