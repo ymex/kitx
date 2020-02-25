@@ -8,6 +8,7 @@ import android.graphics.Paint;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
@@ -56,10 +57,27 @@ public class BrowserView extends FrameLayout {
         if (mProgress instanceof View) {
             addView((View) mProgress, new LayoutParams(LayoutParams.MATCH_PARENT, dip2px(2.4F)));
         }
+        if (Browser.isDebug()) {
+            TextView debugBtn = new TextView(getContext());
+            debugBtn.setText("X5 Debug");
+            int s =11;
+            debugBtn.setTextSize(s);
+            debugBtn.setPadding(s/2,s/2,s/2,s/2);
+            debugBtn.setTextColor(0x7fff0000);
+            LayoutParams params = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+            params.gravity = Gravity.END;
+            addView(debugBtn,params);
+            debugBtn.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mWebView.loadUrl("http://debugtbs.qq.com/");
+                }
+            });
+        }
         initSetting(mProgress);
     }
 
-    private int dip2px(float dp) {
+    private static int dip2px(float dp) {
         return (int) TypedValue.applyDimension(
                 TypedValue.COMPLEX_UNIT_DIP, dp,
                 Resources.getSystem().getDisplayMetrics()
@@ -182,7 +200,7 @@ public class BrowserView extends FrameLayout {
 
             // Enable remote debugging via chrome://inspect
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                setWebContentsDebuggingEnabled(true);
+                setWebContentsDebuggingEnabled(Browser.isDebug());
             }
 
             // Allow use of Local Storage
@@ -210,11 +228,14 @@ public class BrowserView extends FrameLayout {
 
         @Override
         protected boolean drawChild(Canvas canvas, View child, long drawingTime) {
+            if (!Browser.isDebug()) {
+                return super.drawChild(canvas, child, drawingTime);
+            }
             boolean ret = super.drawChild(canvas, child, drawingTime);
             canvas.save();
             Paint paint = new Paint();
             paint.setColor(0x7fff0000);
-            paint.setTextSize(24.f);
+            paint.setTextSize(dip2px(11));
             paint.setAntiAlias(true);
             if (getX5WebViewExtension() != null) {
                 canvas.drawText(this.getContext().getPackageName() + "-pid:"

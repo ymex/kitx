@@ -3,7 +3,31 @@
 BrowserView使用腾讯X5 WebView。 集成页面加载进度条与Js 与 Java 通信的功能。 
 jsBridge 拓展并兼容 [DSBridge-Android](https://github.com/wendux/DSBridge-Android)。
 
-## 如何使用。
+
+
+## DEBUG
+
+开启BrowserView的debug 模式，可以使用 `chrome://inspect`与x5 debug 工具。
+
+```
+Browser.debug(true)
+```
+
+关于 x5 debug 参考：https://x5.tencent.com/
+
+chrome://inspect 参考：https://developers.google.cn/web/tools/chrome-devtools/
+
+
+
+## 如何使用
+### 初始化
+
+在Application 中或其他地方尽量早的初始化Browser，其会初始化x5核心。
+
+```java
+ Browser.create(this)
+```
+
 ### 引入 script 标签
 首先在需要交互的H5页面 引入以下的script 标签。
 

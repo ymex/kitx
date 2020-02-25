@@ -12,6 +12,8 @@ class AppContext : ApplicationContext() {
     override fun onCreate() {
         super.onCreate()
         println("---------m app:" + this)
+        Browser.debug(true)
+
         Browser.create(this)
     }
 

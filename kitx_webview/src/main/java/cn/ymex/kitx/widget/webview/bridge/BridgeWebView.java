@@ -58,6 +58,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
+import cn.ymex.kitx.widget.webview.Browser;
+
 import static android.webkit.WebSettings.MIXED_CONTENT_ALWAYS_ALLOW;
 
 
@@ -72,7 +74,7 @@ public class BridgeWebView extends WebView {
     private String bridgeScriptFile = "navite_js_bridge.js";
     private String interceptBridgejsUrl = "kitx/bridge.js";
 
-    private static boolean isDebug = false;
+    private static boolean isDebug = Browser.isDebug();
     private Map<String, Object> javaScriptNamespaceInterfaces = new HashMap();
     private String APP_CACHE_DIRNAME;
     int callID = 0;
@@ -258,6 +260,7 @@ public class BridgeWebView extends WebView {
      *
      * @param enabled
      */
+
     public static void setWebContentsDebuggingEnabled(boolean enabled) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             WebView.setWebContentsDebuggingEnabled(enabled);
