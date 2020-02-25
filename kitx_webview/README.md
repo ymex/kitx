@@ -1,7 +1,7 @@
 # BrowserView
 
 BrowserView使用腾讯X5 WebView。 集成页面加载进度条与Js 与 Java 通信的功能。 
-jsBridge 拓展并兼容 [DSBridge-Android](https://github.com/wendux/DSBridge-Android)。
+jsBridge 拓展并兼容 [DSBridge-Android v5-3.0-SNAPSHOT](https://github.com/wendux/DSBridge-Android)。
 
 
 
