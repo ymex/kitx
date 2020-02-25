@@ -558,6 +558,17 @@ public class BridgeWebView extends WebView {
         callHandler("_hasJavascriptMethod", new Object[]{handlerName}, existCallback);
     }
 
+
+    /**
+     * Add a java object which implemented the javascript interfaces to dsBridge with namespace.
+     * Remove the object using {@link #removeJavascriptObject(String) removeJavascriptObject(String)}
+     *
+     * @param object
+     */
+    public void setJavascriptObject(Object object) {
+        addJavascriptObject(object, null);
+    }
+
     /**
      * Add a java object which implemented the javascript interfaces to dsBridge with namespace.
      * Remove the object using {@link #removeJavascriptObject(String) removeJavascriptObject(String)}
@@ -701,10 +712,10 @@ public class BridgeWebView extends WebView {
 
         @Override
         public WebResourceResponse shouldInterceptRequest(WebView webView, String url) {
-            Log.i(LOG_TAG, "shouldInterceptRequest 1" );
+            Log.i(LOG_TAG, "shouldInterceptRequest 1");
             WebResourceResponse response = bridgeScriptResource(webView.getContext(), url);
             if (response != null) {
-                return  response;
+                return response;
             }
             if (webViewClient != null) {
                 return webViewClient.shouldInterceptRequest(webView, url);
@@ -714,23 +725,23 @@ public class BridgeWebView extends WebView {
 
         @Override
         public WebResourceResponse shouldInterceptRequest(WebView webView, WebResourceRequest webResourceRequest) {
-            Log.i(LOG_TAG, "shouldInterceptRequest 2" );
+            Log.i(LOG_TAG, "shouldInterceptRequest 2");
             WebResourceResponse response = bridgeScriptResource(webView.getContext(), webResourceRequest.getUrl().toString());
             if (response != null) {
-                return  response;
+                return response;
             }
             if (webViewClient != null) {
                 return webViewClient.shouldInterceptRequest(webView, webResourceRequest);
             }
-            return super.shouldInterceptRequest(webView,webResourceRequest);
+            return super.shouldInterceptRequest(webView, webResourceRequest);
         }
 
         @Override
         public WebResourceResponse shouldInterceptRequest(WebView webView, WebResourceRequest webResourceRequest, Bundle bundle) {
-            Log.i(LOG_TAG, "shouldInterceptRequest 3" );
+            Log.i(LOG_TAG, "shouldInterceptRequest 3");
             WebResourceResponse response = bridgeScriptResource(webView.getContext(), webResourceRequest.getUrl().toString());
             if (response != null) {
-                return  response;
+                return response;
             }
             if (webViewClient != null) {
                 return webViewClient.shouldInterceptRequest(webView, webResourceRequest, bundle);

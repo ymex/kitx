@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head lang="zh-cmn-Hans">
+    <meta charset="UTF-8">
+    <title>DSBridge Test</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=0.5,user-scalable=no"/>
+    <!--require dsbridge init js-->
+    <!--    <script src="https://cdn.jsdelivr.net/npm/dsbridge/dist/dsbridge.js"> </script>-->
+    <script src="/app/kitx/bridge.js"></script>
+</head>
+<style>
+    .btn {
+        text-align: center;
+        background: #d8d8d8;
+        color: #222;
+        padding: 20px;
+        margin: 30px;
+        font-size: 24px;
+        border-radius: 4px;
+        box-shadow: 4px 2px 10px #999;
+    }
+
+    .btn:active {
+        opacity: .7;
+        box-shadow: 4px 2px 10px #555;
+    }
+
+
+
+</style>
+<body>
+<H3>JS调用原生接口</H3>
+<div class="btn" onclick="callNativeSyn()">同步调用Synchronous call</div>
+<div class="btn" onclick="callNativeAsyn()">异步调用Asynchronous call</div>
+
+<div class="btn" onclick="callProgress()">call progress <span id='progress'></span></div>
+<div class="btn" onclick="hasNativeMethod('xx')">hasNativeMethod("xx")</div>
+<div class="btn" onclick="hasNativeMethod('hiSyn')">hasNativeMethod("hiSyn")</div>
+
+<H3>原生调用JS</H3>
+
+
+<script>
+    // js 调用原生 api接口 ---------------------------------------------------------------------------
+    function callNativeSyn() {
+        alert(dsBridge.call("hiSyn", "hello world!"))
+    }
+
+    function callNativeAsyn() {
+        dsBridge.call("hiAsyn","hello world asyn!", function (v) {
+            alert(v)
+        })
+    }
+
+
+    function callProgress() {
+        dsBridge.call("callProgress", function (value) {
+            if(value==0) value="";
+            document.getElementById("progress").innerText = value
+        })
+    }
+
+    function hasNativeMethod(name) {
+        alert(dsBridge.hasNativeMethod(name))
+    }
+
+//  注册js接口 ---------------------------------------------------------------------------------
+
+    kitx.register('addValue',function(l,r){
+     return l+r;
+    })
+
+    kitx.registerAsyn('append',function(arg1,arg2,arg3,responseCallback){
+     responseCallback(arg1+" "+arg2+" "+arg3);
+    })
+
+
+</script>
+</body>
+</html>

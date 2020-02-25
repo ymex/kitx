@@ -24,6 +24,7 @@
         </activity>
         <activity android:name="cn.ymex.kitx.sample.adapter.AdapterActivity" />
         <activity android:name=".permission.PermissionActivity" />
+        <activity android:name=".webview.BridgeActivity" />
 
         <service
             android:name=".core.MutService"

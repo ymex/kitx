@@ -11,6 +11,7 @@ import cn.ymex.kitx.sample.adapter.ActInt
 import cn.ymex.kitx.sample.adapter.AdapterActivity
 import cn.ymex.kitx.sample.adapter.BinderItemAction
 import cn.ymex.kitx.sample.permission.PermissionActivity
+import cn.ymex.kitx.sample.webview.BridgeActivity
 import cn.ymex.kitx.utils.itemDecorationDrawable
 import cn.ymex.kitx.utils.todip
 import cn.ymex.kitx.utils.verticalItemDecoration
@@ -39,6 +40,9 @@ class MainActivity : AppCompatActivity() {
             },
             ActInt("Permission request"){
                 val intent = Intent(this, PermissionActivity::class.java)
+                startActivity(intent)
+            },ActInt("WebView"){
+                val intent = Intent(this, BridgeActivity::class.java)
                 startActivity(intent)
             }) as List<Any>?
     }

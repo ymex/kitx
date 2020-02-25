@@ -50,4 +50,5 @@ dependencies {
     implementation project(path: ':kitx_core')
     implementation project(path: ':kitx_utils')
     implementation project(path: ':kitx_widget')
+    api project(path: ':kitx_webview')
 }
