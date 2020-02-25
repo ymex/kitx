@@ -1,13 +1,13 @@
 # BrowserView
 
-BrowserView使用腾讯X5 WebView。 集成页面加载进度条与Js 与 Java 通信的功能。 
-jsBridge 拓展并兼容 [DSBridge-Android v5-3.0-SNAPSHOT](https://github.com/wendux/DSBridge-Android)。
+BrowserView使用腾讯X5 WebView内核。 集成页面加载进度条、jsbridge 通信的功能。 
+jsBridge 基于 [DSBridge-Android v5-3.0](https://github.com/wendux/DSBridge-Android)。
 
 
 
 ## DEBUG
 
-开启BrowserView的debug 模式，可以使用 `chrome://inspect`、x5 debug 、及VConsole 工具。
+开启BrowserView的debug 模式，可以使用 `chrome://inspect`、`x5 debug` 、及`VConsole` 工具。
 
 ```
 Browser.debug(true)
