@@ -10,6 +10,7 @@ import cn.ymex.kitx.core.storage.SharedPreferences
 import cn.ymex.kitx.sample.adapter.ActInt
 import cn.ymex.kitx.sample.adapter.AdapterActivity
 import cn.ymex.kitx.sample.adapter.BinderItemAction
+import cn.ymex.kitx.sample.anhttp.AnhttpActivity
 import cn.ymex.kitx.sample.permission.PermissionActivity
 import cn.ymex.kitx.sample.webview.BridgeActivity
 import cn.ymex.kitx.utils.itemDecorationDrawable
@@ -32,17 +33,20 @@ class MainActivity : AppCompatActivity() {
         val delegateAdapter = DelegateAdapter.create()
         delegateAdapter.bind(ActInt::class.java, BinderItemAction())
         delegateAdapter.attachRecyclerView(vRecycler)
-        SharedPreferences.put("k_v",System.currentTimeMillis())
+        SharedPreferences.put("k_v", System.currentTimeMillis())
         delegateAdapter.data = mutableListOf(
             ActInt("pure adapter") {
                 val intent = Intent(this, AdapterActivity::class.java)
                 startActivity(intent)
             },
-            ActInt("Permission request"){
+            ActInt("Permission request") {
                 val intent = Intent(this, PermissionActivity::class.java)
                 startActivity(intent)
-            },ActInt("WebView"){
+            }, ActInt("WebView") {
                 val intent = Intent(this, BridgeActivity::class.java)
+                startActivity(intent)
+            }, ActInt("Http Request") {
+                val intent = Intent(this, AnhttpActivity::class.java)
                 startActivity(intent)
             }) as List<Any>?
     }

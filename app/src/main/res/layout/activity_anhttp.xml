@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cn.ymex.kitx.widget.state.StateConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/vState"
+    app:state_layout_background_color="@android:color/transparent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="8dip">
+
+    <cn.ymex.kitx.widget.smart.SwipeRefreshLayout
+        android:id="@+id/vRefresh"
+        app:srlEnableLoadMore="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <cn.ymex.kitx.widget.effect.EffectTextView
+                android:id="@+id/btnHttp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                android:padding="8dip"
+                android:text="HTTP请求"
+                android:textColor="@android:color/white" />
+        </LinearLayout>
+    </cn.ymex.kitx.widget.smart.SwipeRefreshLayout>
+</cn.ymex.kitx.widget.state.StateConstraintLayout>
