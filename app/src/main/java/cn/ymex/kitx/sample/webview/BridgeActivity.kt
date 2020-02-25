@@ -16,7 +16,11 @@ class BridgeActivity : AppCompatActivity() {
         // set debug mode
         BridgeWebView.setWebContentsDebuggingEnabled(true)
         vBrowser.webView.setJavascriptObject(JsCallApi())
-        vBrowser.loadUrl("file:///android_asset/js_bridge_test.html")
+        var url =
+            "https://wawah5.szsget.cn/channel/?mobile=12345678901&code=94654343&nonce_str=77WWCFU09607OTTIDLVYIAV8K&sign=2850EA81FE1F6C0433DC2DC0AD99AF06#/"
+        url = "file:///android_asset/js_bridge_test.html"
+//        vBrowser.loadUrl("http://wechatfe.github.io/vconsole/demo.html")
+        vBrowser.loadUrl(url)
 
 
         vBrowser.webView.run {

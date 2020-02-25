@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
@@ -50,9 +51,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.Method;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -71,8 +76,8 @@ public class BridgeWebView extends WebView {
     private static final String BRIDGE_NAME = "_dsbridge";
     private static final String LOG_TAG = "kitx_webview";
 
-    private String bridgeScriptFile = "navite_js_bridge.js";
-    private String interceptBridgejsUrl = "kitx/bridge.js";
+    private String bridgeScriptFile = "bridge.js";
+    private String vConsoleScriptFile = "vconsole.js";
 
     private static boolean isDebug = Browser.isDebug();
     private Map<String, Object> javaScriptNamespaceInterfaces = new HashMap();
@@ -610,8 +615,8 @@ public class BridgeWebView extends WebView {
         this.bridgeScriptFile = bridgeScriptFile;
     }
 
-    public void setInterceptBridgejsUrl(String url) {
-        this.interceptBridgejsUrl = interceptBridgejsUrl;
+    public void setvConsoleScriptFile(String script) {
+        this.vConsoleScriptFile = script;
     }
 
     @Override
@@ -661,12 +666,43 @@ public class BridgeWebView extends WebView {
 
         @Override
         public void onPageFinished(WebView webView, String s) {
+
             if (webViewClient != null) {
                 webViewClient.onPageFinished(webView, s);
                 return;
             }
             super.onPageFinished(webView, s);
         }
+
+
+        public String readFileFromAssets(Context context, String fileName) {
+            if (null == context || null == fileName) return null;
+            AssetManager am = context.getAssets();
+
+            ByteArrayOutputStream output = new ByteArrayOutputStream();
+            InputStream input = null;
+            try {
+
+                input = am.open(fileName);
+                byte[] buffer = new byte[1024];
+                int len = 0;
+                while ((len = input.read(buffer)) != -1) {
+                    output.write(buffer, 0, len);
+                }
+                return new String(output.toByteArray(), Charset.forName("UTF-8"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    input.close();
+                    output.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            return "";
+        }
+
 
         @Override
         public void onReceivedError(WebView webView, int i, String s, String s1) {
@@ -696,14 +732,28 @@ public class BridgeWebView extends WebView {
         }
 
 
-        private WebResourceResponse bridgeScriptResource(Context context, String url) {
-            Log.i(LOG_TAG, "bridgeScriptResource " + url);
-            if (!TextUtils.isEmpty(url) && url.contains(interceptBridgejsUrl)) {
+        private WebResourceResponse interceptScriptResource(Context context, String url) {
+            String sp = "/kitx/js/";
+            if (!TextUtils.isEmpty(url) && url.contains(sp)) {
                 try {
-                    WebResourceResponse response = new WebResourceResponse("application/x-javascript",
-                            "utf-8", context.getAssets().open(bridgeScriptFile));
-                    Log.i(LOG_TAG, "loaded js bridge replace " + url);
-                    return response;
+                    if ((url.contains(sp+"bridge") || url.contains("dsbridge.js"))) {
+                        WebResourceResponse response = new WebResourceResponse("application/x-javascript",
+                                "utf-8", context.getAssets().open(bridgeScriptFile));
+                        Log.i(LOG_TAG, "loaded bridge.js replace " + url);
+                        return response;
+                    } else if (url.contains(sp+"vconsole")) {
+                        if (Browser.isDebug()) {
+                            WebResourceResponse response = new WebResourceResponse("application/x-javascript",
+                                    "utf-8", context.getAssets().open(vConsoleScriptFile));
+                            return response;
+                        } else {
+                            WebResourceResponse response = new WebResourceResponse("application/x-javascript",
+                                    "utf-8", new ByteArrayInputStream("function(){}();".getBytes()));
+                            return response;
+                        }
+
+                    }
+
                 } catch (IOException e) {
                     e.printStackTrace();
                     Log.i(LOG_TAG, "load local bridge js err ：" + e.toString());
@@ -715,8 +765,8 @@ public class BridgeWebView extends WebView {
 
         @Override
         public WebResourceResponse shouldInterceptRequest(WebView webView, String url) {
-            Log.i(LOG_TAG, "shouldInterceptRequest 1");
-            WebResourceResponse response = bridgeScriptResource(webView.getContext(), url);
+
+            WebResourceResponse response = interceptScriptResource(webView.getContext(), url);
             if (response != null) {
                 return response;
             }
@@ -728,8 +778,8 @@ public class BridgeWebView extends WebView {
 
         @Override
         public WebResourceResponse shouldInterceptRequest(WebView webView, WebResourceRequest webResourceRequest) {
-            Log.i(LOG_TAG, "shouldInterceptRequest 2");
-            WebResourceResponse response = bridgeScriptResource(webView.getContext(), webResourceRequest.getUrl().toString());
+
+            WebResourceResponse response = interceptScriptResource(webView.getContext(), webResourceRequest.getUrl().toString());
             if (response != null) {
                 return response;
             }
@@ -741,8 +791,8 @@ public class BridgeWebView extends WebView {
 
         @Override
         public WebResourceResponse shouldInterceptRequest(WebView webView, WebResourceRequest webResourceRequest, Bundle bundle) {
-            Log.i(LOG_TAG, "shouldInterceptRequest 3");
-            WebResourceResponse response = bridgeScriptResource(webView.getContext(), webResourceRequest.getUrl().toString());
+
+            WebResourceResponse response = interceptScriptResource(webView.getContext(), webResourceRequest.getUrl().toString());
             if (response != null) {
                 return response;
             }

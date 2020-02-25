@@ -3,6 +3,7 @@ package cn.ymex.kitx.widget.webview;
 
 import android.graphics.Bitmap;
 
+import com.tencent.smtt.export.external.interfaces.WebResourceResponse;
 import com.tencent.smtt.sdk.WebView;
 import com.tencent.smtt.sdk.WebViewClient;
 
@@ -39,4 +40,10 @@ public class BrowserClient extends WebViewClient {
         }
     }
 
+//    @Override
+//    public WebResourceResponse shouldInterceptRequest(WebView webView, String s) {
+//        System.out.println("------------shouldInterceptRequest)0:"+s);
+//        return super.shouldInterceptRequest(webView, s);
+//
+//    }
 }

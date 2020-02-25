@@ -7,10 +7,12 @@ jsBridge 拓展并兼容 [DSBridge-Android](https://github.com/wendux/DSBridge-A
 
 ## DEBUG
 
-开启BrowserView的debug 模式，可以使用 `chrome://inspect`与x5 debug 工具。
+开启BrowserView的debug 模式，可以使用 `chrome://inspect`、x5 debug 、及VConsole 工具。
 
 ```
 Browser.debug(true)
+vconsole需要在html 页面中额外添加以下标签。
+// <script src="/kitx/js/vconsole"></script>
 ```
 
 关于 x5 debug 参考：https://x5.tencent.com/
@@ -32,7 +34,7 @@ chrome://inspect 参考：https://developers.google.cn/web/tools/chrome-devtools
 首先在需要交互的H5页面 引入以下的script 标签。
 
 ```html
-<script src="/app/kitx/bridge.js"></script>
+<script src="/kitx/js/bridge"></script>
 ```
 > 也可使用DSBridge script 的标签，`https://cdn.jsdelivr.net/npm/dsbridge/dist/dsbridge.js` 。建议使用本地标签，提高加载速度。
 

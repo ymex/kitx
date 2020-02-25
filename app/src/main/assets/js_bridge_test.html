@@ -7,8 +7,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
     <meta name="viewport" content="width=device-width,initial-scale=0.5,user-scalable=no"/>
     <!--require dsbridge init js-->
-    <!--    <script src="https://cdn.jsdelivr.net/npm/dsbridge/dist/dsbridge.js"> </script>-->
-    <script src="/app/kitx/bridge.js"></script>
+    <script src="/kitx/js/bridge"></script>
+    <script src="/kitx/js/vconsole"></script>
+    <!--    <script src="http://wechatfe.github.io/vconsole/lib/vconsole.min.js"></script>-->
 </head>
 <style>
     .btn {
@@ -26,6 +27,7 @@
         opacity: .7;
         box-shadow: 4px 2px 10px #555;
     }
+
 
 
 
@@ -75,6 +77,9 @@
     kitx.registerAsyn('append',function(arg1,arg2,arg3,responseCallback){
      responseCallback(arg1+" "+arg2+" "+arg3);
     })
+
+    console.log("hi debug!");
+
 
 
 </script>
