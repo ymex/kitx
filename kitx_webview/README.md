@@ -147,4 +147,3 @@ webView.callHandler("append",new Object[]{"I","love","you"},new OnReturnValue<St
 
 参考：DSBridge-Android ： https://github.com/wendux/DSBridge-Android
 
-
