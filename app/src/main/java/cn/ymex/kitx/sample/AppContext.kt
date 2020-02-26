@@ -15,7 +15,7 @@ class AppContext : ApplicationContext() {
         super.onCreate()
         Browser.create(this, true)
         val retrofit =
-            AnHttpManager.newRetrofitBuilder(baseUrl = "https://haoya.haoyayee.com/app/tokerInf/")
+            AnHttpManager.newRetrofitBuilder(baseUrl = "https://cn.bing.com/")
                 .build()
         anHttp(retrofit)
     }

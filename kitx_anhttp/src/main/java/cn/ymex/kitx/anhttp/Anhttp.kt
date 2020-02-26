@@ -1,6 +1,7 @@
 package cn.ymex.kitx.anhttp
 
 import cn.ymex.kitx.anhttp.lifecycle.LifeViewModel
+import cn.ymex.kitx.anhttp.lifecycle.StateViewModel
 import retrofit2.Call
 import retrofit2.Retrofit
 
@@ -32,6 +33,9 @@ fun <R> anHttpRequest(
     block: () -> Call<R>,
     callback: ResponseCallback<R>
 ) {
+    ThreadExecutor().executeMain(Runnable {
+        callback.onStart()
+    })
     val call = block()
     call.enqueue(callback)
 }
@@ -56,12 +60,15 @@ fun <R> LifeViewModel.anHttpRequest(
     block: () -> Call<R>,
     callback: ResponseCallback<R>
 ) {
+    ThreadExecutor().executeMain(Runnable {
+        callback.onStart()
+    })
     val call = block()
     put(call)
     call.enqueue(callback)
 }
 
-
+//---------------------------------------------------------
 /**
  * http Response callback
  */
@@ -70,7 +77,7 @@ fun <T> anHttpResponse(
     failure: (t: Throwable) -> Unit,
     start: () -> Unit
 ): HttpResponse<T> {
-    return HttpResponse(response, failure, start)
+    return HttpResponse(null, response, failure, start)
 }
 
 
@@ -85,4 +92,28 @@ fun <T> anHttpResponse(
     response: (data: T?) -> Unit
 ): HttpResponse<T> {
     return anHttpResponse(response, {}, {})
+}
+
+
+fun <T> StateViewModel.anHttpResponse(
+    response: (data: T?) -> Unit,
+    failure: (t: Throwable) -> Unit,
+    start: () -> Unit
+): HttpResponse<T> {
+    return HttpResponse(this, response, failure, start)
+}
+
+
+fun <T> StateViewModel.anHttpResponse(
+    response: (data: T?) -> Unit,
+    failure: (t: Throwable) -> Unit
+): HttpResponse<T> {
+    return HttpResponse(this, response, failure, {})
+}
+
+
+fun <T> StateViewModel.anHttpResponse(
+    response: (data: T?) -> Unit
+): HttpResponse<T> {
+    return HttpResponse(this, response, {}, {})
 }

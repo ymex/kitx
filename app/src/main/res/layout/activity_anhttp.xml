@@ -12,19 +12,9 @@
         app:srlEnableLoadMore="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-        <LinearLayout
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/vRecycler"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <cn.ymex.kitx.widget.effect.EffectTextView
-                android:id="@+id/btnHttp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@color/colorPrimary"
-                android:padding="8dip"
-                android:text="HTTP请求"
-                android:textColor="@android:color/white" />
-        </LinearLayout>
+            android:layout_height="match_parent"/>
     </cn.ymex.kitx.widget.smart.SwipeRefreshLayout>
 </cn.ymex.kitx.widget.state.StateConstraintLayout>
