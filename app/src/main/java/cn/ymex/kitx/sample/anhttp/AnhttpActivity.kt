@@ -2,15 +2,26 @@ package cn.ymex.kitx.sample.anhttp
 
 import android.os.Bundle
 import android.view.View
+import androidx.activity.viewModels
+import androidx.lifecycle.ViewModel
 import cn.ymex.kitx.core.app.AppActivity
 import cn.ymex.kitx.sample.R
+import cn.ymex.kitx.sample.anhttp.repository.viewmodel.LoginVMFactory
+import cn.ymex.kitx.sample.anhttp.repository.viewmodel.LoginViewModel
+import cn.ymex.kitx.utils.setOnClickThrottleListener
 import kotlinx.android.synthetic.main.activity_anhttp.*
 
-/**
- * Created by ymex on 2020/2/25.
- * About:
- */
+
 class AnhttpActivity : AppActivity() {
+
+    private val loginViewModel: LoginViewModel by viewModels { LoginVMFactory }
+
+    override fun getViewModels(): MutableList<ViewModel> {
+        return mutableListOf(loginViewModel)
+    }
+
+
+
     override fun onCreateView(savedInstanceState: Bundle?): Int {
         return R.layout.activity_anhttp
     }
@@ -25,13 +36,17 @@ class AnhttpActivity : AppActivity() {
 
         }
 
-        btnHttp.setOnClickListener {
-            vState.showView(R.layout.layout_state_load)
-            println("------------click")
-
+        btnHttp.setOnClickThrottleListener {
+            
         }
     }
 
+
+
+    fun currentThread() {
+        println("-------thread:" + Thread.currentThread().name + "   " + Thread.currentThread().id)
+    }
+//    vState.showView(R.layout.layout_state_load)
 
     fun finishRefreshLoadMore() {
         vRefresh.finishRefresh()

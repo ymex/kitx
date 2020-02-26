@@ -8,10 +8,14 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.lifecycle.ViewModel;
+
+import java.util.List;
 
 public interface UiView {
     /**
-     *  layout view
+     * layout view
+     *
      * @param inflater
      * @param container
      * @param savedInstanceState
@@ -21,6 +25,7 @@ public interface UiView {
 
     /**
      * layout view
+     *
      * @param savedInstanceState
      * @return
      */
@@ -28,6 +33,7 @@ public interface UiView {
 
     /**
      * after create layout view
+     *
      * @param view
      * @param savedInstanceState
      */
@@ -36,7 +42,14 @@ public interface UiView {
 
     /**
      * root view
+     *
      * @return
      */
     View getView();
+
+    void setCommonObserver(ViewModel viewModel);
+
+    void onInitViewModel(List<ViewModel> viewModels);
+
+    List<ViewModel> getViewModels();
 }

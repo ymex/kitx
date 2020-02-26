@@ -11,6 +11,7 @@ public class Browser {
 
     /**
      * 是否是调试模式
+     *
      * @param flag
      */
     public static void debug(boolean flag) {
@@ -23,10 +24,15 @@ public class Browser {
     }
 
     public static void create(Application application) {
+        create(application, false);
+    }
+
+    public static void create(Application application, boolean dev) {
         //搜集本地tbs内核信息并上报服务器，服务器返回结果决定使用哪个内核。
         //x5內核初始化完成的回调，为true表示x5内核加载成功，否则表示x5内核加载失败，会自动切换到系统内核。
 
         //x5内核初始化接口
+        BROWSER_DEBUG = dev;
         QbSdk.setDownloadWithoutWifi(false);
         QbSdk.initX5Environment(application, new QbSdk.PreInitCallback() {
             @Override

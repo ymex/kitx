@@ -9,9 +9,14 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModel;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class AppActivity extends AppCompatActivity implements UiView {
     private View _rootView;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -38,6 +43,12 @@ public class AppActivity extends AppCompatActivity implements UiView {
 //        } else {
 //            onViewCreated(view, savedInstanceState);
 //        }
+
+        List<ViewModel> vms = getViewModels();
+        for (ViewModel vm : vms) {
+            setCommonObserver(vm);
+        }
+        onInitViewModel(vms);
     }
 
     @Override
@@ -64,4 +75,20 @@ public class AppActivity extends AppCompatActivity implements UiView {
     public View getView() {
         return _rootView;
     }
+
+    @Override
+    public void setCommonObserver(ViewModel viewModel) {
+
+    }
+
+    @Override
+    public void onInitViewModel(List<ViewModel> viewModels) {
+
+    }
+
+    @Override
+    public List<ViewModel> getViewModels() {
+        return new ArrayList<>();
+    }
+
 }

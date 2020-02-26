@@ -1,6 +1,8 @@
 package cn.ymex.kitx.sample
 
 import android.content.Context
+import cn.ymex.kitx.anhttp.AnHttpManager
+import cn.ymex.kitx.anhttp.anHttp
 import cn.ymex.kitx.core.ApplicationContext
 import cn.ymex.kitx.widget.webview.Browser
 
@@ -11,10 +13,11 @@ import cn.ymex.kitx.widget.webview.Browser
 class AppContext : ApplicationContext() {
     override fun onCreate() {
         super.onCreate()
-        println("---------m app:" + this)
-        Browser.debug(true)
-
-        Browser.create(this)
+        Browser.create(this, true)
+        val retrofit =
+            AnHttpManager.newRetrofitBuilder(baseUrl = "https://haoya.haoyayee.com/app/tokerInf/")
+                .build()
+        anHttp(retrofit)
     }
 
     override fun onAppEnterBackground(context: Context?) {

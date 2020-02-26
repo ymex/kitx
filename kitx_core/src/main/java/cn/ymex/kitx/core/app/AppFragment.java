@@ -9,13 +9,18 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModel;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class AppFragment extends Fragment implements UiView {
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         int layoutID = onCreateView(savedInstanceState);
-        if ( layoutID != 0) {
+        if (layoutID != 0) {
             return inflater.inflate(layoutID, null, false);
         }
 
@@ -30,6 +35,26 @@ public class AppFragment extends Fragment implements UiView {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        List<ViewModel> vms = getViewModels();
+        for (ViewModel vm : vms) {
+            setCommonObserver(vm);
+        }
+        onInitViewModel(vms);
+    }
+
+    @Override
+    public void setCommonObserver(ViewModel viewModel) {
+
+    }
+
+    @Override
+    public void onInitViewModel(List<ViewModel> viewModels) {
+
+    }
+
+    @Override
+    public List<ViewModel> getViewModels() {
+        return new ArrayList<>();
     }
 
 }
