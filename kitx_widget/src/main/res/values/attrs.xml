@@ -348,4 +348,13 @@
         <attr name="mhScrollableWhenRefreshing" format="boolean"/>
     </declare-styleable>
 
+
+    <declare-styleable name="RatioLayout">
+        <attr name="widthRatio" format="float"/>
+        <attr name="heightRatio" format="float"/>
+        <attr name="datumRatio">
+            <enum name="width" value="1"/>
+            <enum name="height" value="2"/>
+        </attr>
+    </declare-styleable>
 </resources>

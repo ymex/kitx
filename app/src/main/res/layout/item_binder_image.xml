@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <cn.ymex.kitx.widget.RatioLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    app:widthRatio="5"
+    app:heightRatio="5"
+    app:datumRatio="width"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_height="wrap_content">
+    android:layout_height="100dip">
 
     <cn.ymex.kitx.widget.glide.GlideImageView
+        android:layout_margin="8dip"
         android:id="@+id/givImage"
         app:glide_scale_type="center_crop"
         android:layout_width="match_parent"
