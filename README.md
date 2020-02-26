@@ -42,7 +42,20 @@ implementation 'cn.ymex.kitx:widget:1.0.0'
 - TextLabel  混排标签
 - SwipeRefreshLayout 下拉刷新
 - FlowLayout 流布局
+- RatioLayout 比例布局
 
+## kitx_anhttp
+
+使用okhttp + retrofit2 封装，基于LiveData通知的回调,抛弃使用RxJava。
+
+```
+//依赖项
+api "com.squareup.okhttp3:okhttp:4.4.0"
+api "com.squareup.okhttp3:logging-interceptor:4.4.0"
+api "com.squareup.retrofit2:retrofit:2.7.2"
+api "com.squareup.retrofit2:converter-gson:2.7.2"
+api "com.squareup.retrofit2:converter-scalars:2.7.2"
+```
 
 License
 -------

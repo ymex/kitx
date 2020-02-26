@@ -2,6 +2,7 @@ package cn.ymex.kitx.sample.anhttp.repository
 
 import cn.ymex.kitx.anhttp.Param
 import cn.ymex.kitx.sample.anhttp.UserInfo
+import cn.ymex.kitx.sample.anhttp.repository.service.ApiService
 import cn.ymex.kitx.sample.anhttp.repository.vo.BingImageResult
 import retrofit2.Call
 

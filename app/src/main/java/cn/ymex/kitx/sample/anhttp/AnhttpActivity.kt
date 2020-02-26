@@ -14,17 +14,17 @@ import cn.ymex.kitx.core.adapter.recycler.ItemViewHolder
 import cn.ymex.kitx.sample.R
 import cn.ymex.kitx.sample.anhttp.repository.vo.Image
 import cn.ymex.kitx.sample.anhttp.viewmodel.LoginVMFactory
-import cn.ymex.kitx.sample.anhttp.viewmodel.LoginViewModel
+import cn.ymex.kitx.sample.anhttp.viewmodel.ApiViewModel
 import cn.ymex.kitx.widget.glide.GlideImageView
 import kotlinx.android.synthetic.main.activity_anhttp.*
 
 
 class AnhttpActivity : BaseHttpActivity() {
 
-    private val loginViewModel: LoginViewModel by viewModels { LoginVMFactory }
+    private val apiViewModel: ApiViewModel by viewModels { LoginVMFactory }
     val delegateAdapter = DelegateAdapter.create()
     override fun getViewModels(): MutableList<ViewModel> {
-        return mutableListOf(loginViewModel)
+        return mutableListOf(apiViewModel)
     }
 
 
@@ -52,7 +52,7 @@ class AnhttpActivity : BaseHttpActivity() {
 
     override fun onInitViewModel(viewModels: MutableList<ViewModel>?) {
         super.onInitViewModel(viewModels)
-        loginViewModel.liveImagesData.observe(this, Observer {
+        apiViewModel.liveImagesData.observe(this, Observer {
             delegateAdapter.data = it
             finishRefreshLoadMore()
         })
@@ -60,7 +60,7 @@ class AnhttpActivity : BaseHttpActivity() {
 
 
     fun requestImages() {
-        loginViewModel.getImages(10)
+        apiViewModel.getImages(10)
     }
 
     fun finishRefreshLoadMore() {

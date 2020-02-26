@@ -13,7 +13,7 @@ import cn.ymex.kitx.sample.anhttp.repository.vo.BingImageResult
 import cn.ymex.kitx.sample.anhttp.repository.vo.Image
 
 
-class LoginViewModel(val apiRepos: ApiRepos) : StateViewModel() {
+class ApiViewModel(val apiRepos: ApiRepos) : StateViewModel() {
 
     val liveImagesData = MutableLiveData<List<Image>>()
 
@@ -42,6 +42,6 @@ class LoginViewModel(val apiRepos: ApiRepos) : StateViewModel() {
 object LoginVMFactory : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         @Suppress("UNCHECKED_CAST")
-        return LoginViewModel(ApiRepos(createRetrofitService())) as T
+        return ApiViewModel(ApiRepos(createRetrofitService())) as T
     }
 }

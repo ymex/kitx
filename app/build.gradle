@@ -43,11 +43,10 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
-//    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0'
     implementation "androidx.activity:activity-ktx:1.1.0"
     implementation "androidx.fragment:fragment-ktx:1.2.2"
 
-    //-------
+
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
 
     testImplementation 'junit:junit:4.12'
@@ -56,7 +55,7 @@ dependencies {
     implementation project(path: ':kitx_core')
     implementation project(path: ':kitx_utils')
     implementation project(path: ':kitx_widget')
-    api project(path: ':kitx_webview')
+    implementation project(path: ':kitx_webview')
     implementation project(path: ':kitx_glide')
     implementation project(path: ':kitx_anhttp')
 }

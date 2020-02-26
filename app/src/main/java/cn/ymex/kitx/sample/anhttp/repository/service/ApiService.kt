@@ -1,4 +1,4 @@
-package cn.ymex.kitx.sample.anhttp.repository
+package cn.ymex.kitx.sample.anhttp.repository.service
 
 import cn.ymex.kitx.anhttp.Param
 import cn.ymex.kitx.sample.anhttp.UserInfo
