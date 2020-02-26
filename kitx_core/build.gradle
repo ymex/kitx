@@ -1,14 +1,14 @@
 apply from: "../build.lib.gradle"
 
-apply plugin: 'com.novoda.bintray-release'
-publish {
-    userOrg = 'ymex'
-    groupId = 'cn.ymex.kitx'
-    artifactId = 'core'
-    publishVersion = "1.0.1"
-    desc = 'A simplifies and accelerates Android developer tools and widget.'
-    website = 'https://github.com/ymex/kitx/tree/master/kitx_core'
-}
+//apply plugin: 'com.novoda.bintray-release'
+//publish {
+//    userOrg = 'ymex'
+//    groupId = 'cn.ymex.kitx'
+//    artifactId = 'core'
+//    publishVersion = "1.0.1"
+//    desc = 'A simplifies and accelerates Android developer tools and widget.'
+//    website = 'https://github.com/ymex/kitx/tree/master/kitx_core'
+//}
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
