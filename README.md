@@ -44,11 +44,13 @@ implementation 'cn.ymex.kitx:widget:1.0.0'
 - FlowLayout 流布局
 - RatioLayout 比例布局
 
-## kitx_anhttp
+## kitx_anhttp [ ![Download](https://api.bintray.com/packages/ymex/maven/anhttp/images/download.svg?version=1.2.0) ](https://bintray.com/ymex/maven/anhttp/1.2.0/link)
 
 使用okhttp + retrofit2 封装，基于LiveData通知的回调,抛弃使用RxJava。
 
 ```
+implementation 'cn.ymex.kitx:anhttp:1.2.0'
+
 //依赖项
 api "com.squareup.okhttp3:okhttp:4.4.0"
 api "com.squareup.okhttp3:logging-interceptor:4.4.0"

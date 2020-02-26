@@ -5,7 +5,7 @@ apply from: "../build.lib.gradle"
 //    userOrg = 'ymex'
 //    groupId = 'cn.ymex.kitx'
 //    artifactId = 'widget'
-//    publishVersion = "1.0.0"
+//    publishVersion = "1.0.1"
 //    desc = 'A simplifies and accelerates Android developer tools and widget.'
 //    website = 'https://github.com/ymex/kitx/tree/master/kitx_widget'
 //}

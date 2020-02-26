@@ -1,15 +1,15 @@
 apply from: "../build.lib_kt.gradle"
 
 
-apply plugin: 'com.novoda.bintray-release'
-publish {
-    userOrg = 'ymex'
-    groupId = 'cn.ymex.kitx'
-    artifactId = 'anhttp'
-    publishVersion = "1.0.0"
-    desc = 'http for android base retrofit and okhttp!'
-    website = 'https://github.com/ymex/kitx/tree/master/kitx_anhttp'
-}
+//apply plugin: 'com.novoda.bintray-release'
+//publish {
+//    userOrg = 'ymex'
+//    groupId = 'cn.ymex.kitx'
+//    artifactId = 'anhttp'
+//    publishVersion = "1.2.0"
+//    desc = 'http for android base retrofit and okhttp!'
+//    website = 'https://github.com/ymex/kitx/tree/master/kitx_anhttp'
+//}
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
