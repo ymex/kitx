@@ -29,6 +29,92 @@ a base adapter for listview and recyclerview
 
 这是一个纯净的adapter ，只关注于数据与组件的绑定。
 
+a base adapter for listview and recyclerview
+
+
+### ListViewAdapter
+ListViewAdapter 继承自BaseAdapter, 只抽象出两个方法 `onCreateViewHolder` ,`onBindViewHolder`. <br>
+`onCreateViewHolder`用于创建ViewHolder ,`onBindViewHolder`用于组件的绑定 。用法与RecyclerView.Adapter无差别。
+
+```
+public class TextAdapter extends ListViewAdapter<String, ListViewAdapter.ViewHolder> {
+    @Override
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int position) {
+        return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_text_layout, parent, false));
+    }
+
+    @Override
+    public void onBindViewHolder(int position, View convertView, ViewGroup parent, ViewHolder hold) {
+        TextView tvTitle = hold.find(R.id.tv_title);
+        tvTitle.setText(getItem(position));
+    }
+}
+```
+
+### RecyclerAdapter
+同上
+
+### DelegateAdapter
+
+基于绑定数据的类型加载不同的视图。
+
+```
+recyclerView = (RecyclerView) findViewById(R.id.recycler_type);
+recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+DelegateAdapter.create(DataBox.muxData())
+        .bind(Video.class, new VideoViewBinder())
+        .bind(Cata.class, new CataViewBinder())
+        .attachRecyclerView(recyclerView);
+        
+class CataViewBinder extends ItemViewBinder<Cata, ItemViewHolder> {
+
+        @NonNull
+        @Override
+        public ItemViewHolder onCreateViewHolder(@NonNull LayoutInflater inflater, @NonNull ViewGroup parent) {
+            return ItemViewHolder.create(inflater, R.layout.item_cata_layout);
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull ItemViewHolder holder, @NonNull Cata item,int position) {
+            TextView tvTitle = holder.find(R.id.tv_title);
+            tvTitle.setText(item.getTitle());
+        }
+    }
+
+
+class VideoViewBinder extends ItemViewBinder<Video, VideoViewBinder.ViewHolder> {
+    @NonNull
+    @Override
+    public ViewHolder onCreateViewHolder(@NonNull LayoutInflater inflater, @NonNull ViewGroup parent) {
+        return new ViewHolder(inflater.inflate(R.layout.item_video_layout, null, false));
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull ViewHolder holder, @NonNull Video item,int position) {
+        holder.tvTitle.setText(item.getTitle());
+    }
+
+
+    class ViewHolder extends ItemViewHolder {
+
+        TextView tvTitle;
+        ImageView ivPic;
+
+        public ViewHolder(View itemView) {
+            super(itemView);
+            tvTitle = find(R.id.tv_title);
+            ivPic = find(R.id.iv_pic);
+        }
+    }
+}
+```
+基于之前的项目pure-adapter 重构：
+```
+compile 'cn.ymex:pure-adapter:1.3.5'//已废弃，源码请Maven 仓库下载。
+```
+
+
 ## cache 
 LruCache 和 DiskLruCache
 
