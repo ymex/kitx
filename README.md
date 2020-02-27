@@ -1,5 +1,5 @@
 # kitx
-android 便捷开发库。包含开发必要使用的组件及共用代码。
+android 便捷开发库。包含开发必要使用的组件及共用代码，此库是重构版本，把之前开源的android 库集中到一个项目中。 
 
 
 ## kitx_core  [ ![Download](https://api.bintray.com/packages/ymex/maven/core/images/download.svg) ](https://bintray.com/ymex/maven/core/_latestVersion)
