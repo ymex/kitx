@@ -8,6 +8,8 @@ implementation 'cn.ymex.kitx:core:1.0.0'
 
 
 ## permission
+对permission-request的重构和优化。
+
 android 6.0  runtime permission request.
 从 Android 6.0（API 级别 23）开始，用户开始在应用运行时向其授予权限，而不是在应用安装时授予。本库简化和兼容权限请求过程。
 包含所有危险权限、安装权限、浮窗权限。
@@ -16,6 +18,10 @@ android 6.0  runtime permission request.
 
 查看危险权限命令：`adb shell pm list permissions -d -g`
 
+//permission-request的重构。
+```
+compile 'cn.ymex:permission-request:1.2.0'//已废弃。
+```
 
 ## adapter
 
