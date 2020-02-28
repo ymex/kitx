@@ -8,22 +8,19 @@ android {
     }
 }
 
-//apply plugin: 'com.novoda.bintray-release'
-//publish {
-//    userOrg = 'ymex'
-//    groupId = 'cn.ymex.kitx'
-//    artifactId = 'widget-webview'
-//    publishVersion = "1.0.0"
-//    desc = 'webview for android'
-//    website = 'https://github.com/ymex/kitx/tree/master/kitx_webview'
-//}
+apply plugin: 'com.novoda.bintray-release'
+publish {
+    userOrg = 'ymex'
+    groupId = 'cn.ymex.kitx'
+    artifactId = 'widget-webview'
+    publishVersion = "1.0.1"
+    desc = 'webview for android'
+    website = 'https://github.com/ymex/kitx/tree/master/kitx_webview'
+}
 
 
 dependencies {
-    api fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.core:core-ktx:1.2.0'
+    api "com.tencent.tbs.tbssdk:sdk:43697"
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'

@@ -1,9 +1,12 @@
-# BrowserView
+# BrowserView  [ ![Download](https://api.bintray.com/packages/ymex/maven/widget-webview/images/download.svg) ](https://bintray.com/ymex/maven/widget-webview/_latestVersion)
+
 
 BrowserView使用腾讯X5 WebView内核。 集成页面加载进度条、jsbridge 通信的功能。 
 jsBridge 基于 [DSBridge-Android v5-3.0](https://github.com/wendux/DSBridge-Android)。
 
-
+```shell
+implementation 'cn.ymex.kitx:widget-webview:latestVersion'
+```
 
 ## DEBUG
 

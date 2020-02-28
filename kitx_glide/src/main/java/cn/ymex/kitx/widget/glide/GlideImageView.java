@@ -12,10 +12,10 @@ import android.util.AttributeSet;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
+
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.AppCompatImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
@@ -38,7 +38,7 @@ public class GlideImageView extends FrameLayout implements RequestListener<Drawa
 
     //todo 进度条
     //todo gif 支持？
-    private AppCompatImageView contentImageView;
+    private ImageView contentImageView;
     RequestManager requestManager;
 
     private static final ImageView.ScaleType[] sScaleTypeArray = {
@@ -86,7 +86,7 @@ public class GlideImageView extends FrameLayout implements RequestListener<Drawa
 
     private void init(Context context, AttributeSet attrs, int defStyleAttr) {
         requestManager = Glide.with(this);
-        contentImageView = new AppCompatImageView(getContext(), attrs, defStyleAttr);
+        contentImageView = new ImageView(getContext(), attrs, defStyleAttr);
 
         final TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.GlideImageView);
 
@@ -231,7 +231,7 @@ public class GlideImageView extends FrameLayout implements RequestListener<Drawa
         requestManager.load(file).apply(requestOptions).listener(this).into(contentImageView);
     }
 
-    public AppCompatImageView getContentImageView() {
+    public ImageView getContentImageView() {
         return contentImageView;
     }
 
