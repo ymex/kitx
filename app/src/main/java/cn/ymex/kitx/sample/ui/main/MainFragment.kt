@@ -40,7 +40,7 @@ class MainFragment : Fragment() {
 
         val delegateAdapter = DelegateAdapter.create()
 //        val layoutManager = LinearLayoutManager(context!!,LinearLayoutManager.VERTICAL,false)
-        val layoutManager = GridLayoutManager(context!!, 2)
+        val layoutManager = GridLayoutManager(requireContext(), 2)
         layoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {
                 if (delegateAdapter.getItem(position) is Video) {
@@ -57,7 +57,7 @@ class MainFragment : Fragment() {
 
         vRecycler.addItemDecoration(
             verticalItemDecoration(
-                context!!,
+                requireContext(),
                 itemDecorationDrawable(Color.GREEN, 20, 20, 8)
             )
         )

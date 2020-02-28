@@ -3,7 +3,7 @@ android 便捷开发库。包含开发要使用的组件及共用代码。
 
 
 ```groovy
-implementation 'cn.ymex.kitx:core:1.0.0'
+implementation 'cn.ymex.kitx:core:_latestVersion'
 ```
 
 

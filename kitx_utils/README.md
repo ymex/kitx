@@ -3,5 +3,5 @@
 工具类
 
 ```groovy
-implementation 'cn.ymex.kitx:utils-ktx:1.0.0'
+implementation 'cn.ymex.kitx:utils-ktx:_latestVersion'
 ```

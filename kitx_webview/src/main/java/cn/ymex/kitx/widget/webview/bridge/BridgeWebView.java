@@ -2,6 +2,7 @@ package cn.ymex.kitx.widget.webview.bridge;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -24,8 +25,8 @@ import android.webkit.JavascriptInterface;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 
+
 import androidx.annotation.Keep;
-import androidx.appcompat.app.AlertDialog;
 
 import com.tencent.smtt.export.external.interfaces.ClientCertRequest;
 import com.tencent.smtt.export.external.interfaces.ConsoleMessage;

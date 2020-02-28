@@ -2,7 +2,7 @@
 android 开发常用组件
 
 ```groovy
-implementation 'cn.ymex.kitx:widget:1.0.0'
+implementation 'cn.ymex.kitx:widget:_latestVersion'
 ```
 
 ## banner
