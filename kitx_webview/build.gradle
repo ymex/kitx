@@ -8,15 +8,15 @@ android {
     }
 }
 
-//apply plugin: 'com.novoda.bintray-release'
-//publish {
-//    userOrg = 'ymexcn'
-//    groupId = 'cn.ymex.kitx'
-//    artifactId = 'kitx-widget-webview'
-//    publishVersion = "1.0.1"
-//    desc = 'webview for android'
-//    website = 'https://github.com/ymex/kitx/tree/master/kitx_webview'
-//}
+apply plugin: 'com.novoda.bintray-release'
+publish {
+    userOrg = 'ymexcn'
+    groupId = 'cn.ymex.kitx'
+    artifactId = 'kitx-widget-webview'
+    publishVersion = "1.0.0"
+    desc = 'webview for android'
+    website = 'https://github.com/ymex/kitx/tree/master/kitx_webview'
+}
 
 
 dependencies {

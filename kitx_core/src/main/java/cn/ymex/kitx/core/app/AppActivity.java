@@ -15,20 +15,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AppActivity extends AppCompatActivity implements UiView {
-    private View _rootView;
-
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         int layoutId = onCreateView(savedInstanceState);
         if (layoutId != 0) {
-            _rootView = View.inflate(this, layoutId, null);
-            setContentView(_rootView);
+            setContentView(layoutId);
         } else {
-            _rootView = onCreateView(LayoutInflater.from(this), null, savedInstanceState);
-            if (_rootView != null) {
-                setContentView(_rootView);
+            View view = onCreateView(LayoutInflater.from(this), null, savedInstanceState);
+            if (view != null) {
+                setContentView(view);
             }
         }
     }
@@ -36,13 +33,12 @@ public class AppActivity extends AppCompatActivity implements UiView {
     @Override
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-        onViewCreated(_rootView,savedInstanceState);
-//        View view = this.getWindow().getDecorView().findViewById(android.R.id.content);
-//        if (view instanceof ViewGroup && ((ViewGroup) view).getChildCount() > 0) {
-//            onViewCreated(((ViewGroup) view).getChildAt(0), savedInstanceState);
-//        } else {
-//            onViewCreated(view, savedInstanceState);
-//        }
+        View view = this.getWindow().getDecorView().findViewById(android.R.id.content);
+        if (view instanceof ViewGroup && ((ViewGroup) view).getChildCount() > 0) {
+            onViewCreated(((ViewGroup) view).getChildAt(0), savedInstanceState);
+        } else {
+            onViewCreated(view, savedInstanceState);
+        }
 
         List<ViewModel> vms = getViewModels();
         for (ViewModel vm : vms) {
@@ -73,7 +69,12 @@ public class AppActivity extends AppCompatActivity implements UiView {
 
     @Override
     public View getView() {
-        return _rootView;
+        View view = this.getWindow().getDecorView().findViewById(android.R.id.content);
+        if (view instanceof ViewGroup && ((ViewGroup) view).getChildCount() > 0) {
+            return ((ViewGroup) view).getChildAt(0);
+        } else {
+            return view;
+        }
     }
 
     @Override

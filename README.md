@@ -9,32 +9,35 @@ App 开发核心类
 implementation 'cn.ymex.kitx:core:_latestVersion'
 ```
 
-## kitx_utils [ ![Download](https://api.bintray.com/packages/ymex/maven/utils-ktx/images/download.svg) ](https://bintray.com/ymex/maven/utils-ktx/_latestVersion)
+## kitx_utils [ ![Download](https://api.bintray.com/packages/ymexcn/maven/kitx-utils-ktx/images/download.svg) ](https://bintray.com/ymexcn/maven/kitx-utils-ktx/_latestVersion)
+
 常用方法拓展
 ```shell
 implementation 'cn.ymex.kitx:utils-ktx:_latestVersion'
 ```
 
-## kitx_gilde [ ![Download](https://api.bintray.com/packages/ymex/maven/widget-glide/images/download.svg) ](https://bintray.com/ymex/maven/widget-glide/_latestVersion)
+## kitx_gilde [ ![Download](https://api.bintray.com/packages/ymexcn/maven/kitx-widget-glide/images/download.svg) ](https://bintray.com/ymexcn/maven/kitx-widget-glide/_latestVersion)
+
+
 基于gilde 封装的ImageView.
 
 ```shell
-implementation 'cn.ymex.kitx:widget-glide:_latestVersion'
+implementation 'cn.ymex.kitx:kitx-widget-glide:_latestVersion'
 ```
 
 ## kitx_webview [ ![Download](https://api.bintray.com/packages/ymex/maven/widget-webview/images/download.svg) ](https://bintray.com/ymex/maven/widget-webview/_latestVersion)
 基于 腾讯X5 WebView。 集成页面加载进度条与Js 与 Java 通信的功能。 
 
 ```shell
-implementation 'cn.ymex.kitx:widget-webview:_latestVersion'
+implementation 'cn.ymex.kitx:kitx-widget-webview:_latestVersion'
 ```
 
-## kitx_widget [ ![Download](https://api.bintray.com/packages/ymex/maven/widget/images/download.svg) ](https://bintray.com/ymex/maven/widget/_latestVersion)
+## kitx_widget [ ![Download](https://api.bintray.com/packages/ymexcn/maven/kitx-widget/images/download.svg) ](https://bintray.com/ymexcn/maven/kitx-widget/_latestVersion)
 
 共用组件库
 
 ```shell
-implementation 'cn.ymex.kitx:widget:_latestVersion'
+implementation 'cn.ymex.kitx:kitx-widget:_latestVersion'
 ```
 
 - banner 
@@ -49,7 +52,7 @@ implementation 'cn.ymex.kitx:widget:_latestVersion'
 使用okhttp + retrofit2 封装，基于LiveData通知的回调,抛弃使用RxJava。
 
 ```
-implementation 'cn.ymex.kitx:anhttp:_latestVersion'
+implementation 'cn.ymex.kitx:kitx-anhttp:_latestVersion'
 //依赖项
 implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
 implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0'

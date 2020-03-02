@@ -2,6 +2,7 @@ package cn.ymex.kitx.utils
 
 import android.view.View
 import androidx.annotation.IdRes
+import java.util.concurrent.atomic.AtomicInteger
 
 
 fun <T : View> View.find(@IdRes id: Int): T = findViewById(id)
@@ -45,4 +46,21 @@ fun View.setOnClickThrottleListener(timeOut: Long = 800, block: (view: View) -> 
             preClickTime = now
         }
     })
+}
+
+
+private val sNextGeneratedId: AtomicInteger = AtomicInteger(1)
+/**
+ * 动态生成id
+ */
+fun View.generateViewId(): Int {
+    while (true) {
+        val result: Int = sNextGeneratedId.get()
+        // aapt-generated IDs have the high byte nonzero; clamp to the range under that.
+        var newValue = result + 1
+        if (newValue > 0x00FFFFFF) newValue = 1 // Roll over to 1, not 0.
+        if (sNextGeneratedId.compareAndSet(result, newValue)) {
+            return result
+        }
+    }
 }

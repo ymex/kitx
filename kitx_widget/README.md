@@ -1,8 +1,8 @@
-# kitx-widget[ ![Download](https://api.bintray.com/packages/ymex/maven/widget/images/download.svg) ](https://bintray.com/ymex/maven/widget/_latestVersion)
+# kitx-widget  [ ![Download](https://api.bintray.com/packages/ymexcn/maven/kitx-widget/images/download.svg) ](https://bintray.com/ymexcn/maven/kitx-widget/_latestVersion)
 android 开发常用组件
 
 ```groovy
-implementation 'cn.ymex.kitx:widget:_latestVersion'
+implementation 'cn.ymex.kitx:kitx-widget:_latestVersion'
 ```
 
 ## banner
