@@ -11,9 +11,9 @@ android {
 
 //apply plugin: 'com.novoda.bintray-release'
 //publish {
-//    userOrg = 'ymex'
+//    userOrg = 'ymexcn'
 //    groupId = 'cn.ymex.kitx'
-//    artifactId = 'widget-glide'
+//    artifactId = 'kitx-widget-glide'
 //    publishVersion = "1.0.0"
 //    desc = 'A simplifies and accelerates Android developer tools and widget.'
 //    website = 'https://github.com/ymex/kitx/tree/master/kitx_glide'

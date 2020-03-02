@@ -2,7 +2,7 @@
 android 便捷开发库。包含开发必要使用的组件及共用代码，此库是重构版本，把之前开源的android 库集中到一个项目中。 
 
 
-## kitx_core  [ ![Download](https://api.bintray.com/packages/ymex/maven/core/images/download.svg) ](https://bintray.com/ymex/maven/core/_latestVersion)
+## kitx_core  [ ![Download](https://api.bintray.com/packages/ymexcn/maven/kitx-core/images/download.svg) ](https://bintray.com/ymexcn/maven/kitx-core/_latestVersion)
 App 开发核心类
 
 ```shell
@@ -44,7 +44,7 @@ implementation 'cn.ymex.kitx:widget:_latestVersion'
 - FlowLayout 流布局
 - RatioLayout 比例布局
 
-## kitx_anhttp [ ![Download](https://api.bintray.com/packages/ymex/maven/anhttp/images/download.svg?version=1.2.0) ](https://bintray.com/ymex/maven/anhttp/1.2.0/link)
+## kitx_anhttp [ ![Download](https://api.bintray.com/packages/ymexcn/maven/kitx-anhttp/images/download.svg) ](https://bintray.com/ymexcn/maven/kitx-anhttp/_latestVersion)
 
 使用okhttp + retrofit2 封装，基于LiveData通知的回调,抛弃使用RxJava。
 

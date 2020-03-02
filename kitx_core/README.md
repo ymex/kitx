@@ -1,9 +1,9 @@
-# kitx-core[ ![Download](https://api.bintray.com/packages/ymex/maven/core/images/download.svg) ](https://bintray.com/ymex/maven/core/_latestVersion)
+# kitx-core [ ![Download](https://api.bintray.com/packages/ymexcn/maven/kitx-core/images/download.svg) ](https://bintray.com/ymexcn/maven/kitx-core/_latestVersion)
 android 便捷开发库。包含开发要使用的组件及共用代码。
 
 
 ```groovy
-implementation 'cn.ymex.kitx:core:_latestVersion'
+implementation 'cn.ymex.kitx:kitx-core:_latestVersion'
 ```
 
 

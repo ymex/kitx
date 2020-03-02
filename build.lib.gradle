@@ -27,14 +27,10 @@ android {
     }
 }
 
-
-tasks.withType(JavaCompile) {
-    options.encoding = "UTF-8"
-}
-
 task androidJavadocs(type: Javadoc) {
     allprojects {
         tasks.withType(Javadoc) {
+            options.addStringOption('Xdoclint:none',  '-quiet')  //忽略javadoc错误
             options.encoding = "UTF-8"
         }
     }
