@@ -15,6 +15,7 @@ import android.app.Application;
 import android.content.ContentProvider;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.pm.ApplicationInfo;
 import android.database.Cursor;
 import android.net.Uri;
 import android.util.Log;
@@ -113,5 +114,4 @@ public final class Kitx {
             return 0;
         }
     }
-
 }

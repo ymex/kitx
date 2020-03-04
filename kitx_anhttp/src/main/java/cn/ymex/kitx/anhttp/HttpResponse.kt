@@ -13,7 +13,7 @@ interface ResponseCallback<T> : Callback<T> {
 
 class HttpResponse<T>(
     private val vm: StateViewModel? = null,
-    val response: (data: T?) -> Unit,
+    val response: (data: T) -> Unit,
     val failure: (t: Throwable) -> Unit,
     val start: () -> Unit
 ) : ResponseCallback<T> {
@@ -33,7 +33,10 @@ class HttpResponse<T>(
 
     override fun onResponse(call: Call<T>, response: Response<T>) {
         try {
-            response(response.body())
+            val body = response.body()
+            body?.run {
+                response(this)
+            }?:onFailure(call,Exception("$call : response.body() is null ."))
             vm?.run {
                 stater.postValue(PageState(ViewStatus.NORMAL))
             }

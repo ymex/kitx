@@ -5,6 +5,10 @@ import cn.ymex.kitx.anhttp.lifecycle.StateViewModel
 import retrofit2.Call
 import retrofit2.Retrofit
 
+/**
+ * urs:
+ * anHttp(AnHttpManager.newRetrofitBuilder(baseUrl = "http://xxxxx.com/").build())
+ */
 
 fun anHttp(retrofit: Retrofit) {
     AnHttpManager.init(retrofit)
@@ -73,7 +77,7 @@ fun <R> LifeViewModel.anHttpRequest(
  * http Response callback
  */
 fun <T> anHttpResponse(
-    response: (data: T?) -> Unit,
+    response: (data: T) -> Unit,
     failure: (t: Throwable) -> Unit,
     start: () -> Unit
 ): HttpResponse<T> {
@@ -82,21 +86,21 @@ fun <T> anHttpResponse(
 
 
 fun <T> anHttpResponse(
-    response: (data: T?) -> Unit,
+    response: (data: T) -> Unit,
     failure: (t: Throwable) -> Unit
 ): HttpResponse<T> {
     return anHttpResponse(response, failure, {})
 }
 
 fun <T> anHttpResponse(
-    response: (data: T?) -> Unit
+    response: (data: T) -> Unit
 ): HttpResponse<T> {
     return anHttpResponse(response, {}, {})
 }
 
 
 fun <T> StateViewModel.anHttpResponse(
-    response: (data: T?) -> Unit,
+    response: (data: T) -> Unit,
     failure: (t: Throwable) -> Unit,
     start: () -> Unit
 ): HttpResponse<T> {
@@ -105,7 +109,7 @@ fun <T> StateViewModel.anHttpResponse(
 
 
 fun <T> StateViewModel.anHttpResponse(
-    response: (data: T?) -> Unit,
+    response: (data: T) -> Unit,
     failure: (t: Throwable) -> Unit
 ): HttpResponse<T> {
     return HttpResponse(this, response, failure, {})
@@ -113,7 +117,7 @@ fun <T> StateViewModel.anHttpResponse(
 
 
 fun <T> StateViewModel.anHttpResponse(
-    response: (data: T?) -> Unit
+    response: (data: T) -> Unit
 ): HttpResponse<T> {
     return HttpResponse(this, response, {}, {})
 }

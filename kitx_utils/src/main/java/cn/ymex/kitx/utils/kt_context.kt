@@ -3,6 +3,7 @@ package cn.ymex.kitx.utils
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
+import android.content.pm.ApplicationInfo
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -75,4 +76,16 @@ fun Context.getTextFromClipboard(): CharSequence? {
     return if (clip != null && clip.itemCount > 0) {
         clip.getItemAt(0).coerceToText(this)
     } else null
+}
+
+/**
+ * 是否在调试环境
+ */
+fun Context.isDebugEnv(): Boolean {
+    return try {
+        val info = this.applicationInfo
+        info.flags and ApplicationInfo.FLAG_DEBUGGABLE != 0
+    } catch (e: Exception) {
+        false
+    }
 }
