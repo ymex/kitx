@@ -8,6 +8,7 @@ import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.GridLayoutManager
+import cn.ymex.kitx.anhttp.HttpResponse
 import cn.ymex.kitx.anhttp.anHttpRequest
 import cn.ymex.kitx.anhttp.anHttpResponse
 import cn.ymex.kitx.anhttp.createRetrofitService
@@ -65,14 +66,11 @@ class AnhttpActivity : BaseHttpActivity() {
 //        }))
 
 //方式2
-        val rp =
-            anHttpRequest<UserInfo?>(
-                anHttpResponse<UserInfo?> {
-
-                }
-            ) {
-                ApiRepos(createRetrofitService()).login("", "", "")
-            }
+//        anHttpRequest<UserInfo?>(
+//            {
+//                ApiRepos(createRetrofitService()).login("", "", "")
+//            }, HttpResponse(response = {}, failure = {}, start = {})
+//        )
 //方式3
 //        anHttpRequest<UserInfo?>({
 //            ApiRepos(createRetrofitService()).login("", "", "")

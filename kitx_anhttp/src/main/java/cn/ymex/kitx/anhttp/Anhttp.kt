@@ -23,8 +23,8 @@ inline fun <reified T> createRetrofitService(): T {
  * create request
  */
 inline fun <reified T, R> anHttpRequest(
-    callback: ResponseCallback<R>,
-    block: (service: T) -> Call<R>
+    block: (service: T) -> Call<R>,
+    callback: ResponseCallback<R>
 ) {
     ThreadExecutor().executeMain(Runnable {
         callback.onStart()
@@ -34,8 +34,8 @@ inline fun <reified T, R> anHttpRequest(
 }
 
 fun <R> anHttpRequest(
-    callback: ResponseCallback<R>,
-    block: () -> Call<R>
+    block: () -> Call<R>,
+    callback: ResponseCallback<R>
 ) {
     ThreadExecutor().executeMain(Runnable {
         callback.onStart()
@@ -44,10 +44,25 @@ fun <R> anHttpRequest(
     call.enqueue(callback)
 }
 
+//inline fun <reified T, R> anHttpRequest(
+//    block: (service: T) -> Call<R>,
+//    callback: ResponseCallback<R>
+//) {
+//    anHttpRequest(callback, block)
+//}
+//
+//fun <R> anHttpRequest(
+//    block: () -> Call<R>,
+//    callback: ResponseCallback<R>
+//) {
+//    anHttpRequest(callback, block)
+//}
+
+//- - - - - - -
 
 inline fun <reified T, R> LifeViewModel.anHttpRequest(
-    callback: ResponseCallback<R>,
-    block: (service: T) -> Call<R>
+    block: (service: T) -> Call<R>,
+    callback: ResponseCallback<R>
 ) {
     ThreadExecutor().executeMain(Runnable {
         callback.onStart()
@@ -59,8 +74,8 @@ inline fun <reified T, R> LifeViewModel.anHttpRequest(
 
 
 fun <R> LifeViewModel.anHttpRequest(
-    callback: ResponseCallback<R>,
-    block: () -> Call<R>
+    block: () -> Call<R>,
+    callback: ResponseCallback<R>
 ) {
     ThreadExecutor().executeMain(Runnable {
         callback.onStart()
@@ -69,6 +84,21 @@ fun <R> LifeViewModel.anHttpRequest(
     put(call)
     call.enqueue(callback)
 }
+
+//inline fun <reified T, R> LifeViewModel.anHttpRequest(
+//    block: (service: T) -> Call<R>,
+//    callback: ResponseCallback<R>
+//) {
+//    this.anHttpRequest(callback, block)
+//}
+//
+//
+//fun <R> LifeViewModel.anHttpRequest(
+//    block: () -> Call<R>,
+//    callback: ResponseCallback<R>
+//) {
+//    this.anHttpRequest(callback, block)
+//}
 
 //------------------------anHttpResponse-----------------
 /**
