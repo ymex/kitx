@@ -8,13 +8,17 @@ import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.GridLayoutManager
+import cn.ymex.kitx.anhttp.anHttpRequest
+import cn.ymex.kitx.anhttp.anHttpResponse
+import cn.ymex.kitx.anhttp.createRetrofitService
 import cn.ymex.kitx.core.adapter.recycler.DelegateAdapter
 import cn.ymex.kitx.core.adapter.recycler.ItemViewBinder
 import cn.ymex.kitx.core.adapter.recycler.ItemViewHolder
 import cn.ymex.kitx.sample.R
+import cn.ymex.kitx.sample.anhttp.repository.ApiRepos
 import cn.ymex.kitx.sample.anhttp.repository.vo.Image
-import cn.ymex.kitx.sample.anhttp.viewmodel.LoginVMFactory
 import cn.ymex.kitx.sample.anhttp.viewmodel.ApiViewModel
+import cn.ymex.kitx.sample.anhttp.viewmodel.LoginVMFactory
 import cn.ymex.kitx.widget.glide.GlideImageView
 import kotlinx.android.synthetic.main.activity_anhttp.*
 
@@ -43,10 +47,39 @@ class AnhttpActivity : BaseHttpActivity() {
             requestImages()
         }
 
-        vRecycler.layoutManager = GridLayoutManager(this,2)
+        vRecycler.layoutManager = GridLayoutManager(this, 2)
         delegateAdapter.bind(Image::class.java, BingImageBinder())
         delegateAdapter.attachRecyclerView(vRecycler)
         requestImages()
+
+//方式 1
+//        anHttpRequest<ApiService, UserInfo?>({
+//            val param = Param.stream()
+//            it.login(param)
+//        }, HttpResponse(response = {
+//
+//        }, failure = {
+//
+//        }, start = {
+//
+//        }))
+
+//方式2
+        val rp =
+            anHttpRequest<UserInfo?>(
+                anHttpResponse<UserInfo?> {
+
+                }
+            ) {
+                ApiRepos(createRetrofitService()).login("", "", "")
+            }
+//方式3
+//        anHttpRequest<UserInfo?>({
+//            ApiRepos(createRetrofitService()).login("", "", "")
+//        }, anHttpResponse {
+//
+//        })
+
     }
 
 

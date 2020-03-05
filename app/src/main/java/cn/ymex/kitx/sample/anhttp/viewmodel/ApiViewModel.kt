@@ -18,21 +18,26 @@ class ApiViewModel(val apiRepos: ApiRepos) : StateViewModel() {
     val liveImagesData = MutableLiveData<List<Image>>()
 
     fun login(account: String, password: String, type: String) {
-        anHttpRequest<UserInfo?>({
-            apiRepos.login(account, password, type)
-        }, anHttpResponse {
+        anHttpRequest<UserInfo?>(
+            anHttpResponse {
 
-        })
+            }
+        ) {
+            apiRepos.login(account, password, type)
+        }
     }
 
     fun getImages(size: Int) {
-        anHttpRequest<BingImageResult?>({
+        anHttpRequest<BingImageResult?>(
+            anHttpResponse {
+
+                it?.run {
+                    liveImagesData.value = images
+                }
+
+            }) {
             apiRepos.getImages("js", 0, size)
-        }, anHttpResponse {
-            it?.run {
-                liveImagesData.value =  images
-            }
-        })
+        }
     }
 }
 

@@ -23,7 +23,8 @@ inline fun <reified T> createRetrofitService(): T {
  * create request
  */
 inline fun <reified T, R> anHttpRequest(
-    block: (service: T) -> Call<R>, callback: ResponseCallback<R>
+    callback: ResponseCallback<R>,
+    block: (service: T) -> Call<R>
 ) {
     ThreadExecutor().executeMain(Runnable {
         callback.onStart()
@@ -32,10 +33,9 @@ inline fun <reified T, R> anHttpRequest(
     call.enqueue(callback)
 }
 
-
 fun <R> anHttpRequest(
-    block: () -> Call<R>,
-    callback: ResponseCallback<R>
+    callback: ResponseCallback<R>,
+    block: () -> Call<R>
 ) {
     ThreadExecutor().executeMain(Runnable {
         callback.onStart()
@@ -45,11 +45,9 @@ fun <R> anHttpRequest(
 }
 
 
-/**
- * create request
- */
 inline fun <reified T, R> LifeViewModel.anHttpRequest(
-    block: (service: T) -> Call<R>, callback: ResponseCallback<R>
+    callback: ResponseCallback<R>,
+    block: (service: T) -> Call<R>
 ) {
     ThreadExecutor().executeMain(Runnable {
         callback.onStart()
@@ -61,8 +59,8 @@ inline fun <reified T, R> LifeViewModel.anHttpRequest(
 
 
 fun <R> LifeViewModel.anHttpRequest(
-    block: () -> Call<R>,
-    callback: ResponseCallback<R>
+    callback: ResponseCallback<R>,
+    block: () -> Call<R>
 ) {
     ThreadExecutor().executeMain(Runnable {
         callback.onStart()
@@ -72,39 +70,84 @@ fun <R> LifeViewModel.anHttpRequest(
     call.enqueue(callback)
 }
 
-//---------------------------------------------------------
+//------------------------anHttpResponse-----------------
 /**
  * http Response callback
  */
 fun <T> anHttpResponse(
+    loading: Boolean = true,
     response: (data: T) -> Unit,
     failure: (t: Throwable) -> Unit,
     start: () -> Unit
 ): HttpResponse<T> {
-    return HttpResponse(null, response, failure, start)
+    return HttpResponse(response, failure, start, null, loading)
 }
 
 
 fun <T> anHttpResponse(
     response: (data: T) -> Unit,
+    failure: (t: Throwable) -> Unit,
+    start: () -> Unit
+): HttpResponse<T> {
+    return HttpResponse(response, failure, start, null, true)
+}
+
+//---
+fun <T> anHttpResponse(
+    loading: Boolean = true,
+    response: (data: T) -> Unit,
     failure: (t: Throwable) -> Unit
 ): HttpResponse<T> {
-    return anHttpResponse(response, failure, {})
+    return HttpResponse(response, failure, {}, null, loading)
+}
+
+fun <T> anHttpResponse(
+    response: (data: T) -> Unit,
+    failure: (t: Throwable) -> Unit
+): HttpResponse<T> {
+    return HttpResponse(response, failure, {}, null, true)
+}
+
+//---
+
+fun <T> anHttpResponse(
+    loading: Boolean = true,
+    response: (data: T) -> Unit
+): HttpResponse<T> {
+    return HttpResponse(response, {}, {}, null, loading)
 }
 
 fun <T> anHttpResponse(
     response: (data: T) -> Unit
 ): HttpResponse<T> {
-    return anHttpResponse(response, {}, {})
+    return HttpResponse(response, {}, {}, null, true)
 }
 
+
+fun <T> StateViewModel.anHttpResponse(
+    loading: Boolean = true,
+    response: (data: T) -> Unit,
+    failure: (t: Throwable) -> Unit,
+    start: () -> Unit
+): HttpResponse<T> {
+    return HttpResponse(response, failure, start, this, loading)
+}
 
 fun <T> StateViewModel.anHttpResponse(
     response: (data: T) -> Unit,
     failure: (t: Throwable) -> Unit,
     start: () -> Unit
 ): HttpResponse<T> {
-    return HttpResponse(this, response, failure, start)
+    return HttpResponse(response, failure, start, this, true)
+}
+
+//---
+fun <T> StateViewModel.anHttpResponse(
+    loading: Boolean = true,
+    response: (data: T) -> Unit,
+    failure: (t: Throwable) -> Unit
+): HttpResponse<T> {
+    return HttpResponse(response, failure, {}, this, loading)
 }
 
 
@@ -112,12 +155,21 @@ fun <T> StateViewModel.anHttpResponse(
     response: (data: T) -> Unit,
     failure: (t: Throwable) -> Unit
 ): HttpResponse<T> {
-    return HttpResponse(this, response, failure, {})
+    return HttpResponse(response, failure, {}, this, true)
+}
+
+
+//---
+fun <T> StateViewModel.anHttpResponse(
+    loading: Boolean = true,
+    response: (data: T) -> Unit
+): HttpResponse<T> {
+    return HttpResponse(response, {}, {}, this, loading)
 }
 
 
 fun <T> StateViewModel.anHttpResponse(
     response: (data: T) -> Unit
 ): HttpResponse<T> {
-    return HttpResponse(this, response, {}, {})
+    return HttpResponse(response, {}, {}, this, true)
 }

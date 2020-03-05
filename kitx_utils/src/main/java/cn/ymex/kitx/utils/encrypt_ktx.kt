@@ -13,9 +13,19 @@ import javax.crypto.*
 import javax.crypto.spec.DESKeySpec
 import javax.crypto.spec.IvParameterSpec
 import javax.crypto.spec.SecretKeySpec
-// source address:
-// https://github.com/Blankj/AndroidUtilCode/blob/master/lib/utilcode/src/main/java/com/blankj/utilcode/util/EncryptUtils.java
 
+/**
+ * <pre>
+ * author: Blankj
+ * blog  : http://blankj.com
+ * time  : 2016/08/02
+ * desc  : utils about encrypt
+</pre> *
+ */
+
+///////////////////////////////////////////////////////////////////////////
+// hash encryption
+///////////////////////////////////////////////////////////////////////////
 /**
  * Return the hex string of MD2 encryption.
  *
@@ -1429,7 +1439,7 @@ fun rc4(data: ByteArray?, key: ByteArray?): ByteArray? {
         iS[i] = tmp
         t = iS[i] + iS[j] and 0xFF
         k = iS[t].toInt()
-        ret[counter] = (data[counter].toInt() xor k).toByte()
+        ret[counter] = (data[counter].toInt() xor k) as Byte
     }
     return ret
 }
@@ -1500,9 +1510,9 @@ private fun hexString2Bytes(hexString: String): ByteArray? {
 }
 
 private fun hex2Dec(hexChar: Char): Int {
-    return if (hexChar >= '0' && hexChar <= '9') {
+    return if (hexChar in '0'..'9') {
         hexChar - '0'
-    } else if (hexChar >= 'A' && hexChar <= 'F') {
+    } else if (hexChar in 'A'..'F') {
         hexChar - 'A' + 10
     } else {
         throw IllegalArgumentException()

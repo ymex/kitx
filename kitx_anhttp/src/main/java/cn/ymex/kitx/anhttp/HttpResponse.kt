@@ -12,14 +12,19 @@ interface ResponseCallback<T> : Callback<T> {
 }
 
 class HttpResponse<T>(
-    private val vm: StateViewModel? = null,
     val response: (data: T) -> Unit,
     val failure: (t: Throwable) -> Unit,
-    val start: () -> Unit
+    val start: () -> Unit,
+    private val vm: StateViewModel? = null,
+    private val load: Boolean = true
 ) : ResponseCallback<T> {
+
+
     override fun onStart() {
         vm?.run {
-            stater.postValue(PageState(ViewStatus.LOADING))
+            if (load) {
+                stater.postValue(PageState(ViewStatus.LOADING))
+            }
         }
         start()
     }
@@ -36,7 +41,7 @@ class HttpResponse<T>(
             val body = response.body()
             body?.run {
                 response(this)
-            }?:onFailure(call,Exception("$call : response.body() is null ."))
+            } ?: onFailure(call, Exception("$call : response.body() is null ."))
             vm?.run {
                 stater.postValue(PageState(ViewStatus.NORMAL))
             }
