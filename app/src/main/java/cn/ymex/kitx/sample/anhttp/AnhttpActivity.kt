@@ -8,15 +8,10 @@ import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.GridLayoutManager
-import cn.ymex.kitx.anhttp.HttpResponse
-import cn.ymex.kitx.anhttp.anHttpRequest
-import cn.ymex.kitx.anhttp.anHttpResponse
-import cn.ymex.kitx.anhttp.createRetrofitService
 import cn.ymex.kitx.core.adapter.recycler.DelegateAdapter
 import cn.ymex.kitx.core.adapter.recycler.ItemViewBinder
 import cn.ymex.kitx.core.adapter.recycler.ItemViewHolder
 import cn.ymex.kitx.sample.R
-import cn.ymex.kitx.sample.anhttp.repository.ApiRepos
 import cn.ymex.kitx.sample.anhttp.repository.vo.Image
 import cn.ymex.kitx.sample.anhttp.viewmodel.ApiViewModel
 import cn.ymex.kitx.sample.anhttp.viewmodel.LoginVMFactory
@@ -81,8 +76,8 @@ class AnhttpActivity : BaseHttpActivity() {
     }
 
 
-    override fun onInitViewModel(viewModels: MutableList<ViewModel>?) {
-        super.onInitViewModel(viewModels)
+    override fun observeViewModel(viewModels: MutableList<ViewModel>?) {
+        super.observeViewModel(viewModels)
         apiViewModel.liveImagesData.observe(this, Observer {
             delegateAdapter.data = it
             finishRefreshLoadMore()

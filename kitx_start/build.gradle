@@ -1,0 +1,32 @@
+apply from: "../build.lib.gradle"
+
+apply plugin: 'com.novoda.bintray-release'
+publish {
+    userOrg = 'ymexcn'
+    groupId = 'cn.ymex.kitx'
+    artifactId = 'kitx-app-start'
+    publishVersion = "0.0.1"
+    desc = 'A simplifies and accelerates Android developer tools and widget.'
+    website = 'https://github.com/ymex/kitx/tree/master/kitx_start'
+}
+
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.core:core-ktx:1.2.0'
+
+    api 'cn.ymex.kitx:kitx-core:1.0.2'
+    api 'cn.ymex.kitx:kitx-utils-ktx:1.0.2'
+    api 'cn.ymex.kitx:kitx-anhttp:1.0.2'
+    api 'cn.ymex.kitx:kitx-widget:1.0.1'
+    api 'cn.ymex.kitx:kitx-widget-glide:1.0.0'
+    api 'cn.ymex.kitx:kitx-widget-webview:1.0.0'
+    api 'org.greenrobot:eventbus:3.2.0'
+
+
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+}
