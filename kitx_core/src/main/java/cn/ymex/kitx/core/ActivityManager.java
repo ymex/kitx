@@ -65,16 +65,6 @@ public final class ActivityManager implements Application.ActivityLifecycleCallb
 
 
     /**
-     * 线束栈顶Activity
-     */
-    public void finishTop() {
-        if (getStack().isEmpty()) {
-            return;
-        }
-        finish(getStack().pop());
-    }
-
-    /**
      * 获取栈顶activity
      *
      * @return Activity , when activity quene is empty return null.
@@ -158,8 +148,10 @@ public final class ActivityManager implements Application.ActivityLifecycleCallb
         }
     }
 
-    public void finish(Class clazz) {
-        finish(clazz.getName());
+    public void finish(Class ...  clazzes) {
+        for (Class clazz : clazzes) {
+            finish(clazz.getName());
+        }
     }
 
     public int count() {
@@ -173,7 +165,7 @@ public final class ActivityManager implements Application.ActivityLifecycleCallb
      */
     public void finish(Activity activity) {
 
-        if (activity == null || activity.isFinishing() ) {
+        if (activity == null || activity.isFinishing()) {
             return;
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
@@ -183,7 +175,6 @@ public final class ActivityManager implements Application.ActivityLifecycleCallb
         }
         activity.finish();
     }
-
 
 
     @NonNull
@@ -249,7 +240,6 @@ public final class ActivityManager implements Application.ActivityLifecycleCallb
             throw new IllegalArgumentException("if autoManage is true , ActivityStack is not allow opt!");
         }
     }
-
 
 
     private void _remove(Activity activity) {

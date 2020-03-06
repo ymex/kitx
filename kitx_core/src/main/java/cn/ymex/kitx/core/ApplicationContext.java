@@ -2,21 +2,26 @@ package cn.ymex.kitx.core;
 
 import android.app.Application;
 import android.content.Context;
-import android.os.Process;
+
+import androidx.annotation.NonNull;
+import androidx.lifecycle.ViewModelStore;
+import androidx.lifecycle.ViewModelStoreOwner;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * 扩展Application  增加对app 进入前后台的监听
  */
-public class ApplicationContext extends Application implements ApplicationState.Callback {
+public class ApplicationContext extends Application implements ApplicationState.Callback, ViewModelStoreOwner {
 
+    private ViewModelStore vmStore;
 
     @Override
     public void onCreate() {
         super.onCreate();
-
-        System.out.println("-----m:"+ android.os.Process.myPid());
+        if (vmStore == null) {
+            vmStore = new ViewModelStore();
+        }
         create(this, this);
     }
 
@@ -41,4 +46,9 @@ public class ApplicationContext extends Application implements ApplicationState.
         }
     }
 
+    @NonNull
+    @Override
+    public ViewModelStore getViewModelStore() {
+        return vmStore;
+    }
 }

@@ -6,7 +6,7 @@ apply from: "../build.lib_kt.gradle"
 //    userOrg = 'ymexcn'
 //    groupId = 'cn.ymex.kitx'
 //    artifactId = 'kitx-anhttp'
-//    publishVersion = "1.0.1"
+//    publishVersion = "1.0.2"
 //    desc = 'http for android base retrofit and okhttp!'
 //    website = 'https://github.com/ymex/kitx/tree/master/kitx_anhttp'
 //}

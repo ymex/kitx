@@ -44,7 +44,7 @@ public class AppActivity extends AppCompatActivity implements UiView {
         for (ViewModel vm : vms) {
             setCommonObserver(vm);
         }
-        onInitViewModel(vms);
+        observeViewModel(vms);
     }
 
     @Override
@@ -83,7 +83,7 @@ public class AppActivity extends AppCompatActivity implements UiView {
     }
 
     @Override
-    public void onInitViewModel(List<ViewModel> viewModels) {
+    public void observeViewModel(List<ViewModel> viewModels) {
 
     }
 

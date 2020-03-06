@@ -47,9 +47,12 @@ public interface UiView {
      */
     View getView();
 
-    void setCommonObserver(ViewModel viewModel);
-
-    void onInitViewModel(List<ViewModel> viewModels);
 
     List<ViewModel> getViewModels();
+
+    void setCommonObserver(ViewModel viewModel);
+
+    void observeViewModel(List<ViewModel> viewModels);
+
+
 }

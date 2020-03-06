@@ -39,7 +39,7 @@ public class AppFragment extends Fragment implements UiView {
         for (ViewModel vm : vms) {
             setCommonObserver(vm);
         }
-        onInitViewModel(vms);
+        observeViewModel(vms);
     }
 
     @Override
@@ -48,7 +48,7 @@ public class AppFragment extends Fragment implements UiView {
     }
 
     @Override
-    public void onInitViewModel(List<ViewModel> viewModels) {
+    public void observeViewModel(List<ViewModel> viewModels) {
 
     }
 

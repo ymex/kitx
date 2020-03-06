@@ -5,7 +5,7 @@ publish {
     userOrg = 'ymexcn'
     groupId = 'cn.ymex.kitx'
     artifactId = 'kitx-utils-ktx'
-    publishVersion = "1.0.2"
+    publishVersion = "1.0.3"
     desc = 'A simplifies and accelerates Android developer tools and widget.'
     website = 'https://github.com/ymex/kitx/tree/master/kitx_utils'
 }
