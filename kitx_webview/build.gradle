@@ -8,16 +8,19 @@ android {
     }
 }
 
-//apply plugin: 'com.novoda.bintray-release'
-//publish {
-//    userOrg = 'ymexcn'
-//    groupId = 'cn.ymex.kitx'
-//    artifactId = 'kitx-widget-webview'
-//    publishVersion = "1.0.0"
-//    desc = 'webview for android'
-//    website = 'https://github.com/ymex/kitx/tree/master/kitx_webview'
-//}
+def webview = rootProject.ext.kitx.webview
 
+if (webview.bintray) {
+    apply plugin: 'com.novoda.bintray-release'
+    publish {
+        userOrg = 'ymexcn'
+        groupId = 'cn.ymex.kitx'
+        artifactId = 'kitx-widget-webview'
+        publishVersion = "${webview.version}"
+        desc = 'webview for android'
+        website = 'https://github.com/ymex/kitx/tree/master/kitx_webview'
+    }
+}
 
 dependencies {
     api fileTree(dir: 'libs', include: ['*.jar'])

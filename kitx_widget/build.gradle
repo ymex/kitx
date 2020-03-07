@@ -1,14 +1,18 @@
 apply from: "../build.lib.gradle"
 
-//apply plugin: 'com.novoda.bintray-release'
-//publish {
-//    userOrg = 'ymexcn'
-//    groupId = 'cn.ymex.kitx'
-//    artifactId = 'kitx-widget'
-//    publishVersion = "1.0.1"
-//    desc = 'A simplifies and accelerates Android developer tools and widget.'
-//    website = 'https://github.com/ymex/kitx/tree/master/kitx_widget'
-//}
+def widget = rootProject.ext.kitx.widget
+
+if (widget.bintray) {
+    apply plugin: 'com.novoda.bintray-release'
+    publish {
+        userOrg = 'ymexcn'
+        groupId = 'cn.ymex.kitx'
+        artifactId = 'kitx-widget'
+        publishVersion = "${widget.version}"
+        desc = 'A simplifies and accelerates Android developer tools and widget.'
+        website = 'https://github.com/ymex/kitx/tree/master/kitx_widget'
+    }
+}
 
 dependencies {
 

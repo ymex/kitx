@@ -1,13 +1,17 @@
 apply from: "../build.lib_kt.gradle"
 
-apply plugin: 'com.novoda.bintray-release'
-publish {
-    userOrg = 'ymexcn'
-    groupId = 'cn.ymex.kitx'
-    artifactId = 'kitx-tips'
-    publishVersion = "0.0.1"
-    desc = 'Android developer tips.'
-    website = 'https://github.com/ymex/kitx/tree/master/kitx_tips'
+def tips = rootProject.ext.kitx.tips
+
+if (tips.bintray) {
+    apply plugin: 'com.novoda.bintray-release'
+    publish {
+        userOrg = 'ymexcn'
+        groupId = 'cn.ymex.kitx'
+        artifactId = 'kitx-tips'
+        publishVersion = "${tips.version}"
+        desc = 'Android developer tips.'
+        website = 'https://github.com/ymex/kitx/tree/master/kitx_tips'
+    }
 }
 
 dependencies {

@@ -4,21 +4,23 @@ android {
     defaultConfig {
         //renderscript 兼容配置;
         renderscriptTargetApi 14
-        renderscriptSupportModeEnabled  true
+        renderscriptSupportModeEnabled true
     }
 }
 
+def glide = rootProject.ext.kitx.glide
 
-//apply plugin: 'com.novoda.bintray-release'
-//publish {
-//    userOrg = 'ymexcn'
-//    groupId = 'cn.ymex.kitx'
-//    artifactId = 'kitx-widget-glide'
-//    publishVersion = "1.0.0"
-//    desc = 'A simplifies and accelerates Android developer tools and widget.'
-//    website = 'https://github.com/ymex/kitx/tree/master/kitx_glide'
-//}
-
+if (glide.bintray) {
+    apply plugin: 'com.novoda.bintray-release'
+    publish {
+        userOrg = 'ymexcn'
+        groupId = 'cn.ymex.kitx'
+        artifactId = 'kitx-widget-glide'
+        publishVersion = "${glide.version}"
+        desc = 'A simplifies and accelerates Android developer tools and widget.'
+        website = 'https://github.com/ymex/kitx/tree/master/kitx_glide'
+    }
+}
 
 
 dependencies {

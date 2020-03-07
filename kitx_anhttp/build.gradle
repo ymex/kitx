@@ -1,15 +1,18 @@
 apply from: "../build.lib_kt.gradle"
 
+def anhttp = rootProject.ext.kitx.anhttp
 
-//apply plugin: 'com.novoda.bintray-release'
-//publish {
-//    userOrg = 'ymexcn'
-//    groupId = 'cn.ymex.kitx'
-//    artifactId = 'kitx-anhttp'
-//    publishVersion = "1.0.2"
-//    desc = 'http for android base retrofit and okhttp!'
-//    website = 'https://github.com/ymex/kitx/tree/master/kitx_anhttp'
-//}
+if (anhttp.bintray) {
+    apply plugin: 'com.novoda.bintray-release'
+    publish {
+        userOrg = 'ymexcn'
+        groupId = 'cn.ymex.kitx'
+        artifactId = 'kitx-anhttp'
+        publishVersion = "${anhttp.version}"
+        desc = 'http for android base retrofit and okhttp!'
+        website = 'https://github.com/ymex/kitx/tree/master/kitx_anhttp'
+    }
+}
 
 dependencies {
     def retrofit2_version = "2.7.2"
