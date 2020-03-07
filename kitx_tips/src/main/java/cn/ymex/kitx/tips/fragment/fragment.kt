@@ -6,9 +6,9 @@ import android.os.Bundle
 import android.view.View
 import androidx.annotation.IdRes
 import androidx.fragment.app.Fragment
-import cn.ymex.kitx.tips.view.find
 import cn.ymex.kitx.tips.context.hideInputKeyBoard
 import cn.ymex.kitx.tips.context.showInputKeyBoard
+import cn.ymex.kitx.tips.view.find
 
 /**
  * 查找组件
@@ -29,16 +29,17 @@ fun Fragment.showInputKeyBoard() {
     requireContext().showInputKeyBoard(requireView())
 }
 
+
 /**
  * 启动Activity
  */
 inline fun <reified T : Activity> Fragment.startAction(
     bundle: Bundle = Bundle(),
-    finish: Boolean = false
+    finish: Boolean = false,
+    bundleKey: String = "ex_tips_bundle"
 ) {
-
-    val intent = Intent(requireActivity(), T::class.java)
-    intent.putExtra("ex_tip_bundle", bundle)
+    val intent = Intent(requireContext(), T::class.java)
+    intent.putExtra(bundleKey, bundle)
     startActivity(intent)
     if (finish) {
         requireActivity().finish()
@@ -50,13 +51,15 @@ inline fun <reified T : Activity> Fragment.startAction(
  */
 inline fun <reified T : Activity> Fragment.startActionResult(
     bundle: Bundle = Bundle(),
+    bundleKey: String = "ex_tips_bundle",
     requestCode: Int = 10086
 ) {
-    val intent = Intent(requireActivity(), T::class.java)
-    intent.putExtra("ex_tip_bundle", bundle)
+    val intent = Intent(requireContext(), T::class.java)
+    intent.putExtra(bundleKey, bundle)
     startActivityForResult(intent, requestCode)
 }
 
-fun Fragment.getBundle():Bundle {
+
+fun Fragment.getBundle(): Bundle {
     return arguments ?: Bundle()
 }

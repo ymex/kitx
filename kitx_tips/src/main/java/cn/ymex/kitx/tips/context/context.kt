@@ -1,11 +1,9 @@
 package cn.ymex.kitx.tips.context
 
 import android.app.Activity
-import android.content.ClipData
-import android.content.ClipboardManager
-import android.content.Context
-import android.content.ContextWrapper
+import android.content.*
 import android.content.pm.ApplicationInfo
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -105,4 +103,34 @@ fun Context.requestActivity(): Activity? {
         self = self.baseContext
     }
     return null
+}
+
+
+/**
+ * 启动Activity
+ */
+inline fun <reified T : Activity> Context.startAction(
+    bundle: Bundle = Bundle(),
+    finish: Boolean = false,
+    bundleKey: String = "ex_tips_bundle"
+) {
+    val intent = Intent(this, T::class.java)
+    intent.putExtra(bundleKey, bundle)
+    startActivity(intent)
+    if (finish) {
+        requestActivity()?.finish()
+    }
+}
+
+/**
+ * 启动Activity（startActivityForResult）
+ */
+inline fun <reified T : Activity> Context.startActionResult(
+    bundle: Bundle = Bundle(),
+    bundleKey: String = "ex_tips_bundle",
+    requestCode: Int = 10086
+) {
+    val intent = Intent(this, T::class.java)
+    intent.putExtra(bundleKey, bundle)
+    requestActivity()?.startActivityForResult(intent, requestCode)
 }

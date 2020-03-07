@@ -8,6 +8,7 @@ import androidx.annotation.IdRes
 import cn.ymex.kitx.tips.context.hideInputKeyBoard
 import cn.ymex.kitx.tips.context.showInputKeyBoard
 
+
 fun <T : View> Activity.find(@IdRes id: Int): T = findViewById(id)
 
 fun Activity.hideInputKeyBoard() {
@@ -20,8 +21,8 @@ fun Activity.showInputKeyBoard() {
 }
 
 
-fun Activity.getBundle(): Bundle {
-    return intent.getBundleExtra("ex_tips_bundle") ?: intent.extras ?: Bundle()
+fun Activity.getBundle(bundleKey: String = "ex_tips_bundle"): Bundle {
+    return intent.getBundleExtra(bundleKey) ?: intent.extras ?: Bundle()
 }
 
 /**
@@ -29,10 +30,11 @@ fun Activity.getBundle(): Bundle {
  */
 inline fun <reified T : Activity> Activity.startAction(
     bundle: Bundle = Bundle(),
-    finish: Boolean = false
+    finish: Boolean = false,
+    bundleKey: String = "ex_tips_bundle"
 ) {
     val intent = Intent(this, T::class.java)
-    intent.putExtra("ex_tips_bundle", bundle)
+    intent.putExtra(bundleKey, bundle)
     startActivity(intent)
     if (finish) {
         finish()
@@ -44,9 +46,10 @@ inline fun <reified T : Activity> Activity.startAction(
  */
 inline fun <reified T : Activity> Activity.startActionResult(
     bundle: Bundle = Bundle(),
+    bundleKey: String = "ex_tips_bundle",
     requestCode: Int = 10086
 ) {
     val intent = Intent(this, T::class.java)
-    intent.putExtra("ex_bundle", bundle)
+    intent.putExtra(bundleKey, bundle)
     startActivityForResult(intent, requestCode)
 }

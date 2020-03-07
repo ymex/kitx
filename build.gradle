@@ -13,12 +13,8 @@ ext {
                     version: "1.0.0",
                     bintray: false
             ],
-            start  : [
-                    version: "0.0.1",
-                    bintray: false
-            ],
             tips   : [
-                    version: "0.0.1",
+                    version: "0.0.2",
                     bintray: false
             ],
             webview: [
@@ -28,7 +24,19 @@ ext {
             widget : [
                     version: "1.0.1",
                     bintray: false
+            ],
+            start  : [
+                    version: "0.0.3",
+                    bintray: true
             ]
+    ]
+    start = [
+            anhttp : "1.0.2",
+            core   : "1.0.2",
+            glide  : "1.0.0",
+            tips   : "0.0.2",
+            webview: "1.0.0",
+            widget : "1.0.1"
     ]
 }
 buildscript {
