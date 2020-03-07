@@ -9,11 +9,11 @@ App 开发核心类
 implementation 'cn.ymex.kitx:kitx-core:_latestVersion'
 ```
 
-## kitx_utils [ ![Download](https://api.bintray.com/packages/ymexcn/maven/kitx-utils-ktx/images/download.svg) ](https://bintray.com/ymexcn/maven/kitx-utils-ktx/_latestVersion)
+## kitx_tips [ ![Download](https://api.bintray.com/packages/ymexcn/maven/kitx-tips/images/download.svg) ](https://bintray.com/ymexcn/maven/kitx-tips/_latestVersion)
 
 常用方法拓展
 ```shell
-implementation 'cn.ymex.kitx:kitx-utils-ktx:_latestVersion'
+implementation 'cn.ymex.kitx:kitx-tips:_latestVersion'
 ```
 
 ## kitx_gilde [ ![Download](https://api.bintray.com/packages/ymexcn/maven/kitx-widget-glide/images/download.svg) ](https://bintray.com/ymexcn/maven/kitx-widget-glide/_latestVersion)
