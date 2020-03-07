@@ -14,8 +14,8 @@ import cn.ymex.kitx.sample.R
 import cn.ymex.kitx.sample.adapter.BinderItemCata
 import cn.ymex.kitx.sample.adapter.BinderItemVideo
 import cn.ymex.kitx.sample.adapter.Video
-import cn.ymex.kitx.utils.itemDecorationDrawable
-import cn.ymex.kitx.utils.verticalItemDecoration
+import cn.ymex.kitx.tips.view.itemDecorationDrawable
+import cn.ymex.kitx.tips.view.verticalItemDecoration
 import kotlinx.android.synthetic.main.main_fragment.*
 
 class MainFragment : Fragment() {

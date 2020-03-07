@@ -13,9 +13,10 @@ import cn.ymex.kitx.sample.adapter.BinderItemAction
 import cn.ymex.kitx.sample.anhttp.AnhttpActivity
 import cn.ymex.kitx.sample.permission.PermissionActivity
 import cn.ymex.kitx.sample.webview.BridgeActivity
-import cn.ymex.kitx.utils.itemDecorationDrawable
-import cn.ymex.kitx.utils.todip
-import cn.ymex.kitx.utils.verticalItemDecoration
+import cn.ymex.kitx.tips.view.itemDecorationDrawable
+import cn.ymex.kitx.tips.view.todip
+import cn.ymex.kitx.tips.view.verticalItemDecoration
+
 import kotlinx.android.synthetic.main.main_activity.*
 
 class MainActivity : AppCompatActivity() {

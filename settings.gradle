@@ -1,3 +1,4 @@
-include ':app', ':kitx_utils', ':kitx_core', ':kitx_widget', ':kitx_glide',':kitx_webview', ':kitx_anhttp'
+include ':app', ':kitx_core', ':kitx_widget', ':kitx_glide',':kitx_webview', ':kitx_anhttp'
 rootProject.name='ymex.kitx'
 include ':kitx_start'
+include ':kitx_tips'
