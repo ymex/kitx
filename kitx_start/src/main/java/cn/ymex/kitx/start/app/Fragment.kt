@@ -8,7 +8,7 @@ import cn.ymex.kitx.start.eventbus.EventBusProxy
 import cn.ymex.kitx.start.eventbus.EventMessage
 
 
-class Fragment : AppFragment() {
+ open class Fragment : AppFragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)

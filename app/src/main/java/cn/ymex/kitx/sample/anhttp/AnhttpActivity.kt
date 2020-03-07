@@ -19,7 +19,7 @@ import cn.ymex.kitx.widget.glide.GlideImageView
 import kotlinx.android.synthetic.main.activity_anhttp.*
 
 
-class AnhttpActivity : BaseHttpActivity() {
+public class AnhttpActivity : BaseHttpActivity() {
 
     private val apiViewModel: ApiViewModel by viewModels { LoginVMFactory }
     val delegateAdapter = DelegateAdapter.create()

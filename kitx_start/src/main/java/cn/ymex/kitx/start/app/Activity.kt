@@ -1,11 +1,11 @@
 package cn.ymex.kitx.start.app
 
 import android.os.Bundle
+import androidx.annotation.Keep
 import cn.ymex.kitx.core.app.AppActivity
 import cn.ymex.kitx.start.eventbus.EventBusConfig
 import cn.ymex.kitx.start.eventbus.EventBusProxy
 import cn.ymex.kitx.start.eventbus.EventMessage
-
 
 open class Activity : AppActivity() {
 

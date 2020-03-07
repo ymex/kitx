@@ -1,4 +1,4 @@
-apply from: "../build.lib.gradle"
+apply from: "../build.lib_kt.gradle"
 
 def start = rootProject.ext.kitx.start
 

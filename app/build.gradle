@@ -59,7 +59,7 @@ dependencies {
 //    implementation project(path: ':kitx_webview')
 //    implementation project(path: ':kitx_glide')
 //    implementation project(path: ':kitx_anhttp')
-     implementation project(path: ':kitx_start')
+     api project(path: ':kitx_start')
 
 
 }
