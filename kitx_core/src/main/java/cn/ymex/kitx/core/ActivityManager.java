@@ -65,18 +65,6 @@ public final class ActivityManager implements Application.ActivityLifecycleCallb
 
 
     /**
-     * 获取栈顶activity
-     *
-     * @return Activity , when activity quene is empty return null.
-     */
-    public Activity getTop() {
-        if (getStack().isEmpty()) {
-            return null;
-        }
-        return getStack().peek();
-    }
-
-    /**
      * 通过类名获取指定activitys
      *
      * @param name activity class name
@@ -96,41 +84,14 @@ public final class ActivityManager implements Application.ActivityLifecycleCallb
         return getItems(clazz.getName());
     }
 
-    /**
-     * 获取最后一个指定类名activity
-     *
-     * @param name activity class name
-     * @return null or last activity
-     */
-    public Activity getLastItem(String name) {
-        List<Activity> acts = getItems(name);
-        if (acts.isEmpty()) {
-            return null;
+    public void finishOthers(Activity activity) {
+        while (getStack().size() > 0) {
+            Activity act = getStack().pop();
+            if (act != activity) {
+                finish(act);
+            }
         }
-        return acts.get(acts.size() - 1);
-    }
-
-    public Activity getLastItem(Class clazz) {
-        return getLastItem(clazz.getName());
-    }
-
-    /**
-     * 获取第一个指定类名activity
-     *
-     * @param name activity class name
-     * @return null or first activity
-     */
-    public Activity getFirstItem(String name) {
-        List<Activity> acts = getItems(name);
-        if (acts.isEmpty()) {
-            return null;
-        }
-        return acts.get(0);
-    }
-
-
-    public Activity getFirstItem(Class clazz) {
-        return getFirstItem(clazz.getName());
+        getStack().push(activity);
     }
 
     /**
@@ -148,15 +109,13 @@ public final class ActivityManager implements Application.ActivityLifecycleCallb
         }
     }
 
-    public void finish(Class ...  clazzes) {
-        for (Class clazz : clazzes) {
-            finish(clazz.getName());
+
+    public void finish(String... names) {
+        for (String name : names) {
+            finish(name);
         }
     }
 
-    public int count() {
-        return getStack().size();
-    }
 
     /**
      * 结束 指定 activity
@@ -193,19 +152,6 @@ public final class ActivityManager implements Application.ActivityLifecycleCallb
     }
 
 
-    public Activity peek() {
-        return getStack().peek();
-    }
-
-    public Activity pop() {
-        checkArgument();
-        return getStack().pop();
-    }
-
-    public boolean isEmpty() {
-        return getStack().isEmpty();
-    }
-
     /**
      * 删除
      *
@@ -214,14 +160,6 @@ public final class ActivityManager implements Application.ActivityLifecycleCallb
     public void remove(Activity activity) {
         checkArgument();
         _remove(activity);
-    }
-
-    /**
-     * 清空
-     */
-    public ActivityManager clear() {
-        getStack().clear();
-        return this;
     }
 
     /**
