@@ -15,6 +15,7 @@ class HttpResponse<T>(
     val response: (data: T) -> Unit,
     val failure: (t: Throwable) -> Unit,
     val start: () -> Unit,
+    val interceptResponse:(response:Response<T>)->Boolean,
     private val vm: StateViewModel? = null,
     private val load: Boolean = true
 ) : ResponseCallback<T> {
@@ -38,8 +39,15 @@ class HttpResponse<T>(
 
     override fun onResponse(call: Call<T>, response: Response<T>) {
         try {
+            if (interceptResponse(response)) {
+                vm?.run {
+                    stater.postValue(PageState(ViewStatus.NORMAL))
+                }
+                return
+            }
             val body = response.body()
             body?.run {
+                response.headers()
                 response(this)
             } ?: onFailure(call, Exception("$call : response.body() is null ."))
             vm?.run {

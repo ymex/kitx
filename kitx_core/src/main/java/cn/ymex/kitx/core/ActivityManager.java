@@ -59,7 +59,7 @@ public final class ActivityManager implements Application.ActivityLifecycleCallb
         return this;
     }
 
-    private Stack<Activity> getStack() {
+    public Stack<Activity> getStack() {
         return actStack;
     }
 

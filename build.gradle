@@ -5,7 +5,7 @@ ext {
                     version: "1.0.2",
                     bintray: false
             ],
-            core   : [
+            core   : [//todo wait update
                     version: "1.0.3",
                     bintray: false
             ],
@@ -13,8 +13,8 @@ ext {
                     version: "1.0.0",
                     bintray: false
             ],
-            tips   : [
-                    version: "0.0.2",
+            tips   : [ //todo wait update
+                    version: "0.0.3",
                     bintray: false
             ],
             webview: [
