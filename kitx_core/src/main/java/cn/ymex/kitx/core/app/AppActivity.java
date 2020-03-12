@@ -33,6 +33,11 @@ public class AppActivity extends AppCompatActivity implements UiView {
     @Override
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
+        List<ViewModel> vms = getViewModels();
+        for (ViewModel vm : vms) {
+            setCommonObserver(vm);
+        }
+
         View view = this.getWindow().getDecorView().findViewById(android.R.id.content);
         if (view instanceof ViewGroup && ((ViewGroup) view).getChildCount() > 0) {
             onViewCreated(((ViewGroup) view).getChildAt(0), savedInstanceState);
@@ -40,10 +45,6 @@ public class AppActivity extends AppCompatActivity implements UiView {
             onViewCreated(view, savedInstanceState);
         }
 
-        List<ViewModel> vms = getViewModels();
-        for (ViewModel vm : vms) {
-            setCommonObserver(vm);
-        }
         observeViewModel(vms);
     }
 
