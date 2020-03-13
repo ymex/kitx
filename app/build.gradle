@@ -53,13 +53,7 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
-    implementation project(path: ':kitx_tips')
-    implementation project(path: ':kitx_core')
-    implementation project(path: ':kitx_widget')
-    implementation project(path: ':kitx_webview')
-    implementation project(path: ':kitx_glide')
-    implementation project(path: ':kitx_anhttp')
-//     api project(path: ':kitx_start')
+     api project(path: ':kitx_start')
 
 
 }

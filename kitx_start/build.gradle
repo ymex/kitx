@@ -22,12 +22,23 @@ dependencies {
 
     def apps = rootProject.ext.start
 
-    api "cn.ymex.kitx:kitx-anhttp:${apps.anhttp}"
-    api "cn.ymex.kitx:kitx-core:${apps.core}"
-    api "cn.ymex.kitx:kitx-widget-glide:${apps.glide}"
-    api "cn.ymex.kitx:kitx-tips:${apps.tips}"
-    api "cn.ymex.kitx:kitx-widget:${apps.widget}"
-    api "cn.ymex.kitx:kitx-widget-webview:${apps.webview}"
+
+    if (start.bintray) {
+        api "cn.ymex.kitx:kitx-anhttp:${apps.anhttp}"
+        api "cn.ymex.kitx:kitx-core:${apps.core}"
+        api "cn.ymex.kitx:kitx-widget-glide:${apps.glide}"
+        api "cn.ymex.kitx:kitx-tips:${apps.tips}"
+        api "cn.ymex.kitx:kitx-widget:${apps.widget}"
+        api "cn.ymex.kitx:kitx-widget-webview:${apps.webview}"
+    } else {
+        api project(path: ':kitx_tips')
+        api project(path: ':kitx_core')
+        api project(path: ':kitx_widget')
+        api project(path: ':kitx_webview')
+        api project(path: ':kitx_glide')
+        api project(path: ':kitx_anhttp')
+    }
+
     api "org.greenrobot:eventbus:3.2.0"
 
 

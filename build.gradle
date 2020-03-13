@@ -3,9 +3,9 @@ ext {
     kitx = [
             anhttp : [
                     version: "1.0.3",
-                    bintray: true
+                    bintray: false
             ],
-            core   : [//todo wait update
+            core   : [
                       version: "1.0.3",
                       bintray: false
             ],
@@ -13,7 +13,7 @@ ext {
                     version: "1.0.0",
                     bintray: false
             ],
-            tips   : [ //todo wait update
+            tips   : [
                        version: "0.0.3",
                        bintray: false
             ],
@@ -26,15 +26,15 @@ ext {
                     bintray: false
             ],
             start  : [
-                    version: "0.0.3",
-                    bintray: false
+                    version: "0.0.4",
+                    bintray: true
             ]
     ]
     start = [
-            anhttp : "1.0.2",
-            core   : "1.0.2",
+            anhttp : "1.0.3",
+            core   : "1.0.3",
             glide  : "1.0.0",
-            tips   : "0.0.2",
+            tips   : "0.0.3",
             webview: "1.0.0",
             widget : "1.0.1"
     ]
