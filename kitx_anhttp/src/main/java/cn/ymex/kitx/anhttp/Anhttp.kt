@@ -7,7 +7,7 @@ import retrofit2.Response
 import retrofit2.Retrofit
 
 /**
- * urs:
+ * use:
  * anHttp(AnHttpManager.newRetrofitBuilder(baseUrl = "http://xxxxx.com/").build())
  */
 

@@ -3,17 +3,19 @@ package cn.ymex.kitx.anhttp
 /**
  * 请求参数
  */
-class Param : LinkedHashMap<String, Any>() {
+class Param(common: Boolean) : LinkedHashMap<String, Any>() {
 
-    companion object{
-        fun stream() :Param{
-            return Param()
+    companion object {
+        fun stream(addCommonParams: Boolean = true): Param {
+            return Param(addCommonParams)
         }
     }
 
     init {
-        AnHttpManager.instance.commonParams.forEach { (k, v) ->
-            put(k, v)
+        if (common) {
+            AnHttpManager.instance.commonParams.forEach { (k, v) ->
+                put(k, v)
+            }
         }
     }
 

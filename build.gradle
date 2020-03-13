@@ -2,20 +2,20 @@
 ext {
     kitx = [
             anhttp : [
-                    version: "1.0.2",
-                    bintray: false
+                    version: "1.0.3",
+                    bintray: true
             ],
             core   : [//todo wait update
-                    version: "1.0.3",
-                    bintray: false
+                      version: "1.0.3",
+                      bintray: false
             ],
             glide  : [
                     version: "1.0.0",
                     bintray: false
             ],
             tips   : [ //todo wait update
-                    version: "0.0.3",
-                    bintray: false
+                       version: "0.0.3",
+                       bintray: false
             ],
             webview: [
                     version: "1.0.0",
@@ -27,7 +27,7 @@ ext {
             ],
             start  : [
                     version: "0.0.3",
-                    bintray: true
+                    bintray: false
             ]
     ]
     start = [
