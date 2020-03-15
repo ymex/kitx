@@ -3,6 +3,8 @@ package cn.ymex.kitx.core.permission;
 
 import android.Manifest;
 import android.annotation.TargetApi;
+import android.content.ActivityNotFoundException;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -44,6 +46,10 @@ public class PermissionFragment extends Fragment {
                 add("android.permission.REQUEST_INSTALL_PACKAGES");
             }
             add(Manifest.permission.SYSTEM_ALERT_WINDOW);
+//            有问题：打开设置页面，就回调了，onActivityResult，暂时无法解决
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+//                add(Manifest.permission.BIND_NOTIFICATION_LISTENER_SERVICE);
+//            }
         }
     };
 
@@ -110,6 +116,13 @@ public class PermissionFragment extends Fragment {
                     onActivityResult(ACTION_PERMISSIONS_REQUEST_CODE, 0, null);
                 }
                 break;
+            case Manifest.permission.BIND_NOTIFICATION_LISTENER_SERVICE:
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2 && !notificationListenerEnable()) {
+                    startNotificationAccessSetting();
+                } else {
+                    onActivityResult(ACTION_PERMISSIONS_REQUEST_CODE, 0, null);
+                }
+                break;
             default:
                 requestPermissions(new String[]{permission}, PERMISSIONS_REQUEST_CODE);
         }
@@ -134,7 +147,6 @@ public class PermissionFragment extends Fragment {
     }
 
     private void onRequestPermissionsResult(String[] permissions, boolean[] grantResults, boolean[] shouldShowRequestPermissionRationale) {
-
         List<Permission> pls = new ArrayList<>();
         for (int i = 0; i < permissions.length; i++) {
 
@@ -153,6 +165,7 @@ public class PermissionFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        System.out.println("----------onActivityResult permission " + currentRequestPermission);
         if (requestCode != ACTION_PERMISSIONS_REQUEST_CODE || currentRequestPermission.isEmpty()) {
             return;
         }
@@ -177,6 +190,9 @@ public class PermissionFragment extends Fragment {
                 break;
             case Manifest.permission.SYSTEM_ALERT_WINDOW:
                 granted = canDrawOverlays();
+                break;
+            case Manifest.permission.BIND_NOTIFICATION_LISTENER_SERVICE:
+                granted = notificationListenerEnable();
                 break;
             default:
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -226,6 +242,39 @@ public class PermissionFragment extends Fragment {
             return Settings.canDrawOverlays(getContext());
         }
         return true;
+    }
+
+    private boolean notificationListenerEnable() {
+        boolean enable = false;
+        String packageName = Objects.requireNonNull(getContext()).getPackageName();
+        String flat = Settings.Secure.getString(getContext().getContentResolver(), "enabled_notification_listeners");
+        if (flat != null) {
+            enable = flat.contains(packageName);
+        }
+        return enable;
+    }
+
+
+    private boolean startNotificationAccessSetting() {
+        try {
+            Uri packageURI = Uri.parse("package:" + getContext().getPackageName());
+            Intent intent = new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS", packageURI);
+            startActivityForResult(intent, ACTION_PERMISSIONS_REQUEST_CODE);
+            return true;
+        } catch (ActivityNotFoundException e) {
+            try {
+                Intent intent = new Intent();
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                ComponentName cn = new ComponentName("com.android.settings", "com.android.settings.Settings$NotificationAccessSettingsActivity");
+                intent.setComponent(cn);
+                intent.putExtra(":settings:show_fragment", "NotificationAccessSettings");
+                startActivityForResult(intent, ACTION_PERMISSIONS_REQUEST_CODE);
+                return true;
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+        return false;
     }
 
     void log(String message) {

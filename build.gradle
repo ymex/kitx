@@ -27,7 +27,7 @@ ext {
             ],
             start  : [
                     version: "0.0.4",
-                    bintray: true
+                    bintray: false
             ]
     ]
     start = [

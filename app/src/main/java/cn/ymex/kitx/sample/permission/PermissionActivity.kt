@@ -42,6 +42,18 @@ class PermissionActivity : AppCompatActivity() {
                 true
             }
         }
+
+        btnBind.setOnClickListener {
+            PermissionRequest(this).requestEach(
+                arrayOf(
+                    Manifest.permission.CAMERA,Manifest.permission.BIND_NOTIFICATION_LISTENER_SERVICE
+                )
+            ) {
+                println("-------permission request result: $it")
+                //返回true 表示 处理完一个请求 将继续请求下一个。直到全部请求
+                true
+            }
+        }
     }
 
 }
