@@ -1,14 +1,16 @@
 package cn.ymex.kitx.tips.context
 
-import android.app.Activity
+import android.app.*
 import android.content.*
 import android.content.pm.ApplicationInfo
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.annotation.LayoutRes
+import androidx.core.app.NotificationCompat
 
 
 fun Context.inflate(
@@ -133,4 +135,47 @@ inline fun <reified T : Activity> Context.startActionResult(
     val intent = Intent(this, T::class.java)
     intent.putExtra(bundleKey, bundle)
     requestActivity()?.startActivityForResult(intent, requestCode)
+}
+
+
+/**
+ * 创建兼容Notification
+ * Android.O 后创建 Notification必须指定 channel.
+ */
+
+fun Context.createNotificationCompat(
+    channelId: String,
+    channelName: String,
+    builder: NotificationCompat.Builder
+): Notification {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        val channel = NotificationChannel(
+            channelId,
+            channelName,
+            NotificationManager.IMPORTANCE_HIGH
+        )
+        val notificationManager =
+            getSystemService(Service.NOTIFICATION_SERVICE) as NotificationManager
+        notificationManager.createNotificationChannel(channel)
+    }
+    builder.setChannelId(channelId)
+    return builder.build()
+}
+
+/**
+ * 获取 NotificationManager
+ */
+fun Context.getNotificationManager(): NotificationManager {
+    return getSystemService(Service.NOTIFICATION_SERVICE) as NotificationManager
+}
+
+/**
+ * 开启前台服务
+ */
+fun Context.startCompatForegroundService(intent: Intent) {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        startForegroundService(intent)
+    } else {
+        startService(intent)
+    }
 }
