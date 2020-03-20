@@ -1,5 +1,6 @@
 package cn.ymex.kitx.tips.setting
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.content.ComponentName
 import android.content.Context
@@ -9,6 +10,7 @@ import android.os.Build
 import android.os.PowerManager
 import android.provider.Settings
 import androidx.annotation.RequiresApi
+import androidx.annotation.RequiresPermission
 import androidx.core.app.NotificationManagerCompat
 import java.util.*
 
@@ -35,45 +37,6 @@ fun Context.startIgnoreBatteryOptimization() {
     val intent = Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
     intent.data = Uri.parse("package:" + this.packageName);
     startActivity(intent)
-}
-
-
-/**
- * 是否有通知权限
- */
-
-
-fun Context.areNotificationsEnabled(): Boolean {
-    val notification: NotificationManagerCompat = NotificationManagerCompat.from(this)
-    return notification.areNotificationsEnabled()
-}
-
-
-fun Context.getNotificationsSettingIntent(): Intent {
-    val intent = Intent()
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-        intent.action = "android.settings.APP_NOTIFICATION_SETTINGS"
-        intent.putExtra("android.provider.extra.APP_PACKAGE", packageName)
-    } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) { //5.0
-        intent.action = "android.settings.APP_NOTIFICATION_SETTINGS"
-        intent.putExtra("app_package", packageName)
-        intent.putExtra("app_uid", this.applicationInfo.uid)
-        startActivity(intent)
-    } else if (Build.VERSION.SDK_INT == Build.VERSION_CODES.KITKAT) { //4.4
-        intent.action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
-        intent.addCategory(Intent.CATEGORY_DEFAULT)
-        intent.data = Uri.parse("package:$packageName")
-    } else if (Build.VERSION.SDK_INT >= 15) {
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-        intent.action = "android.settings.APPLICATION_DETAILS_SETTINGS"
-        intent.data = Uri.fromParts(
-            "package",
-            packageName,
-            null
-        )
-    }
-
-    return intent
 }
 
 
@@ -142,4 +105,89 @@ fun Context.getAutoStartSettingIntent(): Intent {
     }
     intent.component = componentName
     return intent
+}
+
+
+/**
+ * 是否有安装权限
+ */
+fun Context.canInstallPackage(): Boolean {
+    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        packageManager.canRequestPackageInstalls()
+    } else true
+}
+
+/**
+ * 是否有显示浮窗
+ */
+fun Context.canDrawOverlaysFloatWindow(): Boolean {
+    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        Settings.canDrawOverlays(this)
+    } else true
+}
+
+/**
+ * 是否有通知权限
+ */
+
+
+fun Context.areNotificationsEnabled(): Boolean {
+    val notification: NotificationManagerCompat = NotificationManagerCompat.from(this)
+    return notification.areNotificationsEnabled()
+}
+
+
+/**
+ * 获取 通知权限设置页面的Intent
+ */
+@RequiresApi(Build.VERSION_CODES.M)
+@RequiresPermission(value = Manifest.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS)
+fun Context.getNotificationsSettingIntent(): Intent {
+    val intent = Intent()
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        intent.action = "android.settings.APP_NOTIFICATION_SETTINGS"
+        intent.putExtra("android.provider.extra.APP_PACKAGE", packageName)
+    } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) { //5.0
+        intent.action = "android.settings.APP_NOTIFICATION_SETTINGS"
+        intent.putExtra("app_package", packageName)
+        intent.putExtra("app_uid", this.applicationInfo.uid)
+        startActivity(intent)
+    } else if (Build.VERSION.SDK_INT == Build.VERSION_CODES.KITKAT) { //4.4
+        intent.action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
+        intent.addCategory(Intent.CATEGORY_DEFAULT)
+        intent.data = Uri.parse("package:$packageName")
+    } else if (Build.VERSION.SDK_INT >= 15) {
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        intent.action = "android.settings.APPLICATION_DETAILS_SETTINGS"
+        intent.data = Uri.fromParts(
+            "package",
+            packageName,
+            null
+        )
+    }
+
+    return intent
+}
+
+/**
+ * 获取 浮窗 设置页面的Intent
+ */
+@RequiresApi(api = Build.VERSION_CODES.M)
+@RequiresPermission(value = Manifest.permission.SYSTEM_ALERT_WINDOW)
+fun Context.getCanDrawOverlaysSettingIntent(): Intent {
+    val packageURI =
+        Uri.parse("package:$packageName")
+    return Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, packageURI)
+}
+
+/**
+ * 获取 安装apk 设置页面的Intent
+ */
+@RequiresApi(api = Build.VERSION_CODES.O)
+@RequiresPermission(value = Manifest.permission.REQUEST_INSTALL_PACKAGES)
+fun Context.getInstallPackageSettingIntent(): Intent {
+    val packageURI =
+        Uri.parse("package:$packageName")
+    return Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES, packageURI)
+
 }

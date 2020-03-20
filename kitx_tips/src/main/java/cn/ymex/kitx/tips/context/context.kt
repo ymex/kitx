@@ -1,20 +1,16 @@
 package cn.ymex.kitx.tips.context
 
-import android.annotation.SuppressLint
+import android.Manifest
 import android.app.*
 import android.content.*
 import android.content.pm.ApplicationInfo
-import android.net.Uri
+import android.graphics.PixelFormat
 import android.os.Build
 import android.os.Bundle
-import android.os.PowerManager
-import android.provider.Settings
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.view.inputmethod.InputMethodManager
 import androidx.annotation.LayoutRes
-import androidx.annotation.RequiresApi
+import androidx.annotation.RequiresPermission
 import androidx.core.app.NotificationCompat
 
 
@@ -183,4 +179,45 @@ fun Context.startCompatForegroundService(intent: Intent) {
     } else {
         startService(intent)
     }
+}
+
+/**
+ * 获取 WindowManager
+ */
+fun Context.getWindowManager(): WindowManager {
+    return getSystemService(Application.WINDOW_SERVICE) as WindowManager
+}
+
+
+@RequiresPermission(value = Manifest.permission.SYSTEM_ALERT_WINDOW)
+fun Context.createFloatWindow(
+    view: View,
+    block: (layoutParams: WindowManager.LayoutParams) -> Unit
+) {
+    val wmParams = WindowManager.LayoutParams()
+    //获取的是WindowManagerImpl.CompatModeWrapper
+    val mWindowManager = getWindowManager()
+    //设置window type
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        wmParams.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY
+    } else {
+        wmParams.type =
+            WindowManager.LayoutParams.TYPE_PHONE or WindowManager.LayoutParams.TYPE_TOAST
+    }
+
+    //设置图片格式，效果为背景透明
+    wmParams.format = PixelFormat.RGBA_8888
+    //设置浮动窗口不可聚焦（实现操作除浮动窗口外的其他可见窗口的操作）
+    wmParams.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
+    //调整悬浮窗显示的停靠位置为左侧置顶
+    wmParams.gravity = Gravity.END or Gravity.BOTTOM
+    // 以屏幕左上角为原点，设置x、y初始值，相对于gravity
+    wmParams.x = 0
+    wmParams.y = 0
+
+    //设置悬浮窗口长宽数据
+    wmParams.width = WindowManager.LayoutParams.WRAP_CONTENT
+    wmParams.height = WindowManager.LayoutParams.WRAP_CONTENT
+    block(wmParams)
+    mWindowManager.addView(view, wmParams)
 }
