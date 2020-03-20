@@ -1,15 +1,20 @@
 package cn.ymex.kitx.tips.context
 
+import android.annotation.SuppressLint
 import android.app.*
 import android.content.*
 import android.content.pm.ApplicationInfo
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.PowerManager
+import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.annotation.LayoutRes
+import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 
 
