@@ -25,7 +25,7 @@ implementation 'cn.ymex.kitx:kitx-tips:_latestVersion'
 implementation 'cn.ymex.kitx:kitx-widget-glide:_latestVersion'
 ```
 
-## kitx_webview [ ![Download](https://api.bintray.com/packages/ymex/maven/widget-webview/images/download.svg) ](https://bintray.com/ymex/maven/widget-webview/_latestVersion)
+## kitx_webview [ ![Download](https://api.bintray.com/packages/ymexcn/maven/kitx-widget-webview/images/download.svg) ](https://bintray.com/ymexcn/maven/kitx-widget-webview/_latestVersion)
 基于 腾讯X5 WebView。 集成页面加载进度条与Js 与 Java 通信的功能。 
 
 ```shell
