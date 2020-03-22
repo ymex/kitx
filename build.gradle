@@ -6,7 +6,7 @@ ext {
                     bintray: false
             ],
             core   : [
-                      version: "1.0.3",
+                      version: "1.0.4",
                       bintray: false
             ],
             glide  : [
@@ -14,7 +14,7 @@ ext {
                     bintray: false
             ],
             tips   : [
-                       version: "0.0.3",
+                       version: "0.0.4",
                        bintray: false
             ],
             webview: [
@@ -26,15 +26,15 @@ ext {
                     bintray: false
             ],
             start  : [
-                    version: "0.0.4",
+                    version: "0.0.5",
                     bintray: false
             ]
     ]
     start = [
             anhttp : "1.0.3",
-            core   : "1.0.3",
+            core   : "1.0.4",
             glide  : "1.0.0",
-            tips   : "0.0.3",
+            tips   : "0.0.4",
             webview: "1.0.0",
             widget : "1.0.1"
     ]
