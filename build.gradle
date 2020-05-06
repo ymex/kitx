@@ -6,16 +6,16 @@ ext {
                     bintray: false
             ],
             core   : [
-                      version: "1.0.4",
-                      bintray: false
+                    version: "1.0.4",
+                    bintray: false
             ],
             glide  : [
                     version: "1.0.0",
                     bintray: false
             ],
             tips   : [
-                       version: "0.0.4",
-                       bintray: false
+                    version: "0.0.4",
+                    bintray: false
             ],
             webview: [
                     version: "1.0.0",
@@ -29,14 +29,6 @@ ext {
                     version: "0.0.5",
                     bintray: false
             ]
-    ]
-    start = [
-            anhttp : "1.0.3",
-            core   : "1.0.4",
-            glide  : "1.0.0",
-            tips   : "0.0.4",
-            webview: "1.0.0",
-            widget : "1.0.1"
     ]
 }
 buildscript {
