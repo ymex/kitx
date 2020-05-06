@@ -27,4 +27,16 @@
         android:layout_height="wrap_content"
         android:text="request Each permission" />
 
+    <TextView
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:text="BIND_NOTIFICATION_LISTENER_SERVICE Permission"
+        android:layout_height="wrap_content"/>
+    <Button
+        android:visibility="gone"
+        android:id="@+id/btnBind"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="BIND_NOTIFICATION_LISTENER_SERVICE" />
+
 </LinearLayout>

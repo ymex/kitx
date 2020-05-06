@@ -1,10 +1,11 @@
 package cn.ymex.kitx.tips.setting
 
 import android.Manifest
-import android.annotation.SuppressLint
+import android.app.ActivityManager
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.PowerManager
@@ -26,17 +27,6 @@ fun Context.ignoreBatteryOptimization(): Boolean {
         return powerManager.isIgnoringBatteryOptimizations(this.packageName)
     }
     return true
-}
-
-/**
- * 打开 忽略电池优化设置
- */
-@RequiresApi(Build.VERSION_CODES.M)
-@SuppressLint("BatteryLife")
-fun Context.startIgnoreBatteryOptimization() {
-    val intent = Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
-    intent.data = Uri.parse("package:" + this.packageName);
-    startActivity(intent)
 }
 
 
@@ -121,10 +111,54 @@ fun Context.canInstallPackage(): Boolean {
  * 是否有显示浮窗
  */
 fun Context.canDrawOverlaysFloatWindow(): Boolean {
+
     return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
         Settings.canDrawOverlays(this)
     } else true
 }
+
+/**
+ * notification 监听权限 是否打开。
+ */
+fun Context.areNotificationListenerEnable(): Boolean {
+//    var enable = false
+//    val packageName = this.packageName
+//    val flat = Settings.Secure.getString(
+//        this.contentResolver,
+//        "enabled_notification_listeners"
+//    )
+//    if (flat != null) {
+//        enable = flat.contains(packageName)
+//    }
+//    return enable
+
+    val packageNames = NotificationManagerCompat.getEnabledListenerPackages(this);
+    if (packageNames.contains(packageName)) {
+        return true
+    }
+    return false
+
+}
+
+
+@RequiresApi(Build.VERSION_CODES.LOLLIPOP_MR1)
+@RequiresPermission(value = Manifest.permission.BIND_NOTIFICATION_LISTENER_SERVICE)
+fun Context.getNotificationListenerAccessSettingIntent(): Intent {
+//    val intent = Intent()
+//    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+//    val cn = ComponentName(
+//        "com.android.settings",
+//        "com.android.settings.Settings\$NotificationAccessSettingsActivity"
+//    )
+//    intent.component = cn
+//    intent.putExtra(":settings:show_fragment", "NotificationAccessSettings")
+
+    val packageURI =
+        Uri.parse("package:" + this.packageName)
+    // return Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS", packageURI)
+    return Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS, packageURI)
+}
+
 
 /**
  * 是否有通知权限
@@ -189,5 +223,46 @@ fun Context.getInstallPackageSettingIntent(): Intent {
     val packageURI =
         Uri.parse("package:$packageName")
     return Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES, packageURI)
+}
 
+/**
+ *fix 应用进程被杀后再次启动时，服务不生效.
+ * 使用， 在启动服务前调用。
+ */
+fun Context.toggleNotificationListenerService(serviceClazz: Class<*>) {
+    val pm: PackageManager = packageManager
+    pm.setComponentEnabledSetting(
+        ComponentName(
+            this,
+            serviceClazz
+        ),
+        PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP
+    )
+    pm.setComponentEnabledSetting(
+        ComponentName(
+            this,
+            serviceClazz
+        ),
+        PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP
+    )
+}
+
+/**
+ * 本应用注册的服务是否存在 并运行
+ */
+@Suppress("DEPRECATION")
+fun Context.isServiceExisted(className: String): Boolean {
+    val activityManager = this.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+    //getRunningServices和  getRunningAppProcesses() 在 Android O 以上版本只能获取应用本身的服务和进程
+    val serviceInfos = activityManager.getRunningServices(Int.MAX_VALUE)
+    if (serviceInfos.size <= 0) {
+        return false
+    }
+    for (i in 0 until serviceInfos.size) {
+        val serviceName = serviceInfos[i].service
+        if (serviceName.className == className) {
+            return true
+        }
+    }
+    return false
 }

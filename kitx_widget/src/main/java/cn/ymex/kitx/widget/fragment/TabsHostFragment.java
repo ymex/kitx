@@ -125,6 +125,10 @@ public class TabsHostFragment extends Fragment {
 
 
     public void setBottomNavigationView(BottomNavigationView navigationView, int... actionIds) {
+        setBottomNavigationView(navigationView, null, actionIds);
+    }
+
+    public void setBottomNavigationView(BottomNavigationView navigationView, MenuItem.OnMenuItemClickListener onClickListener, int... actionIds) {
 
         navigationView.setSelectedItemId(actionIds[currentShow]);
         navigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -138,13 +142,15 @@ public class TabsHostFragment extends Fragment {
                 }
                 if (fIndex >= 0) {
                     show(fIndex);
+                    if (onClickListener != null) {
+                        onClickListener.onMenuItemClick(item);
+                    }
                     return true;
                 }
                 return false;
             }
         });
     }
-
 
     public void setBottomNavigationView(
             BottomNavigationView navigationView,
