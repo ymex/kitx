@@ -63,6 +63,15 @@ api "com.squareup.retrofit2:converter-gson:2.7.2"
 api "com.squareup.retrofit2:converter-scalars:2.7.2"
 ```
 
+## start  [ ![Download](https://api.bintray.com/packages/ymexcn/maven/kitx-app-start/images/download.svg) ](https://bintray.com/ymexcn/maven/kitx-app-start/_latestVersion)
+
+
+```groovy
+implementation 'cn.ymex.kitx:kitx-app-start:_latestVersion'
+```
+
+快速开发库，默认已经依赖了 `kitx_core`,`kitx_tips`,`kitx_gilde`,`kitx_webview`,`kitx_widget`
+
 License
 -------
 
