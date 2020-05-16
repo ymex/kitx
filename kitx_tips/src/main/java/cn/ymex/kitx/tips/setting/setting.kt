@@ -141,22 +141,27 @@ fun Context.areNotificationListenerEnable(): Boolean {
 }
 
 
-@RequiresApi(Build.VERSION_CODES.LOLLIPOP_MR1)
+@RequiresApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
 @RequiresPermission(value = Manifest.permission.BIND_NOTIFICATION_LISTENER_SERVICE)
 fun Context.getNotificationListenerAccessSettingIntent(): Intent {
-//    val intent = Intent()
-//    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-//    val cn = ComponentName(
-//        "com.android.settings",
-//        "com.android.settings.Settings\$NotificationAccessSettingsActivity"
-//    )
-//    intent.component = cn
-//    intent.putExtra(":settings:show_fragment", "NotificationAccessSettings")
-
     val packageURI =
         Uri.parse("package:" + this.packageName)
-    // return Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS", packageURI)
-    return Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS, packageURI)
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
+        val intent = Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS, packageURI)
+        if (packageManager.resolveActivity(intent, 0) != null) {
+            return intent
+        }
+    }
+
+    val intent = Intent()
+    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+    val cn = ComponentName(
+        "com.android.settings",
+        "com.android.settings.Settings\$NotificationAccessSettingsActivity"
+    )
+    intent.component = cn
+    intent.putExtra(":settings:show_fragment", "NotificationAccessSettings")
+    return intent
 }
 
 
