@@ -3,10 +3,10 @@ ext {
     kitx = [
             anhttp : [
                     version: "1.0.4",
-                    bintray: true
+                    bintray: false
             ],
             core   : [
-                    version: "1.0.4",
+                    version: "1.0.5",
                     bintray: false
             ],
             glide  : [
