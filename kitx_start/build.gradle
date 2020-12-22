@@ -3,7 +3,8 @@ apply from: "../build.lib_kt.gradle"
 def start = rootProject.ext.kitx.start
 
 if (start.bintray) {
-    apply plugin: 'com.novoda.bintray-release'
+//    apply plugin: 'com.novoda.bintray-release'
+    apply plugin: 'com.github.panpf.bintray-publish'
     publish {
         userOrg = 'ymexcn'
         groupId = 'cn.ymex.kitx'
@@ -26,12 +27,12 @@ dependencies {
 
 
     if (start.bintray) {
-        api "cn.ymex.kitx:kitx-anhttp:${apps.anhttp}"
-        api "cn.ymex.kitx:kitx-core:${apps.core}"
-        api "cn.ymex.kitx:kitx-widget-glide:${apps.glide}"
-        api "cn.ymex.kitx:kitx-tips:${apps.tips}"
-        api "cn.ymex.kitx:kitx-widget:${apps.widget}"
-        api "cn.ymex.kitx:kitx-widget-webview:${apps.webview}"
+        api "cn.ymex.kitx:kitx-anhttp:${apps.anhttp.version}"
+        api "cn.ymex.kitx:kitx-core:${apps.core.version}"
+        api "cn.ymex.kitx:kitx-widget-glide:${apps.glide.version}"
+        api "cn.ymex.kitx:kitx-tips:${apps.tips.version}"
+        api "cn.ymex.kitx:kitx-widget:${apps.widget.version}"
+        api "cn.ymex.kitx:kitx-widget-webview:${apps.webview.version}"
     } else {
         api project(path: ':kitx_tips')
         api project(path: ':kitx_core')
