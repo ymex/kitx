@@ -16,8 +16,8 @@ android {
         ndk {
             abiFilters "armeabi", "armeabi-v7a", "x86", "mips"
         }
-        viewBinding {
-            enabled = true
+        buildFeatures {
+            viewBinding = true
         }
     }
     buildTypes {
