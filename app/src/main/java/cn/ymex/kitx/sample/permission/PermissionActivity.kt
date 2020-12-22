@@ -5,16 +5,17 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import cn.ymex.kitx.core.permission.PermissionRequest
 import cn.ymex.kitx.sample.R
-import kotlinx.android.synthetic.main.permission_activity.*
+import cn.ymex.kitx.sample.databinding.PermissionActivityBinding
 
 class PermissionActivity : AppCompatActivity() {
-
+    lateinit var vb : PermissionActivityBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.permission_activity)
+        vb = PermissionActivityBinding.inflate(layoutInflater)
+        setContentView(vb.root)
 
 
-        btnRequest.setOnClickListener {
+        vb.btnRequest.setOnClickListener {
             PermissionRequest(this).request(
                 arrayOf(
                     Manifest.permission.CAMERA,
@@ -28,7 +29,7 @@ class PermissionActivity : AppCompatActivity() {
         }
 
 
-        btnRequestEach.setOnClickListener {
+        vb.btnRequestEach.setOnClickListener {
             PermissionRequest(this).requestEach(
                 arrayOf(
                     Manifest.permission.CAMERA,
@@ -43,7 +44,7 @@ class PermissionActivity : AppCompatActivity() {
             }
         }
 
-        btnBind.setOnClickListener {
+        vb.btnBind.setOnClickListener {
             PermissionRequest(this).requestEach(
                 arrayOf(
                     Manifest.permission.CAMERA,Manifest.permission.BIND_NOTIFICATION_LISTENER_SERVICE

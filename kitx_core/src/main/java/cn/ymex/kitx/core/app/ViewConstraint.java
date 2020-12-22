@@ -12,7 +12,7 @@ import androidx.lifecycle.ViewModel;
 
 import java.util.List;
 
-public interface UiView {
+public interface ViewConstraint {
     /**
      * layout view
      *
@@ -50,9 +50,16 @@ public interface UiView {
 
     List<ViewModel> getViewModels();
 
+    /**
+     * 设置共用的Observer
+     * @param viewModel
+     */
     void setCommonObserver(ViewModel viewModel);
 
-    void observeViewModel(List<ViewModel> viewModels);
+    /**
+     * ViewModel observe
+     */
+    void observeViewModel();
 
 
 }

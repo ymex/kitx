@@ -14,7 +14,7 @@ import androidx.lifecycle.ViewModel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AppFragment extends Fragment implements UiView {
+public class ViewModelFragment extends Fragment implements ViewConstraint {
 
     @Nullable
     @Override
@@ -39,7 +39,7 @@ public class AppFragment extends Fragment implements UiView {
         for (ViewModel vm : vms) {
             setCommonObserver(vm);
         }
-        observeViewModel(vms);
+        observeViewModel();
     }
 
     @Override
@@ -48,7 +48,7 @@ public class AppFragment extends Fragment implements UiView {
     }
 
     @Override
-    public void observeViewModel(List<ViewModel> viewModels) {
+    public void observeViewModel() {
 
     }
 

@@ -1,7 +1,12 @@
 package cn.ymex.kitx.anhttp
 
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import cn.ymex.kitx.anhttp.lifecycle.LifeViewModel
 import cn.ymex.kitx.anhttp.lifecycle.StateViewModel
+import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.Retrofit
@@ -47,21 +52,7 @@ fun <R> anHttpRequest(
     call.enqueue(callback)
 }
 
-//inline fun <reified T, R> anHttpRequest(
-//    block: (service: T) -> Call<R>,
-//    callback: ResponseCallback<R>
-//) {
-//    anHttpRequest(callback, block)
-//}
-//
-//fun <R> anHttpRequest(
-//    block: () -> Call<R>,
-//    callback: ResponseCallback<R>
-//) {
-//    anHttpRequest(callback, block)
-//}
 
-//- - - - - - -
 
 inline fun <reified T, R> LifeViewModel.anHttpRequest(
     block: (service: T) -> Call<R>,
@@ -88,20 +79,7 @@ fun <R> LifeViewModel.anHttpRequest(
     call.enqueue(callback)
 }
 
-//inline fun <reified T, R> LifeViewModel.anHttpRequest(
-//    block: (service: T) -> Call<R>,
-//    callback: ResponseCallback<R>
-//) {
-//    this.anHttpRequest(callback, block)
-//}
-//
-//
-//fun <R> LifeViewModel.anHttpRequest(
-//    block: () -> Call<R>,
-//    callback: ResponseCallback<R>
-//) {
-//    this.anHttpRequest(callback, block)
-//}
+
 
 //------------------------anHttpResponse- http Response callback----------------
 
@@ -152,7 +130,7 @@ fun <T> anHttpResponse(
     return HttpResponse(response, {}, {}, { false }, null, true)
 }
 
-///////////////StateViewModel
+//--------------------------------------------------StateViewModel.anHttpResponse
 
 fun <T> StateViewModel.anHttpResponse(
     loading: Boolean = true,
@@ -204,9 +182,8 @@ fun <T> StateViewModel.anHttpResponse(
 }
 
 
-//----新增非数据
+//--------------------------------------------------anHttpRawResponse
 
-//--------------------------------------------------start
 fun <T> anHttpRawResponse(
     loading: Boolean = true,
     response: (data: Response<T>) -> Boolean,
@@ -255,8 +232,9 @@ fun <T> anHttpRawResponse(
 ): HttpResponse<T> {
     return HttpResponse({}, {}, {}, response, null, true)
 }
-//==================================================end
-//--------------------------------------------------start
+
+
+//--------------------------------------------------StateViewModel.anHttpRawResponse
 
 fun <T> StateViewModel.anHttpRawResponse(
     loading: Boolean = true,
@@ -307,3 +285,51 @@ fun <T> StateViewModel.anHttpRawResponse(
     return HttpResponse({}, {}, {}, response, this, true)
 }
 
+
+
+//--------------------------------------------------协程处理
+
+fun ViewModel.anHttpLaunchCallBack(loading: Boolean = true,
+                                   start: () -> Unit = {},
+                                   complete: () -> Unit = {},
+                                   failure: (t: Throwable) -> Unit = {}) : HttpLaunchCallBack{
+    return if (this is StateViewModel) {
+        HttpLaunchCallBack(start,complete,failure,this,loading)
+    }else{
+        HttpLaunchCallBack(start,complete,failure,null,loading)
+    }
+}
+
+fun ViewModel.launch(
+    callback:LaunchCallBack? = null,
+    block: suspend CoroutineScope.() -> Unit
+) {
+    viewModelScope.launch(CoroutineExceptionHandler { _, throwable ->
+        callback?.run {
+            onFailure(throwable)
+        }
+    }) {
+        callback?.run {
+            onStart()
+        }
+        block.invoke(this)
+        callback?.run {
+            onComplete()
+        }
+    }
+}
+
+fun ViewModel.httpLaunch(
+    callback:HttpLaunchCallBack = anHttpLaunchCallBack(true),
+    block: suspend CoroutineScope.() -> Unit
+) {
+    launch (callback,block)
+}
+
+fun ViewModel.httpLaunch(
+    loading: Boolean = true,
+    failure: (t: Throwable) -> Unit = {},
+    block: suspend CoroutineScope.() -> Unit
+) {
+    launch (anHttpLaunchCallBack(loading,failure = failure),block)
+}

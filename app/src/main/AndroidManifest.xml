@@ -30,7 +30,7 @@
         <activity android:name="cn.ymex.kitx.sample.adapter.AdapterActivity" />
         <activity android:name=".permission.PermissionActivity" />
         <activity android:name=".webview.BridgeActivity" />
-        <activity android:name=".anhttp.AnhttpActivity" />
+        <activity android:name=".anhttp.AnhttpStartActivity" />
 
         <service
             android:name=".core.MutService"

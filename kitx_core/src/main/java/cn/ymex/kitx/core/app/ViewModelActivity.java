@@ -14,18 +14,19 @@ import androidx.lifecycle.ViewModel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AppActivity extends AppCompatActivity implements UiView {
-
+public class ViewModelActivity extends AppCompatActivity implements ViewConstraint {
+    private View rootView ;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         int layoutId = onCreateView(savedInstanceState);
         if (layoutId != 0) {
-            setContentView(layoutId);
+            rootView  = LayoutInflater.from(this).inflate(layoutId, null);
+            setContentView(rootView);
         } else {
-            View view = onCreateView(LayoutInflater.from(this), null, savedInstanceState);
-            if (view != null) {
-                setContentView(view);
+            rootView = onCreateView(LayoutInflater.from(this), null, savedInstanceState);
+            if (rootView != null) {
+                setContentView(rootView);
             }
         }
     }
@@ -33,19 +34,23 @@ public class AppActivity extends AppCompatActivity implements UiView {
     @Override
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
+
+        if (rootView != null) {
+            onViewCreated(rootView,savedInstanceState);
+        }else {
+            View view = this.getWindow().getDecorView().findViewById(android.R.id.content);
+            if (view instanceof ViewGroup && ((ViewGroup) view).getChildCount() > 0) {
+                onViewCreated(((ViewGroup) view).getChildAt(0), savedInstanceState);
+            } else {
+                onViewCreated(view, savedInstanceState);
+            }
+        }
+
         List<ViewModel> vms = getViewModels();
         for (ViewModel vm : vms) {
             setCommonObserver(vm);
         }
-
-        View view = this.getWindow().getDecorView().findViewById(android.R.id.content);
-        if (view instanceof ViewGroup && ((ViewGroup) view).getChildCount() > 0) {
-            onViewCreated(((ViewGroup) view).getChildAt(0), savedInstanceState);
-        } else {
-            onViewCreated(view, savedInstanceState);
-        }
-
-        observeViewModel(vms);
+        observeViewModel();
     }
 
     @Override
@@ -70,12 +75,14 @@ public class AppActivity extends AppCompatActivity implements UiView {
 
     @Override
     public View getView() {
+        if (rootView != null) {
+            return rootView;
+        }
         View view = this.getWindow().getDecorView().findViewById(android.R.id.content);
         if (view instanceof ViewGroup && ((ViewGroup) view).getChildCount() > 0) {
             return ((ViewGroup) view).getChildAt(0);
-        } else {
-            return view;
         }
+        return view;
     }
 
     @Override
@@ -84,7 +91,7 @@ public class AppActivity extends AppCompatActivity implements UiView {
     }
 
     @Override
-    public void observeViewModel(List<ViewModel> viewModels) {
+    public void observeViewModel() {
 
     }
 

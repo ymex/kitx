@@ -1,6 +1,8 @@
 package cn.ymex.kitx.sample.anhttp
 
+import android.content.Context
 import android.os.Bundle
+import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,11 +17,14 @@ import cn.ymex.kitx.sample.R
 import cn.ymex.kitx.sample.anhttp.repository.vo.Image
 import cn.ymex.kitx.sample.anhttp.viewmodel.ApiViewModel
 import cn.ymex.kitx.sample.anhttp.viewmodel.LoginVMFactory
+import cn.ymex.kitx.sample.databinding.ActivityAnhttpBinding
 import cn.ymex.kitx.widget.glide.GlideImageView
-import kotlinx.android.synthetic.main.activity_anhttp.*
 
 
-public class AnhttpActivity : BaseHttpActivity() {
+public class AnhttpStartActivity : BaseHttpStartActivity() {
+
+
+    lateinit var vb :ActivityAnhttpBinding
 
     private val apiViewModel: ApiViewModel by viewModels { LoginVMFactory }
     val delegateAdapter = DelegateAdapter.create()
@@ -32,52 +37,28 @@ public class AnhttpActivity : BaseHttpActivity() {
         return R.layout.activity_anhttp
     }
 
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        vRefresh.setOnRefreshListener {
+        vb = ActivityAnhttpBinding.bind(view)
+        vb.vRefresh.setOnRefreshListener {
             requestImages()
         }
 
-        vRefresh.setOnLoadMoreListener {
+        vb.vRefresh.setOnLoadMoreListener {
             requestImages()
         }
 
-        vRecycler.layoutManager = GridLayoutManager(this, 2)
+        vb.vRecycler.layoutManager = GridLayoutManager(this, 2)
         delegateAdapter.bind(Image::class.java, BingImageBinder())
-        delegateAdapter.attachRecyclerView(vRecycler)
+        delegateAdapter.attachRecyclerView(vb.vRecycler)
         requestImages()
-
-//方式 1
-//        anHttpRequest<ApiService, UserInfo?>({
-//            val param = Param.stream()
-//            it.login(param)
-//        }, HttpResponse(response = {
-//
-//        }, failure = {
-//
-//        }, start = {
-//
-//        }))
-
-//方式2
-//        anHttpRequest<UserInfo?>(
-//            {
-//                ApiRepos(createRetrofitService()).login("", "", "")
-//            }, HttpResponse(response = {}, failure = {}, start = {})
-//        )
-//方式3
-//        anHttpRequest<UserInfo?>({
-//            ApiRepos(createRetrofitService()).login("", "", "")
-//        }, anHttpResponse {
-//
-//        })
-
     }
 
 
-    override fun observeViewModel(viewModels: MutableList<ViewModel>?) {
-        super.observeViewModel(viewModels)
+    override fun observeViewModel() {
+        super.observeViewModel()
         apiViewModel.liveImagesData.observe(this, Observer {
             delegateAdapter.data = it
             finishRefreshLoadMore()
@@ -90,9 +71,9 @@ public class AnhttpActivity : BaseHttpActivity() {
     }
 
     fun finishRefreshLoadMore() {
-        vRefresh.finishRefresh()
-        vRefresh.finishLoadMore()
-        vState.showContentView()
+        vb.vRefresh.finishRefresh()
+        vb.vRefresh.finishLoadMore()
+        vb.vState.showContentView()
     }
 }
 

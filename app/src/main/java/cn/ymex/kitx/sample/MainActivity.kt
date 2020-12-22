@@ -10,22 +10,25 @@ import cn.ymex.kitx.core.storage.SharedPreferences
 import cn.ymex.kitx.sample.adapter.ActInt
 import cn.ymex.kitx.sample.adapter.AdapterActivity
 import cn.ymex.kitx.sample.adapter.BinderItemAction
-import cn.ymex.kitx.sample.anhttp.AnhttpActivity
+import cn.ymex.kitx.sample.anhttp.AnhttpStartActivity
+import cn.ymex.kitx.sample.databinding.MainActivityBinding
 import cn.ymex.kitx.sample.permission.PermissionActivity
 import cn.ymex.kitx.sample.webview.BridgeActivity
 import cn.ymex.kitx.tips.view.itemDecorationDrawable
 import cn.ymex.kitx.tips.view.todip
 import cn.ymex.kitx.tips.view.verticalItemDecoration
 
-import kotlinx.android.synthetic.main.main_activity.*
 
 class MainActivity : AppCompatActivity() {
 
+    lateinit var bv :MainActivityBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.main_activity)
-        vRecycler.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        vRecycler.addItemDecoration(
+        bv = MainActivityBinding.inflate(layoutInflater)
+        setContentView(bv.root)
+        bv.vRecycler.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        bv.vRecycler.addItemDecoration(
             verticalItemDecoration(
                 this,
                 itemDecorationDrawable(height = 2.todip().toInt())
@@ -33,7 +36,7 @@ class MainActivity : AppCompatActivity() {
         )
         val delegateAdapter = DelegateAdapter.create()
         delegateAdapter.bind(ActInt::class.java, BinderItemAction())
-        delegateAdapter.attachRecyclerView(vRecycler)
+        delegateAdapter.attachRecyclerView(bv.vRecycler)
         SharedPreferences.put("k_v", System.currentTimeMillis())
         delegateAdapter.data = mutableListOf(
             ActInt("pure adapter") {
@@ -47,7 +50,7 @@ class MainActivity : AppCompatActivity() {
                 val intent = Intent(this, BridgeActivity::class.java)
                 startActivity(intent)
             }, ActInt("Http Request") {
-                val intent = Intent(this, AnhttpActivity::class.java)
+                val intent = Intent(this, AnhttpStartActivity::class.java)
                 startActivity(intent)
             }) as List<Any>?
     }

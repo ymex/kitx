@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import cn.ymex.kitx.core.adapter.recycler.DelegateAdapter
 
@@ -14,12 +14,12 @@ import cn.ymex.kitx.sample.R
 import cn.ymex.kitx.sample.adapter.BinderItemCata
 import cn.ymex.kitx.sample.adapter.BinderItemVideo
 import cn.ymex.kitx.sample.adapter.Video
+import cn.ymex.kitx.sample.databinding.MainFragmentBinding
 import cn.ymex.kitx.tips.view.itemDecorationDrawable
 import cn.ymex.kitx.tips.view.verticalItemDecoration
-import kotlinx.android.synthetic.main.main_fragment.*
 
 class MainFragment : Fragment() {
-
+    lateinit var vb : MainFragmentBinding
     companion object {
         fun newInstance() = MainFragment()
     }
@@ -30,13 +30,15 @@ class MainFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return inflater.inflate(R.layout.main_fragment, container, false)
+        vb = MainFragmentBinding.inflate(inflater,container,false)
+        return vb.root
     }
 
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+
 
         val delegateAdapter = DelegateAdapter.create()
 //        val layoutManager = LinearLayoutManager(context!!,LinearLayoutManager.VERTICAL,false)
@@ -53,9 +55,9 @@ class MainFragment : Fragment() {
 
 
 
-        vRecycler.layoutManager = layoutManager
+        vb.vRecycler.layoutManager = layoutManager
 
-        vRecycler.addItemDecoration(
+        vb.vRecycler.addItemDecoration(
             verticalItemDecoration(
                 requireContext(),
                 itemDecorationDrawable(Color.GREEN, 20, 20, 8)
@@ -67,7 +69,7 @@ class MainFragment : Fragment() {
 
         delegateAdapter.bind(String::class.java, BinderItemCata())
             .bind(Video::class.java, BinderItemVideo())
-        delegateAdapter.attachRecyclerView(vRecycler)
+        delegateAdapter.attachRecyclerView(vb.vRecycler)
 
         delegateAdapter.data = mutableListOf(
             "热门电影",

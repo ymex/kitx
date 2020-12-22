@@ -2,13 +2,13 @@ package cn.ymex.kitx.start.app
 
 import android.content.Context
 import android.os.Bundle
-import cn.ymex.kitx.core.app.AppFragment
+import cn.ymex.kitx.core.app.ViewModelFragment
 import cn.ymex.kitx.start.eventbus.EventBusConfig
 import cn.ymex.kitx.start.eventbus.EventBusProxy
 import cn.ymex.kitx.start.eventbus.EventMessage
 
 
- open class Fragment : AppFragment() {
+open class StartFragment : ViewModelFragment(){
 
     override fun onAttach(context: Context) {
         super.onAttach(context)

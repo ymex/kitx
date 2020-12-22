@@ -3,7 +3,8 @@ apply from: "../build.lib_kt.gradle"
 def anhttp = rootProject.ext.kitx.anhttp
 
 if (anhttp.bintray) {
-    apply plugin: 'com.novoda.bintray-release'
+//    apply plugin: 'com.novoda.bintray-release'
+    apply plugin: 'com.github.panpf.bintray-publish'
     publish {
         userOrg = 'ymexcn'
         groupId = 'cn.ymex.kitx'
@@ -17,9 +18,11 @@ if (anhttp.bintray) {
 dependencies {
     def retrofit2_version = "2.7.2"
     def okhttp3_version = "4.4.0"
+
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0'
+
     api "com.squareup.okhttp3:okhttp:$okhttp3_version"
     api "com.squareup.okhttp3:logging-interceptor:$okhttp3_version"
     api "com.squareup.retrofit2:retrofit:$retrofit2_version"
@@ -28,7 +31,7 @@ dependencies {
 }
 
 dependencies {
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    testImplementation 'junit:junit:4.13.1'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 }

@@ -58,3 +58,40 @@ class HttpResponse<T>(
         }
     }
 }
+
+
+class HttpLaunchCallBack(
+    val start: () -> Unit = {},
+    val complete: () -> Unit = {},
+    val failure: (t: Throwable) -> Unit ={},
+    private val vm: StateViewModel? = null,
+    private val load: Boolean = true
+):LaunchCallBack{
+
+
+    override fun onStart() {
+        println("---------> onStart" + load + "   "+vm)
+        vm?.run {
+            if (load) {
+                stater.postValue(PageState(ViewStatus.LOADING))
+            }
+        }
+        start()
+    }
+
+    override fun onFailure(t: Throwable) {
+        println("---------> onFailure "+t.localizedMessage)
+        failure(t)
+        vm?.run {
+            stater.postValue(PageState(ViewStatus.ERR, t))
+        }
+    }
+
+    override fun onComplete() {
+        println("---------> onComplete")
+        vm?.run {
+            stater.postValue(PageState(ViewStatus.NORMAL))
+        }
+        complete()
+    }
+}
