@@ -17,8 +17,9 @@
         android:paddingRight="16dip"
         android:paddingBottom="12dip"
         android:text="发现新版本"
-        android:textColor="#000000"
-        android:textSize="18sp" />
+        android:textStyle="bold"
+        android:textColor="#333333"
+        android:textSize="16sp" />
     <View
         android:layout_width="match_parent"
         android:layout_height="0.5dip"
@@ -74,7 +75,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="取消"
-                android:textColor="#999999"
+                android:textColor="@drawable/selector_button_text"
                 android:textSize="16sp" />
 
             <View
@@ -93,6 +94,7 @@
                 android:textColor="@drawable/selector_button_text"
                 android:textSize="16sp" />
         </LinearLayout>
+
         <LinearLayout
             android:visibility="gone"
             android:id="@+id/vProgressWrap"
