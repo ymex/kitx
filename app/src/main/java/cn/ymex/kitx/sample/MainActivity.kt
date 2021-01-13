@@ -13,6 +13,7 @@ import cn.ymex.kitx.sample.adapter.BinderItemAction
 import cn.ymex.kitx.sample.anhttp.AnhttpStartActivity
 import cn.ymex.kitx.sample.databinding.MainActivityBinding
 import cn.ymex.kitx.sample.permission.PermissionActivity
+import cn.ymex.kitx.sample.updater.UpdaterActivity
 import cn.ymex.kitx.sample.webview.BridgeActivity
 import cn.ymex.kitx.tips.view.itemDecorationDrawable
 import cn.ymex.kitx.tips.view.todip
@@ -52,7 +53,11 @@ class MainActivity : AppCompatActivity() {
             }, ActInt("Http Request") {
                 val intent = Intent(this, AnhttpStartActivity::class.java)
                 startActivity(intent)
-            }) as List<Any>?
+            }, ActInt("update version") {
+                val intent = Intent(this, UpdaterActivity::class.java)
+                startActivity(intent)
+            }
+        ) as List<Any>?
     }
 
 }

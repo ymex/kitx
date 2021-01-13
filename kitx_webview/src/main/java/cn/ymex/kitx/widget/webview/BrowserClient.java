@@ -2,8 +2,6 @@ package cn.ymex.kitx.widget.webview;
 
 
 import android.graphics.Bitmap;
-
-import com.tencent.smtt.export.external.interfaces.WebResourceResponse;
 import com.tencent.smtt.sdk.WebView;
 import com.tencent.smtt.sdk.WebViewClient;
 
