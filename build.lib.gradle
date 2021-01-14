@@ -3,6 +3,7 @@ apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion 30
+    buildToolsVersion "30.0.2"
     defaultConfig {
         minSdkVersion 14
         targetSdkVersion 30
@@ -11,6 +12,10 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles 'consumer-rules.pro'
+
+        ndk {
+            abiFilters "armeabi", "armeabi-v7a", "x86", "mips"
+        }
     }
 
     buildTypes {
@@ -24,6 +29,12 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
     }
 }
 

@@ -25,8 +25,16 @@ ext {
                     version: "1.0.1",
                     bintray: false
             ],
+            umeng :[
+                    version: "0.0.1",
+                    bintray: false
+            ],
+            channel :[
+                    version: "0.0.1",
+                    bintray: false
+            ],
             start  : [
-                    version: "0.0.7",
+                    version: "0.0.8",
                     bintray: false
             ]
     ]
@@ -36,7 +44,7 @@ buildscript {
     repositories {
         google()
         jcenter()
-
+        maven { url 'https://dl.bintray.com/umsdk/release' }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:4.1.1'
@@ -52,6 +60,7 @@ allprojects {
     repositories {
         google()
         jcenter()
+        maven { url 'https://dl.bintray.com/umsdk/release' }
     }
 
     tasks.withType(Javadoc) {
