@@ -1,4 +1,4 @@
-package cn.ymex.tps.umeng
+package cn.ymex.kitx.tps.umeng
 
 import com.umeng.message.entity.UMessage
 
@@ -14,7 +14,7 @@ enum class PushBrand{
     MEIZU
 }
 
-open class PushConfig(val brand:PushBrand, val id:String = "", val key:String = "",val secret:String = "")
+open class PushConfig(val brand: PushBrand, val id:String = "", val key:String = "", val secret:String = "")
 
 
 

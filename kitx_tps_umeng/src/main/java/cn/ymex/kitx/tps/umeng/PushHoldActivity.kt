@@ -1,7 +1,8 @@
-package cn.ymex.tps.umeng
+package cn.ymex.kitx.tps.umeng
 
 import android.content.Intent
 import android.os.Bundle
+import cn.ymex.kitx.tps.umeng.PushMessage
 import com.umeng.message.UmengNotificationClickHandler
 import com.umeng.message.UmengNotifyClickActivity
 import com.umeng.message.entity.UMessage

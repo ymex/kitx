@@ -1,10 +1,13 @@
-package cn.ymex.tps.umeng
+package cn.ymex.kitx.tps.umeng
 
 import android.app.ActivityManager
 import android.app.Application
 import android.app.Notification
 import android.content.Context
 import android.os.Process
+import cn.ymex.kitx.tps.umeng.PushBrand
+import cn.ymex.kitx.tps.umeng.PushConfig
+import cn.ymex.kitx.tps.umeng.PushMessage
 import com.umeng.analytics.MobclickAgent
 import com.umeng.commonsdk.UMConfigure
 import com.umeng.message.*
@@ -25,7 +28,7 @@ class UmengManager {
     //消息处理
     var messageHandler:MessageHandler? = null
     //自定义通知视图
-    var notification:(context:Context,message:PushMessage)->Notification? = { _,_-> null }
+    var notification:(context:Context,message: PushMessage)->Notification? = { _, _-> null }
     //注册回调
     var registerCallback :(success:Boolean,info:String)->Unit = {_,_->}
     companion object {
@@ -71,24 +74,24 @@ class UmengManager {
 
         //自定义通知栏
             override fun getNotification(context: Context, message: UMessage): Notification? {
-            return notification(context,PushMessage(message))
+            return notification(context, PushMessage(message))
             }
 
             override fun dealWithCustomMessage(context: Context, message: UMessage) {
                 super.dealWithCustomMessage(context, message)
-                messageHandler?.dealWithMessage(context,message.display_type,PushMessage(message))
+                messageHandler?.dealWithMessage(context,message.display_type, PushMessage(message))
             }
 
             override fun dealWithNotificationMessage(context: Context, message: UMessage) {
                 super.dealWithNotificationMessage(context, message)
-                messageHandler?.dealWithMessage(context,message.display_type,PushMessage(message))
+                messageHandler?.dealWithMessage(context,message.display_type, PushMessage(message))
             }
         }
 
         //通知栏打开动作:仅限自定义行为
         pushAgent.notificationClickHandler = object :UmengNotificationClickHandler(){
             override fun dealWithCustomAction(context: Context, message: UMessage) {
-                messageHandler?.notificationClickCustomAction(context,PushMessage(message))
+                messageHandler?.notificationClickCustomAction(context, PushMessage(message))
                 super.dealWithCustomAction(context,message)
             }
         }
