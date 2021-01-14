@@ -1,4 +1,4 @@
-package cn.ymex.kitx.tps.umeng
+package cn.ymex.tps.umeng
 
 import org.android.agoo.mezu.MeizuPushReceiver
 

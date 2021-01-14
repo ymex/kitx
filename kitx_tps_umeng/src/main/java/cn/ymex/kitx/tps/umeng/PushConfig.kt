@@ -1,4 +1,6 @@
-package cn.ymex.kitx.tps.umeng;
+package cn.ymex.tps.umeng
+
+import com.umeng.message.entity.UMessage
 
 
 /***
@@ -13,3 +15,11 @@ enum class PushBrand{
 }
 
 open class PushConfig(val brand:PushBrand, val id:String = "", val key:String = "",val secret:String = "")
+
+
+
+class PushMessage(val body: UMessage){
+    override fun toString(): String {
+        return body.raw.toString()
+    }
+}

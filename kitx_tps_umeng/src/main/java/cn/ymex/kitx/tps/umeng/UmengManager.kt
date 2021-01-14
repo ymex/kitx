@@ -1,10 +1,10 @@
-package cn.ymex.kitx.tps.umeng
+package cn.ymex.tps.umeng
 
 import android.app.ActivityManager
 import android.app.Application
+import android.app.Notification
 import android.content.Context
 import android.os.Process
-import android.util.Log
 import com.umeng.analytics.MobclickAgent
 import com.umeng.commonsdk.UMConfigure
 import com.umeng.message.*
@@ -17,12 +17,17 @@ import org.android.agoo.xiaomi.MiPushRegistar
 
 
 class UmengManager {
-    private val TAG  = "UManager-UMENG"
     private lateinit var context: Application
     private lateinit var config :UmengConfig
     private lateinit var pushAgent:PushAgent
     private val pushConfigs = arrayListOf<PushConfig>()
     private var debugPush = true
+    //消息处理
+    var messageHandler:MessageHandler? = null
+    //自定义通知视图
+    var notification:(context:Context,message:PushMessage)->Notification? = { _,_-> null }
+    //注册回调
+    var registerCallback :(success:Boolean,info:String)->Unit = {_,_->}
     companion object {
 
         val instance by lazy(LazyThreadSafetyMode.SYNCHRONIZED) {
@@ -64,26 +69,26 @@ class UmengManager {
         //自定义通知栏
         pushAgent.messageHandler = object : UmengMessageHandler(){
 
-//      自定义通知栏
-//            override fun getNotification(context: Context, message: UMessage): Notification {
-//                return super.getNotification(context, message)
-//            }
+        //自定义通知栏
+            override fun getNotification(context: Context, message: UMessage): Notification? {
+            return notification(context,PushMessage(message))
+            }
 
             override fun dealWithCustomMessage(context: Context, message: UMessage) {
                 super.dealWithCustomMessage(context, message)
-                Log.i(TAG, "自定义通知栏：dealWithCustomMessage-------->  $message")
+                messageHandler?.dealWithMessage(context,message.display_type,PushMessage(message))
             }
 
             override fun dealWithNotificationMessage(context: Context, message: UMessage) {
-                Log.i(TAG, "自定义通知栏：dealWithNotificationMessage-------->  $message")
                 super.dealWithNotificationMessage(context, message)
+                messageHandler?.dealWithMessage(context,message.display_type,PushMessage(message))
             }
         }
 
         //通知栏打开动作:仅限自定义行为
         pushAgent.notificationClickHandler = object :UmengNotificationClickHandler(){
             override fun dealWithCustomAction(context: Context, message: UMessage) {
-                Log.i(TAG, "自定义通知栏2：getNotification-------->  $message")
+                messageHandler?.notificationClickCustomAction(context,PushMessage(message))
                 super.dealWithCustomAction(context,message)
             }
         }
@@ -91,20 +96,13 @@ class UmengManager {
 
         pushAgent.register(object : IUmengRegisterCallback {
             override fun onSuccess(deviceToken: String) {
-                if (debugPush){
-                    Log.i("UMENG", "注册成功：deviceToken：-------->  $deviceToken")
-                }
+                registerCallback(true,deviceToken)
             }
-
             override fun onFailure(p0: String, p1: String) {
-                if (debugPush){
-                    Log.i("UMENG", "注册失败：--------->$p0   $p1")
-                }
+               registerCallback(false,"$p0,$p1")
 
             }
         })
-
-
 
 
         /**
@@ -255,4 +253,26 @@ class UmengManager {
         return false
     }
 
+
+
+
+    interface MessageHandler {
+        /**
+         * 处理收到的消息
+         * @param type 消息类型 、、notification 、、message、、native
+         * @return bool
+         */
+        fun dealWithMessage(context: Context,type:String, message: PushMessage)
+
+        /**
+         * 厂商通知点击时处理
+         * @return true 自动处理
+         */
+        fun dealWithNativeMessage(context: Context, message: PushMessage):Boolean
+
+        /**
+         * 通知栏打开动作:仅限自定义行为
+         */
+        fun notificationClickCustomAction(context: Context, message: PushMessage)
+    }
 }
