@@ -184,20 +184,9 @@
                 <category android:name="${applicationId}"/>
             </intent-filter>
         </receiver>
-        <!-- 魅族 end-->
 
-        <!-- VIVO厂商通道-->
-        <meta-data
-            android:name="com.vivo.push.api_key"
-            android:value="此处改为VIVO后台真实参数" />
-        <meta-data
-            android:name="com.vivo.push.app_id"
-            android:value="此处改为VIVO后台真实参数" />
 
-        <!-- HUAWEI厂商通道 -->
-        <meta-data
-            android:name="com.huawei.hms.client.appid"
-            android:value="此处改为huawei后台真实参数" />
+
 
 
 
