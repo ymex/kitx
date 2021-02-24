@@ -53,6 +53,13 @@ class AnHttpManager private constructor() {
                 .retryOnConnectionFailure(true)
                 .dispatcher(Dispatcher())
                 .addInterceptor(loggingInterceptor)
+                .addInterceptor{ chain ->
+                    val request = chain.request().newBuilder()
+                    instance.commonHeader.forEach {(k,v)->
+                        request.addHeader(k,v)
+                    }
+                    chain.proceed(request.build())
+                }
                 .sslSocketFactory(sslParams.sslSocketFactory, sslParams.trustManager)
                 .hostnameVerifier(HostnameVerifier { _, _ -> true })
                 .readTimeout(30, TimeUnit.SECONDS)

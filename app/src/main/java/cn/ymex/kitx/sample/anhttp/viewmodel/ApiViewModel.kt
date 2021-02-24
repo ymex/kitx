@@ -60,7 +60,7 @@ class ApiViewModel(val apiRepos: ApiRepos) : StateViewModel() {
  */
 object LoginVMFactory : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        @Suppress("UNCHECKED_CAST")
+
         return ApiViewModel(ApiRepos(createRetrofitService())) as T
     }
 }
