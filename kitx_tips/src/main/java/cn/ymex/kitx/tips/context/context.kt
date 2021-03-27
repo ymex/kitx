@@ -221,3 +221,17 @@ fun Context.createFloatWindow(
     block(wmParams)
     mWindowManager.addView(view, wmParams)
 }
+
+
+val Context.versionCode:Long
+    get() {
+        val pm = packageManager.getPackageInfo(packageName,0)
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            pm.longVersionCode
+        } else {
+            pm.versionCode.toLong()
+        }
+    }
+
+val Context.versionName:String
+    get()  = packageManager.getPackageInfo(packageName,0).versionName

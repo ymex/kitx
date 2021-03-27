@@ -26,29 +26,26 @@ fun getScreenWidth(): Int {
     return metrics.widthPixels
 }
 
-/**
- * dp to px
- *
- * @param dp dip
- * @return int
- */
-fun Float.topx(): Int {
-    return TypedValue.applyDimension(
-        TypedValue.COMPLEX_UNIT_DIP, this,
-        Resources.getSystem().displayMetrics
-    ).toInt()
-}
+
+val Float.px:Int
+    get() =TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX,this,Resources.getSystem().displayMetrics).toInt()
+
+val Int.px:Float
+    get() =TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX,this.toFloat(),Resources.getSystem().displayMetrics)
 
 
-/**
- * px to dip
- *
- * @param px px
- * @return float
- */
-fun Int.todip(): Float {
-    return this / metrics.density + 0.5f
-}
+val Int.dp:Float
+    get() = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,this.toFloat(),Resources.getSystem().displayMetrics)
+
+val Float.dp:Float
+    get() = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,this,Resources.getSystem().displayMetrics)
+
+
+val Int.sp:Float
+    get() = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,this.toFloat(),Resources.getSystem().displayMetrics)
+
+val Float.sp:Float
+    get() = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,this,Resources.getSystem().displayMetrics)
 
 
 /**
