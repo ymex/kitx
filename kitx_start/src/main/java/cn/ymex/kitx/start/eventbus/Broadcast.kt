@@ -3,7 +3,7 @@ package cn.ymex.kitx.start.eventbus
 import org.greenrobot.eventbus.EventBus
 
 
-object EventBusProxy {
+object Broadcast {
     fun register(any: Any) {
         EventBus.getDefault().register(any)
     }
@@ -12,7 +12,7 @@ object EventBusProxy {
         EventBus.getDefault().unregister(any)
     }
 
-    fun post(message: EventMessage) {
+    fun post(message: BroadCastMessage) {
         EventBus.getDefault().post(message)
     }
 }

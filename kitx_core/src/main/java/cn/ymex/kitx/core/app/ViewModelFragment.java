@@ -19,6 +19,7 @@ public class ViewModelFragment extends Fragment implements ViewConstraint {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        beforeSetContentView(savedInstanceState);
         int layoutID = onCreateView(savedInstanceState);
         if (layoutID != 0) {
             return inflater.inflate(layoutID, null, false);
@@ -57,4 +58,9 @@ public class ViewModelFragment extends Fragment implements ViewConstraint {
         return new ArrayList<>();
     }
 
+
+    @Override
+    public void beforeSetContentView(Bundle savedInstanceState) {
+
+    }
 }

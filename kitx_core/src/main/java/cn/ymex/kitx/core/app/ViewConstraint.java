@@ -62,4 +62,5 @@ public interface ViewConstraint {
     void observeViewModel();
 
 
+    void beforeSetContentView( Bundle savedInstanceState);
 }

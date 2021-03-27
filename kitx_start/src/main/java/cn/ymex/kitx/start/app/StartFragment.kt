@@ -2,10 +2,11 @@ package cn.ymex.kitx.start.app
 
 import android.content.Context
 import android.os.Bundle
+import android.view.View
 import cn.ymex.kitx.core.app.ViewModelFragment
-import cn.ymex.kitx.start.eventbus.EventBusConfig
-import cn.ymex.kitx.start.eventbus.EventBusProxy
-import cn.ymex.kitx.start.eventbus.EventMessage
+import cn.ymex.kitx.start.eventbus.BroadcastConfig
+import cn.ymex.kitx.start.eventbus.Broadcast
+import cn.ymex.kitx.start.eventbus.BroadCastMessage
 
 
 open class StartFragment : ViewModelFragment(){
@@ -55,6 +56,11 @@ open class StartFragment : ViewModelFragment(){
         initEventBus("onDestroyView")
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initEventBus("onViewCreated")
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         initEventBus("onDestroy")
@@ -69,21 +75,21 @@ open class StartFragment : ViewModelFragment(){
     private fun initEventBus(method: String) {
         val ebc = enableEventBus()
         if (ebc.enable && ebc.register == method) {
-            EventBusProxy.register(this)
+            Broadcast.register(this)
         }
         if (ebc.enable && ebc.unregister == method) {
-            EventBusProxy.unregister(this)
+            Broadcast.unregister(this)
         }
     }
 
     /**
      * user @Subscribe
      */
-    open fun doEventBusSubscribe(message: EventMessage) {
+    open fun doEventBusSubscribe(message: BroadCastMessage) {
 
     }
 
-    open fun enableEventBus(): EventBusConfig {
-        return EventBusConfig()
+    open fun enableEventBus(): BroadcastConfig {
+        return BroadcastConfig(register = "onViewCreated", unregister = "onDestroyView")
     }
 }

@@ -19,6 +19,7 @@ public class ViewModelActivity extends AppCompatActivity implements ViewConstrai
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        beforeSetContentView(savedInstanceState);
         int layoutId = onCreateView(savedInstanceState);
         if (layoutId != 0) {
             rootView  = LayoutInflater.from(this).inflate(layoutId, null);
@@ -98,6 +99,12 @@ public class ViewModelActivity extends AppCompatActivity implements ViewConstrai
     @Override
     public List<ViewModel> getViewModels() {
         return new ArrayList<>();
+    }
+
+
+    @Override
+    public void beforeSetContentView(Bundle savedInstanceState) {
+
     }
 
 }

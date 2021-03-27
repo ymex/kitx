@@ -18,6 +18,9 @@ import cn.ymex.kitx.tips.view.visibilityGone
 import cn.ymex.kitx.tips.view.visibilityShow
 import java.io.File
 
+/**
+ * 版本更新弹框
+ */
 class VersionDialogFragment : DialogFragment(), VersionUpdater.Listener {
 
     private lateinit var tvTitle: TextView
@@ -36,12 +39,18 @@ class VersionDialogFragment : DialogFragment(), VersionUpdater.Listener {
 
 
     companion object{
+        /**
+         * 版本信息的弹框
+         */
         fun show(@NonNull  manager: FragmentManager, @NonNull versionConfig: VersionConfig = VersionConfig(), tag:String = "updater_version_fragment"){
             val fragment = VersionDialogFragment()
             fragment.setStyle(STYLE_NO_TITLE,0)
             fragment.versionConfig = versionConfig
             fragment.show(manager,tag)
         }
+        /**
+         * 下载更新弹框
+         */
         fun show(@NonNull  manager: FragmentManager, @NonNull updateConfig: UpdateConfig,tag:String = "updater_update_fragment"){
             val fragment = VersionDialogFragment()
             fragment.setStyle(STYLE_NO_TITLE,0)
