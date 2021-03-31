@@ -15,8 +15,9 @@ import cn.ymex.kitx.sample.databinding.MainActivityBinding
 import cn.ymex.kitx.sample.permission.PermissionActivity
 import cn.ymex.kitx.sample.updater.UpdaterActivity
 import cn.ymex.kitx.sample.webview.BridgeActivity
+import cn.ymex.kitx.tips.view.dp
 import cn.ymex.kitx.tips.view.itemDecorationDrawable
-import cn.ymex.kitx.tips.view.todip
+import cn.ymex.kitx.tips.view.px
 import cn.ymex.kitx.tips.view.verticalItemDecoration
 
 
@@ -32,7 +33,7 @@ class MainActivity : AppCompatActivity() {
         bv.vRecycler.addItemDecoration(
             verticalItemDecoration(
                 this,
-                itemDecorationDrawable(height = 2.todip().toInt())
+                itemDecorationDrawable(height = 2.px.toInt())
             )
         )
         val delegateAdapter = DelegateAdapter.create()
