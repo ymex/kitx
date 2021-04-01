@@ -19,6 +19,6 @@ abstract class ViewBindingFragment<T:ViewBinding> :StartFragment(){
         savedInstanceState: Bundle?
     ): View? {
         vb = viewBinding()
-        return super.onCreateView(inflater, container, savedInstanceState)
+        return vb.root
     }
 }
