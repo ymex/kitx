@@ -14,7 +14,7 @@ ext {
                     bintray: false
             ],
             tips   : [
-                    version: "0.0.5",//unupdate
+                    version: "0.0.6",//un
                     bintray: false
             ],
             webview: [
@@ -22,7 +22,7 @@ ext {
                     bintray: false
             ],
             widget : [
-                    version: "1.0.2",//unupdate
+                    version: "1.0.2",
                     bintray: false
             ],
             umeng :[
@@ -30,7 +30,7 @@ ext {
                     bintray: false
             ],
             start  : [
-                    version: "0.1.0",//unupdate
+                    version: "0.1.1",//un
                     bintray: false
             ]
     ]

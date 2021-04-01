@@ -9,7 +9,7 @@ import androidx.viewbinding.ViewBinding
 
 abstract class ViewBindingFragment<T:ViewBinding> :StartFragment(){
 
-    protected lateinit var vb:ViewBinding
+    protected lateinit var vb:T
 
     abstract fun viewBinding():T
 

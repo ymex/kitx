@@ -1,6 +1,7 @@
 package cn.ymex.kitx.tips.view
 
 import android.view.View
+import android.view.ViewGroup
 import androidx.annotation.IdRes
 import java.util.concurrent.atomic.AtomicInteger
 
@@ -72,4 +73,24 @@ fun View.generateViewId(): Int {
             return result
         }
     }
+}
+
+/**
+ * 查找某一类型组件
+ */
+fun <T : View> View.findViews(
+    cl: Class<T>,
+    judge: (View, Class<T>) -> Boolean = { v, c -> v.javaClass.name == c.name }
+): List<T> {
+    val tvs = arrayListOf<T>()
+    if (this is ViewGroup) {
+        val cc = this.childCount
+        for (i in 0 until cc) {
+            tvs.addAll(getChildAt(i).findViews(cl))
+        }
+    }
+    if (judge(this, cl)) {
+        tvs.add(this as T)
+    }
+    return tvs
 }
