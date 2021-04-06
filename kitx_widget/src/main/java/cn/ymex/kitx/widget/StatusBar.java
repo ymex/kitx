@@ -35,7 +35,9 @@ class StatusBar extends View {
     }
 
     private void init(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        setBackgroundResource(android.R.color.background_dark);
+        if (getBackground()==null){
+            setBackgroundResource(android.R.color.transparent);
+        }
         if (isInEditMode()){
             setVisibility(GONE);
         }
