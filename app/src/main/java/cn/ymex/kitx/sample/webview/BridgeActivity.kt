@@ -1,17 +1,25 @@
 package cn.ymex.kitx.sample.webview
 
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import cn.ymex.kitx.sample.databinding.ActivityBridgeBinding
+import cn.ymex.kitx.start.app.ViewBindingActivity
 import cn.ymex.kitx.widget.webview.bridge.BridgeWebView
 import cn.ymex.kitx.widget.webview.bridge.OnReturnValue
 
 
-class BridgeActivity : AppCompatActivity() {
-    lateinit var vb : ActivityBridgeBinding
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+class BridgeActivity : ViewBindingActivity<ActivityBridgeBinding>() {
+
+
+    override fun viewBinding(): ActivityBridgeBinding {
+        return ActivityBridgeBinding.inflate(layoutInflater)
+    }
+
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         vb = ActivityBridgeBinding.inflate(layoutInflater)
         setContentView(vb.root)
         // set debug mode

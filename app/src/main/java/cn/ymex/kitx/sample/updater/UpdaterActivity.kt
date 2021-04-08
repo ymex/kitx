@@ -6,21 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import cn.ymex.kitx.sample.databinding.ActivityUpdaterBinding
 import cn.ymex.kitx.start.app.StartActivity
+import cn.ymex.kitx.start.app.ViewBindingActivity
 import cn.ymex.kitx.start.updater.UpdateConfig
 import cn.ymex.kitx.start.updater.VersionDialogFragment
 
-class UpdaterActivity :StartActivity() {
+class UpdaterActivity : ViewBindingActivity<ActivityUpdaterBinding>() {
 
-    lateinit var vb : ActivityUpdaterBinding
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        vb = ActivityUpdaterBinding.inflate(inflater)
-        return vb.root
+    override fun viewBinding(): ActivityUpdaterBinding {
+        return ActivityUpdaterBinding.inflate(layoutInflater)
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

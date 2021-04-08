@@ -2,18 +2,17 @@ package cn.ymex.kitx.sample.permission
 
 import android.Manifest
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import android.view.View
 import cn.ymex.kitx.core.permission.PermissionRequest
-import cn.ymex.kitx.sample.R
 import cn.ymex.kitx.sample.databinding.PermissionActivityBinding
+import cn.ymex.kitx.start.app.ViewBindingActivity
 
-class PermissionActivity : AppCompatActivity() {
-    lateinit var vb : PermissionActivityBinding
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        vb = PermissionActivityBinding.inflate(layoutInflater)
-        setContentView(vb.root)
+class PermissionActivity : ViewBindingActivity<PermissionActivityBinding>() {
 
+    override fun viewBinding() = PermissionActivityBinding.inflate(layoutInflater)
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         vb.btnRequest.setOnClickListener {
             PermissionRequest(this).request(
@@ -47,7 +46,8 @@ class PermissionActivity : AppCompatActivity() {
         vb.btnBind.setOnClickListener {
             PermissionRequest(this).requestEach(
                 arrayOf(
-                    Manifest.permission.CAMERA,Manifest.permission.BIND_NOTIFICATION_LISTENER_SERVICE
+                    Manifest.permission.CAMERA,
+                    Manifest.permission.BIND_NOTIFICATION_LISTENER_SERVICE
                 )
             ) {
                 println("-------permission request result: $it")

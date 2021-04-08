@@ -1,23 +1,27 @@
 package cn.ymex.kitx.sample.adapter
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import cn.ymex.kitx.sample.R
 import cn.ymex.kitx.sample.core.MutService
+import cn.ymex.kitx.sample.databinding.AdapterActivityBinding
 import cn.ymex.kitx.sample.ui.main.MainFragment
+import cn.ymex.kitx.start.app.ViewBindingActivity
 
-class AdapterActivity : AppCompatActivity() {
+class AdapterActivity : ViewBindingActivity<AdapterActivityBinding>() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.adapter_activity)
+    override fun viewBinding() = AdapterActivityBinding.inflate(layoutInflater)
+
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
                 .replace(R.id.container, MainFragment.newInstance())
                 .commitNow()
         }
-        startService(Intent(this,MutService::class.java))
+        startService(Intent(this, MutService::class.java))
     }
 
 }

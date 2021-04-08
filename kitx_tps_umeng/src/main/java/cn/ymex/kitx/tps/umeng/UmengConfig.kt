@@ -7,5 +7,6 @@ open class UmengConfig(
     val key: String,
     var messageSecret: String = "",
     val channel: String,
+    var debug:Boolean = true,
 )
 

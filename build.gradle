@@ -26,7 +26,7 @@ ext {
                     bintray: false
             ],
             umeng :[
-                    version: "0.0.2",
+                    version: "0.0.3_9.3.7",//un
                     bintray: false
             ],
             start  : [
@@ -56,6 +56,7 @@ allprojects {
     repositories {
         google()
         jcenter()
+        maven { url 'https://jitpack.io' }
         maven { url 'https://dl.bintray.com/umsdk/release' }
     }
 

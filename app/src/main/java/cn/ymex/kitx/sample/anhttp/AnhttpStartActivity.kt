@@ -21,20 +21,19 @@ import cn.ymex.kitx.sample.databinding.ActivityAnhttpBinding
 import cn.ymex.kitx.widget.glide.GlideImageView
 
 
-public class AnhttpStartActivity : BaseHttpStartActivity() {
+public class AnhttpStartActivity : BaseHttpStartActivity<ActivityAnhttpBinding>() {
 
 
-    lateinit var vb :ActivityAnhttpBinding
+    override fun viewBinding() = ActivityAnhttpBinding.inflate(layoutInflater)
+
 
     private val apiViewModel: ApiViewModel by viewModels { LoginVMFactory }
+
     val delegateAdapter = DelegateAdapter.create()
+
+
     override fun getViewModels(): MutableList<ViewModel> {
         return mutableListOf(apiViewModel)
-    }
-
-
-    override fun onCreateView(savedInstanceState: Bundle?): Int {
-        return R.layout.activity_anhttp
     }
 
 

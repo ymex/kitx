@@ -15,30 +15,26 @@ import cn.ymex.kitx.sample.adapter.BinderItemCata
 import cn.ymex.kitx.sample.adapter.BinderItemVideo
 import cn.ymex.kitx.sample.adapter.Video
 import cn.ymex.kitx.sample.databinding.MainFragmentBinding
+import cn.ymex.kitx.start.app.ViewBindingFragment
 import cn.ymex.kitx.tips.view.itemDecorationDrawable
 import cn.ymex.kitx.tips.view.verticalItemDecoration
 
-class MainFragment : Fragment() {
-    lateinit var vb : MainFragmentBinding
+class MainFragment : ViewBindingFragment<MainFragmentBinding>() {
     companion object {
         fun newInstance() = MainFragment()
     }
 
-    private lateinit var viewModel: MainViewModel
+    lateinit var viewModel: MainViewModel
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        vb = MainFragmentBinding.inflate(inflater,container,false)
-        return vb.root
+
+    override fun viewBinding(): MainFragmentBinding {
+        return MainFragmentBinding.inflate(layoutInflater)
     }
 
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
-
 
         val delegateAdapter = DelegateAdapter.create()
 //        val layoutManager = LinearLayoutManager(context!!,LinearLayoutManager.VERTICAL,false)
@@ -79,7 +75,6 @@ class MainFragment : Fragment() {
             "喜剧电影",
             Video("全球风暴"), Video("天才枪手"), Video("我的爸爸是森林之王")
         )
-
     }
 
 }
