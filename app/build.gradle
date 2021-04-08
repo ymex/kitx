@@ -69,8 +69,4 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
     api project(path: ':kitx_start')
-
-    implementation 'cn.ymex:kitx:tps.umeng-v0.0.3'
-
-
 }

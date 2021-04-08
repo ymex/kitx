@@ -3,9 +3,54 @@ apply from: "../build.lib_kt.gradle"
 def tips = rootProject.ext.kitx.tips
 
 if (tips.bintray) {
+
+    android{
+        defaultPublishConfig "lowRelease"
+
+        flavorDimensions "level"
+
+        productFlavors {
+            high {
+                dimension "level"
+
+            }
+            low {
+                dimension "level"
+            }
+        }
+    }
+
     apply plugin: 'com.github.dcendents.android-maven'
-    group='com.github.ymex'
-    version = "${tips.name}-v${tips.version}"
+    group="com.github.ymex.${tips.name}"
+    version = "${tips.version}"
+
+//    if (android.productFlavors.size() > 0) {
+//        android.libraryVariants.all { variant ->
+//            if (variant.name.toLowerCase().contains("debug")) {
+//                return
+//            }
+//
+//            def bundleTask = tasks["bundle${variant.name.capitalize()}"]
+//
+//            artifacts {
+//                archives(bundleTask.archivePath) {
+//                    classifier variant.flavorName
+//                    builtBy bundleTask
+//                    name = project.name
+//                }
+//            }
+//
+//        }
+//    }
+}
+
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from android.sourceSets.main.javaDirectories
+}
+
+artifacts {
+    archives sourcesJar
 }
 
 dependencies {

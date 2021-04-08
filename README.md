@@ -13,7 +13,8 @@ App 开发核心类
 ## kitx_tips 
 
 常用方法拓展
-```shell
+```groovy
+ implementation 'cn.ymex:kitx:tips-v0.0.6'
 ```
 
 ## kitx_gilde
