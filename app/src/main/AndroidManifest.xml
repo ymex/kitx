@@ -10,16 +10,18 @@
     <uses-permission
         android:name="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE"
         tools:ignore="ProtectedPermissions" />
-
+    <uses-sdk tools:overrideLibrary=""/>
     <application
+        tools:replace="android:allowBackup"
         android:name=".AppContext"
-        android:allowBackup="true"
+        android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".umeng.UmengActivity"></activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,7 +29,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="cn.ymex.kitx.sample.adapter.AdapterActivity" />
+        <activity android:name=".adapter.AdapterActivity" />
         <activity android:name=".permission.PermissionActivity" />
         <activity android:name=".webview.BridgeActivity" />
         <activity android:name=".anhttp.AnhttpStartActivity" />
@@ -36,7 +38,6 @@
         <service
             android:name=".core.MutService"
             android:process=":mut" />
-
         <service
             android:name=".permission.NoticeService"
             android:label="通知使用权测试程序"
@@ -45,8 +46,6 @@
                 <action android:name="android.service.notification.NotificationListenerService" />
             </intent-filter>
         </service>
-
-
     </application>
 
 </manifest>

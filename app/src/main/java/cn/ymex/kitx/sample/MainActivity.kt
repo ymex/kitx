@@ -14,6 +14,7 @@ import cn.ymex.kitx.sample.adapter.BinderItemAction
 import cn.ymex.kitx.sample.anhttp.AnhttpStartActivity
 import cn.ymex.kitx.sample.databinding.MainActivityBinding
 import cn.ymex.kitx.sample.permission.PermissionActivity
+import cn.ymex.kitx.sample.umeng.UmengActivity
 import cn.ymex.kitx.sample.updater.UpdaterActivity
 import cn.ymex.kitx.sample.webview.BridgeActivity
 import cn.ymex.kitx.start.app.ViewBindingActivity
@@ -57,7 +58,10 @@ class MainActivity : ViewBindingActivity<MainActivityBinding>() {
             }, ActInt("update version") {
                 val intent = Intent(this, UpdaterActivity::class.java)
                 startActivity(intent)
-            }
+            }, ActInt("umeng") {
+                val intent = Intent(this, UmengActivity::class.java)
+                startActivity(intent)
+            },
         ) as List<Any>?
     }
 
