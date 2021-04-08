@@ -6,17 +6,6 @@ if (umeng.bintray) {
     apply plugin: 'com.github.dcendents.android-maven'
     group='com.github.ymex'
     version = "${umeng.version}"
-
-//    apply plugin: 'com.novoda.bintray-release'
-//    apply plugin: 'com.github.panpf.bintray-publish'
-//    publish {
-//        userOrg = 'ymexcn'
-//        groupId = 'cn.ymex.kitx'
-//        artifactId = 'kitx-tps-umeng'
-//        publishVersion = "${umeng.version}"
-//        desc = 'A simplifies and accelerates Android developer tools and widget.'
-//        website = 'https://github.com/ymex/kitx/tree/master/kitx_tps_umeng'
-//    }
 }
 
 

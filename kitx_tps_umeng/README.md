@@ -1,13 +1,26 @@
+
+
+
+
 ## 厂商渠道
 
 仓库加入：
 
 ```
- repositories {
-        google()
-        jcenter()
-        maven { url 'https://dl.bintray.com/umsdk/release' }
-    }
+repositories {
+    google()
+    jcenter()
+    // 华为源（华为厂商通道）
+    maven { url 'https://developer.huawei.com/repo/'}
+    maven { url 'https://dl.bintray.com/umsdk/release' }
+}
+
+
+dependencies {
+    // 华为厂商通道插件
+    classpath 'com.huawei.agconnect:agcp:1.4.2.300'
+}
+
 ```
 
 vivo 与华为推送的参数 要在 AndroidManifest.xml中配置，其他的厂商参数 在代码里配置。 
@@ -32,42 +45,4 @@ vivo 与华为推送的参数 要在 AndroidManifest.xml中配置，其他的厂
 若要自定义厂商的离线推送、在`UmengManager.MessageHandler `里处理。
 
 
-```
-## 使用
-class UmengNotification {
-    companion object {
-        fun init(context: Application) {
-            val TAG = "UManager-UMENG"
-            val umc =
-                UmengConfig("xxxxx", "xxxx", "local")
-            val pcg = arrayListOf(
-                PushConfig(PushBrand.XIAOMI, "xxxx", "xxx"),
-                PushConfig(PushBrand.HUAWEI)
-            )
-            UmengManager.instance.registerCallback = { flag, info ->
-                Log.i(TAG, "注册结果：${flag}：-------->  $info")
-            }
-            UmengManager.instance.notification = { _, message ->
-                Log.i(TAG, "自定义通知栏：getNotification-------->  $message")
-                null
-            }
-            UmengManager.instance.messageHandler = object : UmengManager.MessageHandler {
-                override fun dealWithMessage(context: Context, type: String, message: PushMessage) {
-                    Log.i(TAG, "消息处理：dealWithMessage--------> $type $message")
-                }
-                override fun notificationClickCustomAction(context: Context, message: PushMessage) {
-                    Log.i(TAG, "消息处理：notificationClickCustomAction-------->  $message")
-                }
-                override fun dealWithNativeMessage(context: Context, message: PushMessage): Boolean {
-                    Log.i(TAG, "消息处理：dealWithNativeMessage--------> $message")
-                    return true
-                }
-            }
-            UmengManager.instance.register(
-                context,
-                umc, true, * pcg.toTypedArray()
-            )
-        }
-    }
-}
-```
+
