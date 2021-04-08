@@ -60,38 +60,46 @@ class HttpResponse<T>(
 }
 
 
+/**
+ * @param start  开始网络请求事件处理回调， 当返回true 时表示不再走ViewModel统一处理方法
+ * @param complete 收到网络响应结果事件处理回调， 当返回true 时表示不再走ViewModel统一处理方法
+ * @param failure 异常抛出事件处理回调， 当返回true 时表示不再走ViewModel统一处理方法
+ */
 class HttpLaunchCallBack(
-    val start: () -> Unit = {},
-    val complete: () -> Unit = {},
-    val failure: (t: Throwable) -> Unit ={},
+    val start: () -> Boolean = {false},
+    val complete: () -> Boolean = {false},
+    val failure: (t: Throwable) -> Boolean ={false},
     private val vm: StateViewModel? = null,
-    private val load: Boolean = true
 ):LaunchCallBack{
 
-
     override fun onStart() {
-        println("---------> onStart" + load + "   "+vm)
-        vm?.run {
-            if (load) {
-                stater.postValue(PageState(ViewStatus.LOADING))
-            }
+        val intercept = start()
+        if (intercept){
+            return
         }
-        start()
+        vm?.run {
+                stater.postValue(PageState(ViewStatus.LOADING))
+        }
+
     }
 
     override fun onFailure(t: Throwable) {
-        println("---------> onFailure "+t.localizedMessage)
-        failure(t)
+        val intercept = failure(t)
+        if (intercept){
+            return
+        }
         vm?.run {
             stater.postValue(PageState(ViewStatus.ERR, t))
         }
     }
 
     override fun onComplete() {
-        println("---------> onComplete")
+        val intercept =  complete()
+        if (intercept){
+            return
+        }
         vm?.run {
             stater.postValue(PageState(ViewStatus.NORMAL))
         }
-        complete()
     }
 }

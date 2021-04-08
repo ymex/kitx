@@ -42,6 +42,7 @@ class ApiViewModel(val apiRepos: ApiRepos) : StateViewModel() {
         httpLaunch{
             val result = async { apiRepos.getImages2("js", 0, size) }
             liveImagesData.value = result.await().images
+
         }
 
         //异步http请求

@@ -53,7 +53,6 @@ fun <R> anHttpRequest(
 }
 
 
-
 inline fun <reified T, R> LifeViewModel.anHttpRequest(
     block: (service: T) -> Call<R>,
     callback: ResponseCallback<R>
@@ -78,7 +77,6 @@ fun <R> LifeViewModel.anHttpRequest(
     put(call)
     call.enqueue(callback)
 }
-
 
 
 //------------------------anHttpResponse- http Response callback----------------
@@ -286,22 +284,22 @@ fun <T> StateViewModel.anHttpRawResponse(
 }
 
 
-
 //--------------------------------------------------协程处理
 
-fun ViewModel.anHttpLaunchCallBack(loading: Boolean = true,
-                                   start: () -> Unit = {},
-                                   complete: () -> Unit = {},
-                                   failure: (t: Throwable) -> Unit = {}) : HttpLaunchCallBack{
+fun ViewModel.anHttpLaunchCallBack(
+    start: () -> Boolean = { false },
+    complete: () -> Boolean = { false },
+    failure: (t: Throwable) -> Boolean = { false }
+): HttpLaunchCallBack {
     return if (this is StateViewModel) {
-        HttpLaunchCallBack(start,complete,failure,this,loading)
-    }else{
-        HttpLaunchCallBack(start,complete,failure,null,loading)
+        HttpLaunchCallBack(start, complete, failure, this)
+    } else {
+        HttpLaunchCallBack(start, complete, failure, null)
     }
 }
 
 fun ViewModel.launch(
-    callback:LaunchCallBack? = null,
+    callback: LaunchCallBack? = null,
     block: suspend CoroutineScope.() -> Unit
 ) {
     viewModelScope.launch(CoroutineExceptionHandler { _, throwable ->
@@ -320,16 +318,14 @@ fun ViewModel.launch(
 }
 
 fun ViewModel.httpLaunch(
-    callback:HttpLaunchCallBack = anHttpLaunchCallBack(true),
     block: suspend CoroutineScope.() -> Unit
 ) {
-    launch (callback,block)
+    launch(anHttpLaunchCallBack(), block)
 }
 
 fun ViewModel.httpLaunch(
-    loading: Boolean = true,
-    failure: (t: Throwable) -> Unit = {},
+    failure: (t: Throwable) -> Boolean = {false},
     block: suspend CoroutineScope.() -> Unit
 ) {
-    launch (anHttpLaunchCallBack(loading,failure = failure),block)
+    launch(anHttpLaunchCallBack(failure = failure), block)
 }
