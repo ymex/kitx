@@ -70,4 +70,7 @@ dependencies {
 
     api project(path: ':kitx_start')
 
+//    implementation 'com.github.ymex:kitx:v0.0.1'
+
+
 }
