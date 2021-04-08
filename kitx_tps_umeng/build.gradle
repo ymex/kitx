@@ -3,9 +3,30 @@ apply from: "../build.lib_kt.gradle"
 def umeng = rootProject.ext.kitx.umeng
 
 if (umeng.bintray) {
-    apply plugin: 'com.github.dcendents.android-maven'  //添加这两行
-    group='com.github.ymex'  //GitHub昵称
+
+    apply plugin : 'maven-publish'
+
+    group='com.github.ymex.kitx'
     version = "0.0.3"
+
+
+    afterEvaluate {
+        publishing {
+            publications {
+                // Creates a Maven publication called "release".
+                release(MavenPublication) {
+                    from components.release
+                    groupId = 'com.github.ymex.kitx'
+                    artifactId = 'kitx-tps-umeng'
+                    version = '0.0.4'
+                }
+            }
+        }
+    }
+
+//    apply plugin: 'com.github.dcendents.android-maven'  //添加这两行
+//    group='com.github.ymex'
+//    version = "0.0.3"
 
 //    apply plugin: 'com.novoda.bintray-release'
 //    apply plugin: 'com.github.panpf.bintray-publish'
@@ -18,7 +39,6 @@ if (umeng.bintray) {
 //        website = 'https://github.com/ymex/kitx/tree/master/kitx_tps_umeng'
 //    }
 }
-
 
 
 dependencies {
