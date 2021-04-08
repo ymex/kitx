@@ -4,8 +4,8 @@ def umeng = rootProject.ext.kitx.umeng
 
 if (umeng.bintray) {
     apply plugin: 'com.github.dcendents.android-maven'
-    group='com.github.ymex'
-    version = "${umeng.name}-v${umeng.version}"
+    group='com.github.ymex.${umeng.name}'
+    version = "${umeng.version}"
 }
 
 

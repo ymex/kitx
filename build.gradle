@@ -32,9 +32,9 @@ ext {
                     bintray: false
             ],
             umeng :[
-                    name : "tps.umeng",
-                    version: "v0.0.3",
-                    bintray: false
+                    name : "tps-umeng",
+                    version: "0.0.3",
+                    bintray: true
             ],
             start  : [
                     name: "start",

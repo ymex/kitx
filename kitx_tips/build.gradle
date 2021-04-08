@@ -2,21 +2,21 @@ apply from: "../build.lib_kt.gradle"
 
 def tips = rootProject.ext.kitx.tips
 
-android{
-    defaultPublishConfig "lowRelease"
-
-    flavorDimensions "level"
-
-    productFlavors {
-        high {
-            dimension "level"
-
-        }
-        low {
-            dimension "level"
-        }
-    }
-}
+//android{
+//    defaultPublishConfig "lowRelease"
+//
+//    flavorDimensions "level"
+//
+//    productFlavors {
+//        high {
+//            dimension "level"
+//
+//        }
+//        low {
+//            dimension "level"
+//        }
+//    }
+//}
 
 if (tips.bintray) {
      //
@@ -24,25 +24,25 @@ if (tips.bintray) {
     group="com.github.ymex.${tips.name}"
     version = "${tips.version}"
 
-    if (android.productFlavors.size() > 0) {
-        android.libraryVariants.all { variant ->
-
-            if (variant.name.toLowerCase().contains("debug")) {
-                return
-            }
-
-            def bundleTask = tasks["bundle${variant.name.capitalize()}Aar"]
-
-            artifacts {
-                archives(bundleTask.archivePath) {
-                    classifier variant.flavorName
-                    builtBy bundleTask
-                    name = project.name
-                }
-            }
-
-        }
-    }
+//    if (android.productFlavors.size() > 0) {
+//        android.libraryVariants.all { variant ->
+//
+//            if (variant.name.toLowerCase().contains("debug")) {
+//                return
+//            }
+//
+//            def bundleTask = tasks["bundle${variant.name.capitalize()}Aar"]
+//
+//            artifacts {
+//                archives(bundleTask.archivePath) {
+//                    classifier variant.flavorName
+//                    builtBy bundleTask
+//                    name = project.name
+//                }
+//            }
+//
+//        }
+//    }
 
 }
 
