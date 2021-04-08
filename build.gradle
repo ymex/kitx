@@ -1,10 +1,12 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 ext {
+    github = "com.github.ymex.kitx"
+
     kitx = [
             anhttp : [
                     name: 'anhttp',
                     version: "1.0.4",
-                    bintray: false
+                    bintray: true
             ],
             core   : [
                     name: 'core',
@@ -18,7 +20,7 @@ ext {
             ],
             tips   : [
                     name: 'tips',
-                    version: "0.0.6",//un
+                    version: "0.0.6",
                     bintray: true
             ],
             webview: [

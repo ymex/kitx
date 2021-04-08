@@ -2,26 +2,9 @@ apply from: "../build.lib_kt.gradle"
 
 def umeng = rootProject.ext.kitx.umeng
 
-
-//android{
-//    defaultPublishConfig "lowRelease"
-//
-//    flavorDimensions "level"
-//
-//    productFlavors {
-//        high {
-//            dimension "level"
-//
-//        }
-//        low {
-//            dimension "level"
-//        }
-//    }
-//}
-
 if (umeng.bintray) {
     apply plugin: 'com.github.dcendents.android-maven'
-    group='com.github.ymex.kitx'
+    group = "${rootProject.ext.github}"
     version = "${umeng.version}"
 }
 
@@ -51,8 +34,6 @@ dependencies {
 
     //集成U-APM（可选）
     implementation 'com.umeng.umsdk:apm:1.1.1'
-
-
 
 
     //厂商推送依赖-小米
