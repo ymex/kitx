@@ -2,9 +2,26 @@ apply from: "../build.lib_kt.gradle"
 
 def umeng = rootProject.ext.kitx.umeng
 
+
+android{
+    defaultPublishConfig "lowRelease"
+
+    flavorDimensions "level"
+
+    productFlavors {
+        high {
+            dimension "level"
+
+        }
+        low {
+            dimension "level"
+        }
+    }
+}
+
 if (umeng.bintray) {
     apply plugin: 'com.github.dcendents.android-maven'
-    group='com.github.ymex.${umeng.name}'
+    group='com.github.ymex.kitx'
     version = "${umeng.version}"
 }
 

@@ -2,26 +2,26 @@ apply from: "../build.lib_kt.gradle"
 
 def tips = rootProject.ext.kitx.tips
 
-//android{
-//    defaultPublishConfig "lowRelease"
-//
-//    flavorDimensions "level"
-//
-//    productFlavors {
-//        high {
-//            dimension "level"
-//
-//        }
-//        low {
-//            dimension "level"
-//        }
-//    }
-//}
+android{
+    defaultPublishConfig "lowRelease"
+
+    flavorDimensions "level"
+
+    productFlavors {
+        high {
+            dimension "level"
+
+        }
+        low {
+            dimension "level"
+        }
+    }
+}
 
 if (tips.bintray) {
      //
     apply plugin: 'com.github.dcendents.android-maven'
-    group="com.github.ymex.${tips.name}"
+    group="com.github.ymex.kitx"
     version = "${tips.version}"
 
 //    if (android.productFlavors.size() > 0) {
