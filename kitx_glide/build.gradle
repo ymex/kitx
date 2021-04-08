@@ -11,15 +11,9 @@ android {
 def glide = rootProject.ext.kitx.glide
 
 if (glide.bintray) {
-    apply plugin: 'com.novoda.bintray-release'
-    publish {
-        userOrg = 'ymexcn'
-        groupId = 'cn.ymex.kitx'
-        artifactId = 'kitx-widget-glide'
-        publishVersion = "${glide.version}"
-        desc = 'A simplifies and accelerates Android developer tools and widget.'
-        website = 'https://github.com/ymex/kitx/tree/master/kitx_glide'
-    }
+    apply plugin: 'com.github.dcendents.android-maven'
+    group='com.github.ymex'
+    version = "${glide.name}-v${glide.version}"
 }
 
 

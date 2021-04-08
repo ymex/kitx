@@ -11,15 +11,9 @@ android {
 def webview = rootProject.ext.kitx.webview
 
 if (webview.bintray) {
-    apply plugin: 'com.novoda.bintray-release'
-    publish {
-        userOrg = 'ymexcn'
-        groupId = 'cn.ymex.kitx'
-        artifactId = 'kitx-widget-webview'
-        publishVersion = "${webview.version}"
-        desc = 'webview for android'
-        website = 'https://github.com/ymex/kitx/tree/master/kitx_webview'
-    }
+    apply plugin: 'com.github.dcendents.android-maven'
+    group='com.github.ymex'
+    version = "${webview.name}-v${webview.version}"
 }
 
 dependencies {

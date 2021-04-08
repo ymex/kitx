@@ -2,26 +2,32 @@
 ext {
     kitx = [
             anhttp : [
+                    name: 'anhttp',
                     version: "1.0.4",
                     bintray: false
             ],
             core   : [
+                    name: 'core',
                     version: "1.0.5",
                     bintray: false
             ],
             glide  : [
+                    name: 'glide',
                     version: "1.0.0",
                     bintray: false
             ],
             tips   : [
+                    name: 'tips',
                     version: "0.0.6",//un
-                    bintray: false
+                    bintray: true
             ],
             webview: [
+                    name: 'webview',
                     version: "1.0.0",
                     bintray: false
             ],
             widget : [
+                    name: 'widget',
                     version: "1.0.2",
                     bintray: false
             ],

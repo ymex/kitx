@@ -3,16 +3,9 @@ apply from: "../build.lib_kt.gradle"
 def anhttp = rootProject.ext.kitx.anhttp
 
 if (anhttp.bintray) {
-//    apply plugin: 'com.novoda.bintray-release'
-    apply plugin: 'com.github.panpf.bintray-publish'
-    publish {
-        userOrg = 'ymexcn'
-        groupId = 'cn.ymex.kitx'
-        artifactId = 'kitx-anhttp'
-        publishVersion = "${anhttp.version}"
-        desc = 'http for android base retrofit and okhttp!'
-        website = 'https://github.com/ymex/kitx/tree/master/kitx_anhttp'
-    }
+    apply plugin: 'com.github.dcendents.android-maven'
+    group='com.github.ymex'
+    version = "${anhttp.name}-v${anhttp.version}"
 }
 
 dependencies {

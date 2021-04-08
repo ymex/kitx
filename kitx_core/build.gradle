@@ -3,16 +3,9 @@ apply from: "../build.lib.gradle"
 def core = rootProject.ext.kitx.core
 
 if (core.bintray) {
-//    apply plugin: 'com.novoda.bintray-release'
-    apply plugin: 'com.github.panpf.bintray-publish'
-    publish {
-        userOrg = 'ymexcn'
-        groupId = 'cn.ymex.kitx'
-        artifactId = 'kitx-core'
-        publishVersion = "${core.version}"
-        desc = 'A simplifies and accelerates Android developer tools and widget.'
-        website = 'https://github.com/ymex/kitx/tree/master/kitx_core'
-    }
+    apply plugin: 'com.github.dcendents.android-maven'
+    group='com.github.ymex'
+    version = "${core.name}-v${core.version}"
 }
 dependencies {
     implementation 'androidx.appcompat:appcompat:1.2.0'

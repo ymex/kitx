@@ -3,16 +3,9 @@ apply from: "../build.lib_kt.gradle"
 def start = rootProject.ext.kitx.start
 
 if (start.bintray) {
-//    apply plugin: 'com.novoda.bintray-release'
-    apply plugin: 'com.github.panpf.bintray-publish'
-    publish {
-        userOrg = 'ymexcn'
-        groupId = 'cn.ymex.kitx'
-        artifactId = 'kitx-app-start'
-        publishVersion = "${start.version}"
-        desc = 'A simplifies and accelerates Android developer tools and widget.'
-        website = 'https://github.com/ymex/kitx/tree/master/kitx_start'
-    }
+    apply plugin: 'com.github.dcendents.android-maven'
+    group='com.github.ymex'
+    version = "${start.name}-v${start.version}"
 }
 
 android {

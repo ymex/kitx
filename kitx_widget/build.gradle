@@ -3,16 +3,9 @@ apply from: "../build.lib.gradle"
 def widget = rootProject.ext.kitx.widget
 
 if (widget.bintray) {
-//    apply plugin: 'com.novoda.bintray-release'
-    apply plugin: 'com.github.panpf.bintray-publish'
-    publish {
-        userOrg = 'ymexcn'
-        groupId = 'cn.ymex.kitx'
-        artifactId = 'kitx-widget'
-        publishVersion = "${widget.version}"
-        desc = 'A simplifies and accelerates Android developer tools and widget.'
-        website = 'https://github.com/ymex/kitx/tree/master/kitx_widget'
-    }
+    apply plugin: 'com.github.dcendents.android-maven'
+    group='com.github.ymex'
+    version = "${widget.name}-v${widget.version}"
 }
 
 dependencies {
