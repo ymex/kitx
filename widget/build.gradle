@@ -4,8 +4,8 @@ def widget = rootProject.ext.kitx.widget
 
 if (widget.bintray) {
     apply plugin: 'com.github.dcendents.android-maven'
-    group='com.github.ymex'
-    version = "${widget.name}-v${widget.version}"
+    group = "${rootProject.ext.github}"
+    version = "${widget.version}"
 }
 
 dependencies {

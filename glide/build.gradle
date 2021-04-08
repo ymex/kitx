@@ -12,8 +12,8 @@ def glide = rootProject.ext.kitx.glide
 
 if (glide.bintray) {
     apply plugin: 'com.github.dcendents.android-maven'
-    group='com.github.ymex'
-    version = "${glide.name}-v${glide.version}"
+    group = "${rootProject.ext.github}"
+    version = "${glide.version}"
 }
 
 

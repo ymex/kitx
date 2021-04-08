@@ -4,44 +4,36 @@ ext {
 
     kitx = [
             anhttp : [
-                    name: 'anhttp',
                     version: "1.0.4",
                     bintray: true
             ],
             core   : [
-                    name: 'core',
                     version: "1.0.5",
-                    bintray: false
+                    bintray: true
             ],
             glide  : [
-                    name: 'glide',
                     version: "1.0.0",
-                    bintray: false
+                    bintray: true
             ],
             tips   : [
-                    name: 'tips',
                     version: "0.0.6",
                     bintray: true
             ],
             webview: [
-                    name: 'webview',
                     version: "1.0.0",
-                    bintray: false
+                    bintray: true
             ],
             widget : [
-                    name: 'widget',
                     version: "1.0.2",
-                    bintray: false
+                    bintray: true
             ],
             umeng :[
-                    name : "tps-umeng",
                     version: "0.0.3",
                     bintray: true
             ],
             start  : [
-                    name: "start",
                     version: "0.1.1",//un
-                    bintray: false
+                    bintray: true
             ]
     ]
 }

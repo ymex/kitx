@@ -4,8 +4,8 @@ def core = rootProject.ext.kitx.core
 
 if (core.bintray) {
     apply plugin: 'com.github.dcendents.android-maven'
-    group='com.github.ymex'
-    version = "${core.name}-v${core.version}"
+    group = "${rootProject.ext.github}"
+    version = "${core.version}"
 }
 dependencies {
     implementation 'androidx.appcompat:appcompat:1.2.0'
