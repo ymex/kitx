@@ -26,4 +26,8 @@ data class PageState(var status: ViewStatus = ViewStatus.NORMAL, var throwable: 
 open class StateViewModel : LifeViewModel() {
     private val _stateLiveData = MutableLiveData<PageState>()
     val stater = _stateLiveData
+
+    fun state(pageState: PageState){
+        stater.postValue(pageState)
+    }
 }
