@@ -3,17 +3,12 @@ package cn.ymex.kitx.sample.anhttp.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
 import cn.ymex.kitx.anhttp.*
 import cn.ymex.kitx.anhttp.lifecycle.StateViewModel
 import cn.ymex.kitx.sample.anhttp.UserInfo
 import cn.ymex.kitx.sample.anhttp.repository.ApiRepos
-import cn.ymex.kitx.sample.anhttp.repository.service.ApiService
-import cn.ymex.kitx.sample.anhttp.repository.vo.BingImageResult
 import cn.ymex.kitx.sample.anhttp.repository.vo.Image
 import kotlinx.coroutines.*
-import java.lang.Exception
-import kotlin.concurrent.thread
 
 
 class ApiViewModel(val apiRepos: ApiRepos) : StateViewModel() {

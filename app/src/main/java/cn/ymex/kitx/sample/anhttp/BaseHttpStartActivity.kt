@@ -5,10 +5,9 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.viewbinding.ViewBinding
 import cn.ymex.kitx.anhttp.lifecycle.StateViewModel
-import cn.ymex.kitx.anhttp.lifecycle.ToastViewModel
+import cn.ymex.kitx.anhttp.lifecycle.WarnViewModel
 import cn.ymex.kitx.anhttp.lifecycle.ViewStatus
 import cn.ymex.kitx.sample.R
-import cn.ymex.kitx.start.app.StartActivity
 import cn.ymex.kitx.start.app.ViewBindingActivity
 import cn.ymex.kitx.tips.view.find
 import cn.ymex.kitx.widget.state.StateConstraintLayout
@@ -52,7 +51,7 @@ abstract class BaseHttpStartActivity<T:ViewBinding> : ViewBindingActivity<T>() {
             })
         }
 
-        if (viewModel is ToastViewModel){
+        if (viewModel is WarnViewModel){
             viewModel.toaster.observe(this, Observer {
                 Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
             })
