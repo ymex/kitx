@@ -10,7 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
 
-class StatusBar extends View {
+public class StatusBar extends View {
 
     public StatusBar(Context context) {
         super(context);

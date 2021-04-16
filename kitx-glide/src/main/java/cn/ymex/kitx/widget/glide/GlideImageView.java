@@ -98,10 +98,13 @@ public class GlideImageView extends FrameLayout implements RequestListener<Drawa
 
 
         if (autoLoad) {
-            final String url = a.getString(R.styleable.GlideImageView_glide_src);
-            if (!TextUtils.isEmpty(url) && url.startsWith("http")) {
-                setImageUrl(url, options());
-            } else {
+            final int urlRes = a.getResourceId(R.styleable.GlideImageView_glide_src,-1);
+            if (urlRes==-1){
+                final String url = a.getString(R.styleable.GlideImageView_glide_src);
+                if (!TextUtils.isEmpty(url) && url.startsWith("http")) {
+                    setImageUrl(url, options());
+                }
+            }else {
                 final Drawable d = a.getDrawable(R.styleable.GlideImageView_glide_src);
                 if (d != null) {
                     setImageDrawable(d, options());
