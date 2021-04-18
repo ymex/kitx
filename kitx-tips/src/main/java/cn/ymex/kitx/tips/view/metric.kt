@@ -26,26 +26,40 @@ fun getScreenWidth(): Int {
     return metrics.widthPixels
 }
 
-
-val Float.px:Int
-    get() =TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX,this,Resources.getSystem().displayMetrics).toInt()
+// px to dp
+val Float.px:Float
+    get() {
+        val density = Resources.getSystem().displayMetrics.density
+        return (this/density +0.5).toFloat()
+    }
 
 val Int.px:Float
-    get() =TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX,this.toFloat(),Resources.getSystem().displayMetrics)
+    get() {
+        val density = Resources.getSystem().displayMetrics.density
+        return (this/density +0.5).toFloat()
+    }
 
 
-val Int.dp:Float
-    get() = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,this.toFloat(),Resources.getSystem().displayMetrics)
+//val Float.px:Int
+//    get() = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX,this,Resources.getSystem().displayMetrics).toInt()
+//
+//val Int.px:Int
+//    get() = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX,this.toFloat(),Resources.getSystem().displayMetrics).toInt()
 
-val Float.dp:Float
-    get() = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,this,Resources.getSystem().displayMetrics)
+// dp to px
+val Int.dp:Int
+    get() = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,this.toFloat(),Resources.getSystem().displayMetrics).toInt()
+
+val Float.dp:Int
+    get() = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,this,Resources.getSystem().displayMetrics).toInt()
 
 
-val Int.sp:Float
-    get() = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,this.toFloat(),Resources.getSystem().displayMetrics)
+// sp to px
+val Int.sp:Int
+    get() = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,this.toFloat(),Resources.getSystem().displayMetrics).toInt()
 
-val Float.sp:Float
-    get() = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,this,Resources.getSystem().displayMetrics)
+val Float.sp:Int
+    get() = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,this,Resources.getSystem().displayMetrics).toInt()
 
 
 /**
