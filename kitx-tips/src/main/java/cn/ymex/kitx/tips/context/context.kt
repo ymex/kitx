@@ -7,6 +7,7 @@ import android.content.pm.ApplicationInfo
 import android.graphics.PixelFormat
 import android.os.Build
 import android.os.Bundle
+import android.os.Process
 import android.view.*
 import android.view.inputmethod.InputMethodManager
 import androidx.annotation.LayoutRes
@@ -235,3 +236,17 @@ val Context.versionCode:Long
 
 val Context.versionName:String
     get()  = packageManager.getPackageInfo(packageName,0).versionName
+
+
+fun Context.isMainProcess(): Boolean {
+    val am = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+    val processInfo = am.runningAppProcesses
+    val mainProcessName: String = packageName
+    val myPid = Process.myPid()
+    for (info in processInfo) {
+        if (info.pid == myPid && mainProcessName == info.processName) {
+            return true
+        }
+    }
+    return false
+}
