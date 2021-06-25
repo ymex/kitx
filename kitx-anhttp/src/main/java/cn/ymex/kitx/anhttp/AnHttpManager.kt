@@ -47,7 +47,7 @@ class AnHttpManager private constructor() {
             //信任所有证书
             val sslParams = SSLParams.create(null, null)
             val loggingInterceptor = HttpLoggingInterceptor()
-            loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
+            loggingInterceptor.level = logLevel
             return OkHttpClient.Builder()
                 .connectionPool(ConnectionPool(5, 5, TimeUnit.MINUTES))
                 .retryOnConnectionFailure(true)
