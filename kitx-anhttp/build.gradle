@@ -4,8 +4,8 @@ def anhttp = rootProject.ext.kitx.anhttp
 
 if (anhttp.bintray) {
     apply plugin: 'maven-publish'
-    group = "${rootProject.ext.github}"
-    version = "${anhttp.version}"
+//    group = "${rootProject.ext.github}"
+//    version = "${anhttp.version}"
 
     afterEvaluate {
         publishing {
