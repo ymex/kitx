@@ -11,7 +11,7 @@ android {
 def webview = rootProject.ext.kitx.webview
 
 if (webview.bintray) {
-    apply plugin: 'com.github.dcendents.android-maven'
+    apply plugin: 'maven-publish'
     group = "${rootProject.ext.github}"
     version = "${webview.version}"
 }

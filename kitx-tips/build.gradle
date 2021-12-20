@@ -3,7 +3,7 @@ apply from: "../build.lib_kt.gradle"
 def tips = rootProject.ext.kitx.tips
 
 if (tips.bintray) {
-    apply plugin: 'com.github.dcendents.android-maven'
+    apply plugin: 'maven-publish'
     group = "${rootProject.ext.github}"
     version = "${tips.version}"
 }

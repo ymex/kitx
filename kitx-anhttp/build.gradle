@@ -3,10 +3,24 @@ apply from: "../build.lib_kt.gradle"
 def anhttp = rootProject.ext.kitx.anhttp
 
 if (anhttp.bintray) {
-    apply plugin: 'com.github.dcendents.android-maven'
+    apply plugin: 'maven-publish'
     group = "${rootProject.ext.github}"
     version = "${anhttp.version}"
+
+    afterEvaluate {
+        publishing {
+            publications {
+                release(MavenPublication) {
+                    from components.release
+                    groupId = "${rootProject.ext.github}"
+                    artifactId = "${anhttp.name}"
+                    version = "${anhttp.version}"
+                }
+            }
+        }
+    }
 }
+
 
 dependencies {
     def retrofit2_version = "2.7.2"

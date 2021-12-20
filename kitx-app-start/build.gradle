@@ -3,7 +3,7 @@ apply from: "../build.lib_kt.gradle"
 def start = rootProject.ext.kitx.start
 
 if (start.bintray) {
-    apply plugin: 'com.github.dcendents.android-maven'
+    apply plugin: 'maven-publish'
     group = "${rootProject.ext.github}"
     version = "${start.version}"
 }

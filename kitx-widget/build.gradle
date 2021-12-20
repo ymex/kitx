@@ -3,7 +3,7 @@ apply from: "../build.lib.gradle"
 def widget = rootProject.ext.kitx.widget
 
 if (widget.bintray) {
-    apply plugin: 'com.github.dcendents.android-maven'
+    apply plugin: 'maven-publish'
     group = "${rootProject.ext.github}"
     version = "${widget.version}"
 }

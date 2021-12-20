@@ -3,7 +3,7 @@ apply from: "../build.lib_kt.gradle"
 def umeng = rootProject.ext.kitx.umeng
 
 if (umeng.bintray) {
-    apply plugin: 'com.github.dcendents.android-maven'
+    apply plugin: 'maven-publish'
     group = "${rootProject.ext.github}"
     version = "${umeng.version}"
 }
@@ -33,7 +33,7 @@ dependencies {
     implementation 'com.umeng.umsdk:agoo_tnet4android:3.1.14.10'
 
     //集成U-APM（可选）
-    implementation 'com.umeng.umsdk:apm:1.1.1'
+    implementation 'com.umeng.umsdk:apm:1.5.2'
 
     //厂商推送依赖-小米
     implementation 'com.umeng.umsdk:xiaomi-push:3.8.5'
