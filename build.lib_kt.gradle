@@ -5,7 +5,8 @@ apply plugin: 'kotlin-android'
 android {
     //编译环境
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = '11'
+//        jvmTarget = '1.8'
     }
 
 }
