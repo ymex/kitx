@@ -6,6 +6,23 @@ if (umeng.bintray) {
     apply plugin: 'maven-publish'
     group = "${rootProject.ext.github}"
     version = "${umeng.version}"
+
+    afterEvaluate {
+        publishing {
+            publications {
+                release(MavenPublication) {
+                    from components.release
+                    groupId = "${rootProject.ext.lib}"
+                    artifactId = "${umeng.name}"
+                    version = "${umeng.version}"
+                }
+            }
+        }
+    }
+    task generateSourcesJar(type: Jar) {
+        from android.sourceSets.main.java.srcDirs
+        classifier 'sources'
+    }
 }
 
 

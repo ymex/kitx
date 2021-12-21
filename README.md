@@ -1,18 +1,21 @@
 # kitx
-android 便捷开发库。
-包含开发必要使用的组件及共用代码，此库是重构版本，把之前开源的android 库集中到一个项目中。 
 
+android 便捷开发库。 包含开发必要使用的组件及共用代码，此库是重构版本，把之前开源的android 库集中到一个项目中。
 
+## core
 
-## kitx_core  
-App 开发核心类
+App 开发核心库
 
-```shell
+```groovy
+implementation 'cn.ymex.kitx:core:lastVersion'
+//或
+implementation 'com.github.ymex.kitx:core:lastVersion'
 ```
 
-## kitx_tips 
+## kitx_tips
 
 常用方法拓展
+
 ```groovy
  implementation 'cn.ymex:kitx:tips-v0.0.6'
 ```
@@ -24,23 +27,23 @@ App 开发核心类
 ```shell
 ```
 
-## kitx_webview 
+## kitx_webview
 
-基于 腾讯X5 WebView。 集成页面加载进度条与Js 与 Java 通信的功能。 
+基于 腾讯X5 WebView。 集成页面加载进度条与Js 与 Java 通信的功能。
 
 ```shell
 ```
 
-## kitx_widget 
+## kitx_widget
 
 常用组件库
 
 ```groovy
 ```
 
-- banner 
+- banner
 - effect 点击效果组件
-- TextLabel  混排标签
+- TextLabel 混排标签
 - SwipeRefreshLayout 下拉刷新
 - FlowLayout 流布局
 - RatioLayout 比例布局
@@ -50,7 +53,11 @@ App 开发核心类
 使用okhttp + retrofit2 封装，基于LiveData通知的回调,抛弃使用RxJava。
 
 ```groovy
-implementation 'cn.ymex.kitx:kitx-anhttp:_latestVersion'
+
+implementation 'cn.ymex.kitx:anhttp:lastVersion'
+//或
+implementation 'com.github.ymex.kitx:anhttp:lastVersion'
+
 
 //依赖项
 implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
@@ -62,7 +69,7 @@ api "com.squareup.retrofit2:converter-gson:2.7.2"
 api "com.squareup.retrofit2:converter-scalars:2.7.2"
 ```
 
-## start 
+## start
 
 ```groovy
 implementation 'cn.ymex.kitx:kitx-app-start:_latestVersion'
@@ -70,15 +77,13 @@ implementation 'cn.ymex.kitx:kitx-app-start:_latestVersion'
 
 快速开发库，默认已经依赖了 `kitx_core`,`kitx_tips`,`kitx_gilde`,`kitx_webview`,`kitx_widget`
 
-
 ### tps_umeng [![](https://jitpack.io/v/ymex/kitx.svg)](https://jitpack.io/#ymex/kitx)
+
 集成友盟的移动统计与消息推送
 
 ```groovy
   implementation 'cn.ymex:kitx:tps.umeng-v0.0.3'
 ```
-
-
 
 License
 -------

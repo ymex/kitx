@@ -6,6 +6,23 @@ if (start.bintray) {
     apply plugin: 'maven-publish'
     group = "${rootProject.ext.github}"
     version = "${start.version}"
+
+    afterEvaluate {
+        publishing {
+            publications {
+                release(MavenPublication) {
+                    from components.release
+                    groupId = "${rootProject.ext.lib}"
+                    artifactId = "${start.name}"
+                    version = "${start.version}"
+                }
+            }
+        }
+    }
+    task generateSourcesJar(type: Jar) {
+        from android.sourceSets.main.java.srcDirs
+        classifier 'sources'
+    }
 }
 
 android {

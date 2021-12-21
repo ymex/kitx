@@ -17,32 +17,32 @@ ext {
             glide  : [
                     name:"glide",
                     version: "1.0.0",
-                    bintray: false
+                    bintray: true
             ],
             tips   : [
                     name:"tips",
                     version: "0.0.6",
-                    bintray: false
+                    bintray: true
             ],
             webview: [
                     name:"webview",
                     version: "1.0.0",
-                    bintray: false
+                    bintray: true
             ],
             widget : [
                     name:"widget",
                     version: "1.0.2",
-                    bintray: false
+                    bintray: true
             ],
             umeng :[
                     name:"umeng",
                     version: "0.0.3",
-                    bintray: false
+                    bintray: true
             ],
             start  : [
                     name:"start",
                     version: "0.1.1",
-                    bintray: false
+                    bintray: true
             ]
     ]
 }
