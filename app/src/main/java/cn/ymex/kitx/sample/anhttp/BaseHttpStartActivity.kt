@@ -9,7 +9,7 @@ import cn.ymex.kitx.anhttp.lifecycle.WarnViewModel
 import cn.ymex.kitx.anhttp.lifecycle.ViewStatus
 import cn.ymex.kitx.sample.R
 import cn.ymex.kitx.start.app.ViewBindingActivity
-import cn.ymex.kitx.tips.view.find
+import cn.ymex.kitx.snippet.view.find
 import cn.ymex.kitx.widget.state.StateConstraintLayout
 
 /**

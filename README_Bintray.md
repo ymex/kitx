@@ -19,7 +19,7 @@ implementation 'cn.ymex.kitx:kitx-core:_latestVersion'
 
 常用方法拓展
 ```shell
-implementation 'cn.ymex.kitx:kitx-tips:_latestVersion'
+implementation 'cn.ymex.kitx:kitx-snippet:_latestVersion'
 ```
 
 ## kitx_gilde [ ![Download](https://api.bintray.com/packages/ymexcn/maven/kitx-widget-glide/images/download.svg) ](https://bintray.com/ymexcn/maven/kitx-widget-glide/_latestVersion)

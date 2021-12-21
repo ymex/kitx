@@ -1,11 +1,10 @@
 package cn.ymex.kitx.sample.umeng
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import cn.ymex.kitx.sample.databinding.ActivityUmengBinding
 import cn.ymex.kitx.start.app.ViewBindingActivity
-import cn.ymex.kitx.tips.context.requestActivity
+import cn.ymex.kitx.snippet.context.requestActivity
 import cn.ymex.kitx.tps.umeng.utdId
 
 class UmengActivity : ViewBindingActivity<ActivityUmengBinding>() {

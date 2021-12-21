@@ -3,7 +3,6 @@ package cn.ymex.kitx.sample
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 
 import cn.ymex.kitx.core.adapter.recycler.DelegateAdapter
@@ -18,10 +17,9 @@ import cn.ymex.kitx.sample.umeng.UmengActivity
 import cn.ymex.kitx.sample.updater.UpdaterActivity
 import cn.ymex.kitx.sample.webview.BridgeActivity
 import cn.ymex.kitx.start.app.ViewBindingActivity
-import cn.ymex.kitx.tips.view.dp
-import cn.ymex.kitx.tips.view.itemDecorationDrawable
-import cn.ymex.kitx.tips.view.px
-import cn.ymex.kitx.tips.view.verticalItemDecoration
+import cn.ymex.kitx.snippet.view.itemDecorationDrawable
+import cn.ymex.kitx.snippet.view.px
+import cn.ymex.kitx.snippet.view.verticalItemDecoration
 
 
 class MainActivity : ViewBindingActivity<MainActivityBinding>() {

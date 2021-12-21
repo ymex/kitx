@@ -6,8 +6,8 @@ import android.widget.TextView
 import cn.ymex.kitx.core.adapter.recycler.ItemViewBinder
 import cn.ymex.kitx.core.adapter.recycler.ItemViewHolder
 import cn.ymex.kitx.sample.R
-import cn.ymex.kitx.tips.context.hideInputKeyBoard
-import cn.ymex.kitx.tips.view.setOnClickThrottleListener
+import cn.ymex.kitx.snippet.context.hideInputKeyBoard
+import cn.ymex.kitx.snippet.view.setOnClickThrottleListener
 
 /**
  * Created by ymex on 2020/2/13.

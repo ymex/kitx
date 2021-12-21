@@ -2,22 +2,18 @@ package cn.ymex.kitx.sample.ui.main
 
 import android.graphics.Color
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import cn.ymex.kitx.core.adapter.recycler.DelegateAdapter
 
-import cn.ymex.kitx.sample.R
 import cn.ymex.kitx.sample.adapter.BinderItemCata
 import cn.ymex.kitx.sample.adapter.BinderItemVideo
 import cn.ymex.kitx.sample.adapter.Video
 import cn.ymex.kitx.sample.databinding.MainFragmentBinding
 import cn.ymex.kitx.start.app.ViewBindingFragment
-import cn.ymex.kitx.tips.view.itemDecorationDrawable
-import cn.ymex.kitx.tips.view.verticalItemDecoration
+import cn.ymex.kitx.snippet.view.itemDecorationDrawable
+import cn.ymex.kitx.snippet.view.verticalItemDecoration
 
 class MainFragment : ViewBindingFragment<MainFragmentBinding>() {
     companion object {

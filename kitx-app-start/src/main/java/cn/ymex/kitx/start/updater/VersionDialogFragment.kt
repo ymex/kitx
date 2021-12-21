@@ -13,9 +13,9 @@ import androidx.core.text.HtmlCompat.FROM_HTML_MODE_COMPACT
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import cn.ymex.kitx.start.R
-import cn.ymex.kitx.tips.view.find
-import cn.ymex.kitx.tips.view.visibilityGone
-import cn.ymex.kitx.tips.view.visibilityShow
+import cn.ymex.kitx.snippet.view.find
+import cn.ymex.kitx.snippet.view.visibilityGone
+import cn.ymex.kitx.snippet.view.visibilityShow
 import java.io.File
 
 /**

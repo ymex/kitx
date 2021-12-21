@@ -17,7 +17,7 @@ implementation 'com.github.ymex.kitx:core:lastVersion'
 常用方法拓展
 
 ```groovy
- implementation 'cn.ymex:kitx:tips-v0.0.6'
+ implementation 'cn.ymex:kitx:snippet-v0.0.6'
 ```
 
 ## kitx_gilde
