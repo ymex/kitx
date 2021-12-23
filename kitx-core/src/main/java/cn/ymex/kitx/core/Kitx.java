@@ -27,7 +27,7 @@ public final class Kitx {
     public static boolean log = true;
 
     private Kitx() {
-        throw new RuntimeException("Kits not allow instance");
+        throw new RuntimeException("Kitx not allow instance");
     }
 
     public static void init(Context context) {
