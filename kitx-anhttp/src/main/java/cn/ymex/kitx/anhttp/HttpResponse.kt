@@ -1,8 +1,8 @@
 package cn.ymex.kitx.anhttp
 
-import cn.ymex.kitx.anhttp.lifecycle.PageState
+import cn.ymex.kitx.anhttp.lifecycle.LaunchStatus
+import cn.ymex.kitx.anhttp.lifecycle.StateData
 import cn.ymex.kitx.anhttp.lifecycle.StateViewModel
-import cn.ymex.kitx.anhttp.lifecycle.ViewStatus
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -15,7 +15,7 @@ class HttpResponse<T>(
     val response: (data: T) -> Unit,
     val failure: (t: Throwable) -> Unit,
     val start: () -> Unit,
-    val interceptResponse:(response:Response<T>)->Boolean,
+    val interceptResponse: (response: Response<T>) -> Boolean,
     private val vm: StateViewModel? = null,
     private val load: Boolean = true
 ) : ResponseCallback<T> {
@@ -24,7 +24,7 @@ class HttpResponse<T>(
     override fun onStart() {
         vm?.run {
             if (load) {
-                stater.postValue(PageState(ViewStatus.LOADING))
+                sendState(StateData(LaunchStatus.START.name))
             }
         }
         start()
@@ -33,7 +33,7 @@ class HttpResponse<T>(
     override fun onFailure(call: Call<T>, t: Throwable) {
         failure(t)
         vm?.run {
-            stater.postValue(PageState(ViewStatus.ERR, t))
+            sendState(StateData(LaunchStatus.FAILURE.name, t))
         }
     }
 
@@ -41,7 +41,7 @@ class HttpResponse<T>(
         try {
             if (interceptResponse(response)) {
                 vm?.run {
-                    stater.postValue(PageState(ViewStatus.NORMAL))
+                    sendState(StateData(LaunchStatus.COMPLETE.name))
                 }
                 return
             }
@@ -51,7 +51,7 @@ class HttpResponse<T>(
                 response(this)
             } ?: onFailure(call, Exception("$call : response.body() is null ."))
             vm?.run {
-                stater.postValue(PageState(ViewStatus.NORMAL))
+                sendState(StateData(LaunchStatus.COMPLETE.name))
             }
         } catch (e: Exception) {
             onFailure(call, e)
@@ -62,44 +62,44 @@ class HttpResponse<T>(
 
 /**
  * @param start  开始网络请求事件处理回调， 当返回true 时表示不再走ViewModel统一处理方法
- * @param complete 收到网络响应结果事件处理回调， 当返回true 时表示不再走ViewModel统一处理方法
+ * @param complete 网络响应结果事件处理回调， 当返回true 时表示不再走ViewModel统一处理方法
  * @param failure 异常抛出事件处理回调， 当返回true 时表示不再走ViewModel统一处理方法
  */
 class HttpLaunchCallBack(
-    val start: () -> Boolean = {false},
-    val complete: () -> Boolean = {false},
-    val failure: (t: Throwable) -> Boolean ={false},
+    val start: () -> Boolean = { false },
+    val complete: () -> Boolean = { false },
+    val failure: (t: Throwable) -> Boolean = { false },
     private val vm: StateViewModel? = null,
-):LaunchCallBack{
+) : LaunchCallBack {
 
     override fun onStart() {
         val intercept = start()
-        if (intercept){
+        if (intercept) {
             return
         }
         vm?.run {
-                stater.postValue(PageState(ViewStatus.LOADING))
+            sendState(StateData(LaunchStatus.START.name))
         }
 
     }
 
     override fun onFailure(t: Throwable) {
         val intercept = failure(t)
-        if (intercept){
+        if (intercept) {
             return
         }
         vm?.run {
-            stater.postValue(PageState(ViewStatus.ERR, t))
+            sendState(StateData(LaunchStatus.FAILURE.name, t))
         }
     }
 
     override fun onComplete() {
-        val intercept =  complete()
-        if (intercept){
+        val intercept = complete()
+        if (intercept) {
             return
         }
         vm?.run {
-            stater.postValue(PageState(ViewStatus.NORMAL))
+            sendState(StateData(LaunchStatus.COMPLETE.name))
         }
     }
 }

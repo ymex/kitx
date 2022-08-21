@@ -33,6 +33,7 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0'
+    implementation project(path: ':kitx-core')
 
     api "com.squareup.okhttp3:okhttp:$okhttp3_version"
     api "com.squareup.okhttp3:logging-interceptor:$okhttp3_version"

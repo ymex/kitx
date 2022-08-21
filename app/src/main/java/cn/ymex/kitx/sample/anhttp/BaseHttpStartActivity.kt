@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.viewbinding.ViewBinding
 import cn.ymex.kitx.anhttp.lifecycle.StateViewModel
 import cn.ymex.kitx.anhttp.lifecycle.WarnViewModel
-import cn.ymex.kitx.anhttp.lifecycle.ViewStatus
+import cn.ymex.kitx.anhttp.lifecycle.LaunchStatus
 import cn.ymex.kitx.sample.R
 import cn.ymex.kitx.start.app.ViewBindingActivity
 import cn.ymex.kitx.snippet.view.find
@@ -30,15 +30,15 @@ abstract class BaseHttpStartActivity<T:ViewBinding> : ViewBindingActivity<T>() {
             viewModel.stater.observe(this, Observer {
 
                 when (it.status) {
-                    ViewStatus.LOADING -> {
+                    LaunchStatus.START.name -> {
                         vState.showView(R.layout.layout_state_load)
                     }
-                    ViewStatus.NORMAL -> {
+                    LaunchStatus.COMPLETE.name -> {
                         if (vState.currentLayoutId == R.layout.layout_state_load) {
                             vState.showContentView()
                         }
                     }
-                    ViewStatus.ERR -> {
+                    LaunchStatus.FAILURE.name -> {
                         Toast.makeText(
                             this,
                             it.throwable?.localizedMessage ?: "err",

@@ -29,6 +29,7 @@ inline fun <reified T> createRetrofitService(): T {
 
 /**
  * create request
+ *
  */
 inline fun <reified T, R> anHttpRequest(
     block: (service: T) -> Call<R>,
@@ -298,6 +299,7 @@ fun ViewModel.anHttpLaunchCallBack(
     }
 }
 
+
 fun ViewModel.launch(
     callback: LaunchCallBack? = null,
     block: suspend CoroutineScope.() -> Unit
@@ -317,15 +319,27 @@ fun ViewModel.launch(
     }
 }
 
+
 fun ViewModel.httpLaunch(
     block: suspend CoroutineScope.() -> Unit
 ) {
-    launch(anHttpLaunchCallBack(), block)
+    val callback = anHttpLaunchCallBack()
+    launch(callback, block)
 }
 
 fun ViewModel.httpLaunch(
-    failure: (t: Throwable) -> Boolean = {false},
+    callback: LaunchCallBack = anHttpLaunchCallBack(),
     block: suspend CoroutineScope.() -> Unit
 ) {
-    launch(anHttpLaunchCallBack(failure = failure), block)
+    launch(callback, block)
 }
+
+fun ViewModel.httpLaunch(
+    start: () -> Boolean = { true },
+    failure: (t: Throwable) -> Boolean = { false },
+    complete: () -> Boolean = { true },
+    block: suspend CoroutineScope.() -> Unit
+) {
+    launch(anHttpLaunchCallBack(start = start, failure = failure, complete = complete), block)
+}
+
