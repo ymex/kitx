@@ -211,7 +211,12 @@ public class Banner extends BaseBanner<Banner> implements ViewPager.OnPageChange
 
     @Override
     public void setCurrentItem(int index) {
-        mBannerPage.setCurrentItem(index);
+        if (!isLoop){
+            mBannerPage.setCurrentItem(index);
+        }else {
+            mBannerPage.setCurrentItem(positionIndex(index));
+        }
+
     }
 
     @Override
@@ -379,6 +384,13 @@ public class Banner extends BaseBanner<Banner> implements ViewPager.OnPageChange
             mItemViews = new ArrayList<>();
         }
         return mItemViews;
+    }
+
+    public View getBannerView(int position){
+        if (position>=0 && position < getItemViews().size()){
+            return getItemViews().get(position);
+        }
+        return null;
     }
 
     private class BannerPagerAdapter extends PagerAdapter {
