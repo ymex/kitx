@@ -27,6 +27,9 @@ data class StateData(
  * 状态
  */
 open class StateViewModel : LifeViewModel() {
+    /**
+     * 状态消息
+     */
     private val _stateLiveData = MutableLifeData<StateData>()
     val stater = _stateLiveData
 
