@@ -6,6 +6,7 @@ import cn.ymex.kitx.anhttp.lifecycle.LifeViewModel
 import cn.ymex.kitx.anhttp.lifecycle.StateViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Response
@@ -288,9 +289,9 @@ fun <T> StateViewModel.anHttpRawResponse(
 //--------------------------------------------------协程处理
 
 fun ViewModel.anHttpLaunchCallBack(
-    start: () -> Boolean = { false },
-    complete: () -> Boolean = { false },
-    failure: (t: Throwable) -> Boolean = { false }
+    start: () -> Boolean = { true },
+    complete: () -> Boolean = { true },
+    failure: (t: Throwable) -> Boolean = { true }
 ): HttpLaunchCallBack {
     return if (this is StateViewModel) {
         HttpLaunchCallBack(start, complete, failure, this)
@@ -303,8 +304,8 @@ fun ViewModel.anHttpLaunchCallBack(
 fun ViewModel.launch(
     callback: LaunchCallBack? = null,
     block: suspend CoroutineScope.() -> Unit
-) {
-    viewModelScope.launch(CoroutineExceptionHandler { _, throwable ->
+):Job {
+    val job =  viewModelScope.launch(CoroutineExceptionHandler { _, throwable ->
         callback?.run {
             onFailure(throwable)
         }
@@ -317,21 +318,25 @@ fun ViewModel.launch(
             onComplete()
         }
     }
+    if (this is LifeViewModel){
+        this.put(job)
+    }
+    return job
 }
 
 
 fun ViewModel.httpLaunch(
     block: suspend CoroutineScope.() -> Unit
-) {
+) :Job {
     val callback = anHttpLaunchCallBack()
-    launch(callback, block)
+    return launch(callback, block)
 }
 
 fun ViewModel.httpLaunch(
     callback: LaunchCallBack = anHttpLaunchCallBack(),
     block: suspend CoroutineScope.() -> Unit
-) {
-    launch(callback, block)
+):Job  {
+    return launch(callback, block)
 }
 
 fun ViewModel.httpLaunch(
@@ -339,7 +344,7 @@ fun ViewModel.httpLaunch(
     failure: (t: Throwable) -> Boolean = { false },
     complete: () -> Boolean = { true },
     block: suspend CoroutineScope.() -> Unit
-) {
-    launch(anHttpLaunchCallBack(start = start, failure = failure, complete = complete), block)
+):Job  {
+    return launch(anHttpLaunchCallBack(start = start, failure = failure, complete = complete), block)
 }
 

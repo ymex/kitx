@@ -46,11 +46,6 @@ public class ViewModelActivity extends AppCompatActivity implements ViewConstrai
                 onViewCreated(view, savedInstanceState);
             }
         }
-
-        List<ViewModel> vms = getViewModels();
-        for (ViewModel vm : vms) {
-            setCommonObserver(vm);
-        }
         observeViewModel();
     }
 
@@ -87,20 +82,9 @@ public class ViewModelActivity extends AppCompatActivity implements ViewConstrai
     }
 
     @Override
-    public void setCommonObserver(ViewModel viewModel) {
-
-    }
-
-    @Override
     public void observeViewModel() {
 
     }
-
-    @Override
-    public List<ViewModel> getViewModels() {
-        return new ArrayList<>();
-    }
-
 
     @Override
     public void beforeSetContentView(Bundle savedInstanceState) {

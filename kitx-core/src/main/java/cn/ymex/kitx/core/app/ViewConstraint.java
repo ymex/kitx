@@ -47,15 +47,6 @@ public interface ViewConstraint {
      */
     View getView();
 
-
-    List<ViewModel> getViewModels();
-
-    /**
-     * 设置共用的Observer
-     * @param viewModel
-     */
-    void setCommonObserver(ViewModel viewModel);
-
     /**
      * ViewModel observe
      */

@@ -36,28 +36,16 @@ public class ViewModelFragment extends Fragment implements ViewConstraint {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        List<ViewModel> vms = getViewModels();
-        for (ViewModel vm : vms) {
-            setCommonObserver(vm);
-        }
+
         observeViewModel();
     }
 
-    @Override
-    public void setCommonObserver(ViewModel viewModel) {
 
-    }
 
     @Override
     public void observeViewModel() {
 
     }
-
-    @Override
-    public List<ViewModel> getViewModels() {
-        return new ArrayList<>();
-    }
-
 
     @Override
     public void beforeSetContentView(Bundle savedInstanceState) {

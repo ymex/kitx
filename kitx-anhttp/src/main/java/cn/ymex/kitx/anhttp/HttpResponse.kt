@@ -66,9 +66,9 @@ class HttpResponse<T>(
  * @param failure 异常抛出事件处理回调， 当返回true 时表示不再走ViewModel统一处理方法
  */
 class HttpLaunchCallBack(
-    val start: () -> Boolean = { false },
-    val complete: () -> Boolean = { false },
-    val failure: (t: Throwable) -> Boolean = { false },
+    val start: () -> Boolean = { true },
+    val complete: () -> Boolean = { true },
+    val failure: (t: Throwable) -> Boolean = { true },
     private val vm: StateViewModel? = null,
 ) : LaunchCallBack {
 
