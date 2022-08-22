@@ -33,7 +33,9 @@ class ApiViewModel(val apiRepos: ApiRepos) : ActionViewModel() {
 
     fun getImages(size: Int, loading: Boolean = false) {
         //使用协程支持的http请求
-        httpLaunch(start = { if (loading) sendStartState() }) {
+        httpLaunch(start = {
+            if (loading) sendStartState()
+        }) {
             delay(2000)
             val result = apiRepos.getImages2("js", 0, size)
             liveImagesData.value = result.images

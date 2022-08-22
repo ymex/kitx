@@ -24,7 +24,7 @@ interface ApiService {
      fun getImages1(@QueryMap param: Param):Response<BingImageResult?>
 
 
-    @POST("HPImageArchive.aspx2")
+    @POST("HPImageArchive.aspx")
     suspend fun getImages2(@QueryMap param: Param):BingImageResult
 
 }
