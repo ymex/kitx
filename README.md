@@ -1,8 +1,9 @@
-# kitx
+# kitx [![](https://jitpack.io/v/ymex/kitx.svg)](https://jitpack.io/#ymex/kitx)
 
-android 便捷开发库。 包含开发必要使用的组件及共用代码，此库是重构版本，把之前开源的android 库集中到一个项目中。
+android 便捷开发库。 
+包含开发必要使用的组件及共用代码，此库是重构版本，把之前开源的 android 库集中到一个项目中。
 
-快速开始(最新版本以标签上显示为准)：[![](https://jitpack.io/v/ymex/kitx.svg)](https://jitpack.io/#ymex/kitx)
+快速开始(最新版本以标签上显示为准)：
 
 ```groovy
 implementation 'cn.ymex.kitx:start:0.1.12'
@@ -12,7 +13,7 @@ implementation 'cn.ymex.kitx:start:0.1.12'
 
 
 
-## core [![](https://jitpack.io/v/ymex/kitx.svg)](https://jitpack.io/#ymex/kitx)
+## core 
 
 App 开发核心库
 
@@ -21,7 +22,7 @@ implementation 'cn.ymex.kitx:core:0.1.12'
 ```
 
 
-## kitx_tips [![](https://jitpack.io/v/ymex/kitx.svg)](https://jitpack.io/#ymex/kitx)
+## kitx_tips 
 
 常用方法拓展
 
@@ -29,7 +30,7 @@ implementation 'cn.ymex.kitx:core:0.1.12'
   implementation 'cn.ymex.kitx:snippet:0.1.12'
 ```
 
-## kitx_gilde [![](https://jitpack.io/v/ymex/kitx.svg)](https://jitpack.io/#ymex/kitx)
+## kitx_gilde 
 
 基于gilde 封装的ImageView.
 
@@ -37,14 +38,14 @@ implementation 'cn.ymex.kitx:core:0.1.12'
   implementation 'cn.ymex.kitx:webview:0.1.12'
 ```
 
-## kitx_webview [![](https://jitpack.io/v/ymex/kitx.svg)](https://jitpack.io/#ymex/kitx)
+## kitx_webview 
 
 基于 腾讯X5 WebView。 集成页面加载进度条与Js 与 Java 通信的功能。
 
 ```shell
 ```
 
-## kitx_widget [![](https://jitpack.io/v/ymex/kitx.svg)](https://jitpack.io/#ymex/kitx)
+## kitx_widget 
 
 常用组件库
 
@@ -79,7 +80,7 @@ api "com.squareup.retrofit2:converter-scalars:2.7.2"
 ```
 
 
-### tps_umeng [![](https://jitpack.io/v/ymex/kitx.svg)](https://jitpack.io/#ymex/kitx)
+### tps_umeng 
 
 集成友盟的移动统计与消息推送
 
