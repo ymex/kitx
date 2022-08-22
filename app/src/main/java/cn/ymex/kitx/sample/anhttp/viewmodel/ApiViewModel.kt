@@ -1,19 +1,20 @@
 package cn.ymex.kitx.sample.anhttp.viewmodel
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import cn.ymex.kitx.anhttp.*
 import cn.ymex.kitx.anhttp.lifecycle.ActionViewModel
+import cn.ymex.kitx.core.lifecycle.MutableLifeData
 import cn.ymex.kitx.sample.anhttp.UserInfo
 import cn.ymex.kitx.sample.anhttp.repository.ApiRepos
 import cn.ymex.kitx.sample.anhttp.repository.vo.Image
+import cn.ymex.kitx.sample.anhttp.stateLaunch
 import kotlinx.coroutines.*
 
 
 class ApiViewModel(val apiRepos: ApiRepos) : ActionViewModel() {
 
-    val liveImagesData = MutableLiveData<List<Image>>()
+    val liveImagesData = MutableLifeData<List<Image>>()
 
     fun login(account: String, password: String, type: String) {
 
@@ -31,10 +32,9 @@ class ApiViewModel(val apiRepos: ApiRepos) : ActionViewModel() {
         })
     }
 
-    fun getImages(size: Int) {
-        sendStartState()
+    fun getImages(size: Int,loading:Boolean = false) {
         //使用协程支持的http请求
-        httpLaunch {
+        stateLaunch(loading) {
             delay(3000)
             val result = apiRepos.getImages2("js", 0, size)
             liveImagesData.value = result.images

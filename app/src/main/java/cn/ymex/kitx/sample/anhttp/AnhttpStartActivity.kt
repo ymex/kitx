@@ -49,7 +49,7 @@ public class AnhttpStartActivity : BaseHttpStartActivity<ActivityAnhttpBinding>(
         vb.vRecycler.layoutManager = GridLayoutManager(this, 2)
         delegateAdapter.bind(Image::class.java, BingImageBinder())
         delegateAdapter.attachRecyclerView(vb.vRecycler)
-        requestImages()
+        requestImages(true)
     }
 
 
@@ -63,8 +63,8 @@ public class AnhttpStartActivity : BaseHttpStartActivity<ActivityAnhttpBinding>(
     }
 
 
-    fun requestImages() {
-        apiViewModel.getImages(10)
+    fun requestImages(showLoading:Boolean = false) {
+        apiViewModel.getImages(10,showLoading)
     }
 
     fun finishRefreshLoadMore() {

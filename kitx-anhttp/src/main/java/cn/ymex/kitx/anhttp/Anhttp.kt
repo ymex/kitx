@@ -332,7 +332,9 @@ fun ViewModel.launch(
  * 发起协程网络请求
  */
 fun StateViewModel.httpLaunch(
-    callback:LaunchCallBack = simpleLaunchCallBack(
+    block: suspend CoroutineScope.() -> Unit
+): Job {
+    val callback:LaunchCallBack = simpleLaunchCallBack(
         start = {
             sendStartState()
         },
@@ -342,9 +344,6 @@ fun StateViewModel.httpLaunch(
         failure = {
             sendFailureState(it)
         }
-    ),
-    block: suspend CoroutineScope.() -> Unit
-): Job {
-
+    )
     return launch(callback, block)
 }
