@@ -309,9 +309,9 @@ fun ViewModel.launch(
 
 /**
  * @param start 每次执行都会触发,
- * @param failure 执行中的异常都会抛给failure处理。如：retrofit2 响应状态码非200时会抛出HttpException异常。
- * @param complete block执行无异常则会执行，否则不会执行。
- * @param block 协和执行体。
+ * @param failure block 执行中的异常都会抛给failure处理。如：retrofit2 响应状态码非200时会抛出HttpException异常。
+ * @param complete block 执行无异常则会执行，否则不会执行。
+ * @param block 协程执行体。
  */
 fun StateViewModel.httpLaunch(
     start: () -> Unit = {
