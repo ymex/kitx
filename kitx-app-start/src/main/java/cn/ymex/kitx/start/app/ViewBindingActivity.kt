@@ -5,9 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.viewbinding.ViewBinding
+import cn.ymex.kitx.core.app.ViewModelActivity
 
 
-abstract class ViewBindingActivity<T:ViewBinding>:StartActivity() {
+abstract class ViewBindingActivity<T:ViewBinding>:ViewModelActivity() {
 
     protected lateinit var vb:T
 

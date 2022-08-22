@@ -5,9 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.viewbinding.ViewBinding
+import cn.ymex.kitx.core.app.ViewModelFragment
 
 
-abstract class ViewBindingFragment<T:ViewBinding> :StartFragment(){
+abstract class ViewBindingFragment<T:ViewBinding> :ViewModelFragment(){
 
     protected lateinit var vb:T
 

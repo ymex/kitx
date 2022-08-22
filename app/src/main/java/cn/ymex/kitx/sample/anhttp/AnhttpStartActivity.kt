@@ -32,9 +32,6 @@ public class AnhttpStartActivity : BaseHttpStartActivity<ActivityAnhttpBinding>(
     val delegateAdapter = DelegateAdapter.create()
 
 
-    override fun getViewModels(): MutableList<ViewModel> {
-        return mutableListOf(apiViewModel)
-    }
 
 
 
@@ -58,6 +55,7 @@ public class AnhttpStartActivity : BaseHttpStartActivity<ActivityAnhttpBinding>(
 
     override fun observeViewModel() {
         super.observeViewModel()
+        setAnHttpObserver(apiViewModel)
         apiViewModel.liveImagesData.observe(this, Observer {
             delegateAdapter.data = it
             finishRefreshLoadMore()

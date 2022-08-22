@@ -10,8 +10,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModel;
 
-import java.util.List;
-
 public interface ViewConstraint {
     /**
      * layout view
@@ -52,6 +50,5 @@ public interface ViewConstraint {
      */
     void observeViewModel();
 
-
-    void beforeSetContentView( Bundle savedInstanceState);
+    void beforeSetContentView(Bundle savedInstanceState);
 }

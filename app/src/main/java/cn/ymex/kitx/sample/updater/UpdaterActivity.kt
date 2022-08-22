@@ -1,11 +1,8 @@
 package cn.ymex.kitx.sample.updater
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import cn.ymex.kitx.sample.databinding.ActivityUpdaterBinding
-import cn.ymex.kitx.start.app.StartActivity
 import cn.ymex.kitx.start.app.ViewBindingActivity
 import cn.ymex.kitx.start.updater.UpdateConfig
 import cn.ymex.kitx.start.updater.VersionDialogFragment

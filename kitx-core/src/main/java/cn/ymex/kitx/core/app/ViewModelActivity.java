@@ -86,6 +86,7 @@ public class ViewModelActivity extends AppCompatActivity implements ViewConstrai
 
     }
 
+
     @Override
     public void beforeSetContentView(Bundle savedInstanceState) {
 

@@ -4,14 +4,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import cn.ymex.kitx.anhttp.*
-import cn.ymex.kitx.anhttp.lifecycle.StateViewModel
+import cn.ymex.kitx.anhttp.lifecycle.ActionViewModel
 import cn.ymex.kitx.sample.anhttp.UserInfo
 import cn.ymex.kitx.sample.anhttp.repository.ApiRepos
 import cn.ymex.kitx.sample.anhttp.repository.vo.Image
 import kotlinx.coroutines.*
 
 
-class ApiViewModel(val apiRepos: ApiRepos) : StateViewModel() {
+class ApiViewModel(val apiRepos: ApiRepos) : ActionViewModel() {
 
     val liveImagesData = MutableLiveData<List<Image>>()
 
@@ -32,13 +32,14 @@ class ApiViewModel(val apiRepos: ApiRepos) : StateViewModel() {
     }
 
     fun getImages(size: Int) {
-
+        sendStartState()
         //使用协程支持的http请求
-        httpLaunch{
-            val result = async { apiRepos.getImages2("js", 0, size) }
-            liveImagesData.value = result.await().images
-
+        httpLaunch {
+            delay(3000)
+            val result = apiRepos.getImages2("js", 0, size)
+            liveImagesData.value = result.images
         }
+
 
         //异步http请求
 //        anHttpRequest<BingImageResult?>({

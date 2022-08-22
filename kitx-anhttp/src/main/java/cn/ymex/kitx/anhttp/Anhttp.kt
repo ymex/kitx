@@ -288,25 +288,22 @@ fun <T> StateViewModel.anHttpRawResponse(
 
 //--------------------------------------------------协程处理
 
-fun ViewModel.anHttpLaunchCallBack(
-    start: () -> Boolean = { true },
-    complete: () -> Boolean = { true },
-    failure: (t: Throwable) -> Boolean = { true }
-): HttpLaunchCallBack {
-    return if (this is StateViewModel) {
-        HttpLaunchCallBack(start, complete, failure, this)
-    } else {
-        HttpLaunchCallBack(start, complete, failure, null)
-    }
+fun ViewModel.simpleLaunchCallBack(
+    start: () -> Unit = { },
+    complete: () -> Unit = { },
+    failure: (t: Throwable) -> Unit = { }
+): StateLaunchCallBack {
+    return StateLaunchCallBack(start, complete, failure)
 }
 
 
 fun ViewModel.launch(
     callback: LaunchCallBack? = null,
     block: suspend CoroutineScope.() -> Unit
-):Job {
-    val job =  viewModelScope.launch(CoroutineExceptionHandler { _, throwable ->
+): Job {
+    val job = viewModelScope.launch(CoroutineExceptionHandler { _, throwable ->
         callback?.run {
+            throwable.printStackTrace()//处理异常
             onFailure(throwable)
         }
     }) {
@@ -318,33 +315,36 @@ fun ViewModel.launch(
             onComplete()
         }
     }
-    if (this is LifeViewModel){
+    if (this is LifeViewModel) {
         this.put(job)
     }
     return job
 }
 
-
-fun ViewModel.httpLaunch(
+fun ViewModel.launch(
+    failure: (Throwable) -> Unit,
     block: suspend CoroutineScope.() -> Unit
-) :Job {
-    val callback = anHttpLaunchCallBack()
+): Job {
+    return launch(simpleLaunchCallBack(failure = failure), block)
+}
+
+/**
+ * 发起协程网络请求
+ */
+fun StateViewModel.httpLaunch(
+    callback:LaunchCallBack = simpleLaunchCallBack(
+        start = {
+            sendStartState()
+        },
+        complete = {
+            sendCompleteState()
+        },
+        failure = {
+            sendFailureState(it)
+        }
+    ),
+    block: suspend CoroutineScope.() -> Unit
+): Job {
+
     return launch(callback, block)
 }
-
-fun ViewModel.httpLaunch(
-    callback: LaunchCallBack = anHttpLaunchCallBack(),
-    block: suspend CoroutineScope.() -> Unit
-):Job  {
-    return launch(callback, block)
-}
-
-fun ViewModel.httpLaunch(
-    start: () -> Boolean = { true },
-    failure: (t: Throwable) -> Boolean = { false },
-    complete: () -> Boolean = { true },
-    block: suspend CoroutineScope.() -> Unit
-):Job  {
-    return launch(anHttpLaunchCallBack(start = start, failure = failure, complete = complete), block)
-}
-

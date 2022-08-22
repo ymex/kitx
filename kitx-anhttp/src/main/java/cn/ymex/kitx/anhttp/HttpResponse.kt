@@ -24,7 +24,7 @@ class HttpResponse<T>(
     override fun onStart() {
         vm?.run {
             if (load) {
-                sendState(StateData(LaunchStatus.START.name))
+                sendState(StateData(LaunchStatus.START))
             }
         }
         start()
@@ -33,7 +33,7 @@ class HttpResponse<T>(
     override fun onFailure(call: Call<T>, t: Throwable) {
         failure(t)
         vm?.run {
-            sendState(StateData(LaunchStatus.FAILURE.name, t))
+            sendState(StateData(LaunchStatus.FAILURE, t))
         }
     }
 
@@ -41,7 +41,7 @@ class HttpResponse<T>(
         try {
             if (interceptResponse(response)) {
                 vm?.run {
-                    sendState(StateData(LaunchStatus.COMPLETE.name))
+                    sendState(StateData(LaunchStatus.COMPLETE))
                 }
                 return
             }
@@ -51,7 +51,7 @@ class HttpResponse<T>(
                 response(this)
             } ?: onFailure(call, Exception("$call : response.body() is null ."))
             vm?.run {
-                sendState(StateData(LaunchStatus.COMPLETE.name))
+                sendState(StateData(LaunchStatus.COMPLETE))
             }
         } catch (e: Exception) {
             onFailure(call, e)
@@ -61,45 +61,25 @@ class HttpResponse<T>(
 
 
 /**
- * @param start  开始网络请求事件处理回调， 当返回true 时表示不再走ViewModel统一处理方法
- * @param complete 网络响应结果事件处理回调， 当返回true 时表示不再走ViewModel统一处理方法
- * @param failure 异常抛出事件处理回调， 当返回true 时表示不再走ViewModel统一处理方法
+ * @param start  开始事件处理回调， 返回结果：是否拦截状态发送。 true 为拦截
+ * @param complete 结束事件处理回调， 返回结果：是否拦截状态发送。 true 为拦截
+ * @param failure 异常事件处理回调， 返回结果：是否拦截状态发送。 true 为拦截
  */
-class HttpLaunchCallBack(
-    val start: () -> Boolean = { true },
-    val complete: () -> Boolean = { true },
-    val failure: (t: Throwable) -> Boolean = { true },
-    private val vm: StateViewModel? = null,
+class StateLaunchCallBack(
+    val start: () -> Unit = {  },
+    val complete: () -> Unit = {  },
+    val failure: (t: Throwable) -> Unit = {  },
 ) : LaunchCallBack {
 
     override fun onStart() {
-        val intercept = start()
-        if (intercept) {
-            return
-        }
-        vm?.run {
-            sendState(StateData(LaunchStatus.START.name))
-        }
-
+        start()
     }
 
     override fun onFailure(t: Throwable) {
-        val intercept = failure(t)
-        if (intercept) {
-            return
-        }
-        vm?.run {
-            sendState(StateData(LaunchStatus.FAILURE.name, t))
-        }
+        failure(t)
     }
 
     override fun onComplete() {
-        val intercept = complete()
-        if (intercept) {
-            return
-        }
-        vm?.run {
-            sendState(StateData(LaunchStatus.COMPLETE.name))
-        }
+       complete()
     }
 }

@@ -47,7 +47,6 @@ dependencies {
     api project(path: ':kitx-glide')
     api project(path: ':kitx-anhttp')
 
-    api "org.greenrobot:eventbus:3.2.0"
 
 
     testImplementation 'junit:junit:4.13.2'
