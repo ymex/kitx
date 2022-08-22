@@ -288,32 +288,18 @@ fun <T> StateViewModel.anHttpRawResponse(
 
 //--------------------------------------------------协程处理
 
-fun ViewModel.simpleLaunchCallBack(
-    start: () -> Unit = { },
-    complete: () -> Unit = { },
-    failure: (t: Throwable) -> Unit = { }
-): StateLaunchCallBack {
-    return StateLaunchCallBack(start, complete, failure)
-}
-
-
+/**
+ * 协程中所抛出的异常会被failure 处理。
+ */
 fun ViewModel.launch(
-    callback: LaunchCallBack? = null,
+    failure: (Throwable) -> Unit = {},
     block: suspend CoroutineScope.() -> Unit
 ): Job {
     val job = viewModelScope.launch(CoroutineExceptionHandler { _, throwable ->
-        callback?.run {
-            throwable.printStackTrace()//处理异常
-            onFailure(throwable)
-        }
+        throwable.printStackTrace()//处理异常
+        failure(throwable)
     }) {
-        callback?.run {
-            onStart()
-        }
         block.invoke(this)
-        callback?.run {
-            onComplete()
-        }
     }
     if (this is LifeViewModel) {
         this.put(job)
@@ -321,29 +307,29 @@ fun ViewModel.launch(
     return job
 }
 
-fun ViewModel.launch(
-    failure: (Throwable) -> Unit,
-    block: suspend CoroutineScope.() -> Unit
-): Job {
-    return launch(simpleLaunchCallBack(failure = failure), block)
-}
-
 /**
- * 发起协程网络请求
+ * @param start 每次执行都会触发,
+ * @param failure 执行中的异常都会抛给failure处理。如：retrofit2 响应状态码非200时会抛出HttpException异常。
+ * @param complete block执行无异常则会执行，否则不会执行。
+ * @param block 协和执行体。
  */
 fun StateViewModel.httpLaunch(
+    start: () -> Unit = {
+        sendStartState()
+    },
+    complete: () -> Unit = {
+        sendCompleteState()
+    },
+    failure: (Throwable) -> Unit = {
+        sendFailureState(it)
+    },
     block: suspend CoroutineScope.() -> Unit
 ): Job {
-    val callback:LaunchCallBack = simpleLaunchCallBack(
-        start = {
-            sendStartState()
-        },
-        complete = {
-            sendCompleteState()
-        },
-        failure = {
-            sendFailureState(it)
-        }
-    )
-    return launch(callback, block)
+    return launch({
+        failure(it)
+    }) {
+        start()
+        block.invoke(this)
+        complete()
+    }
 }

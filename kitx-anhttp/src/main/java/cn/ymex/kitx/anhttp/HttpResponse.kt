@@ -58,28 +58,3 @@ class HttpResponse<T>(
         }
     }
 }
-
-
-/**
- * @param start  开始事件处理回调， 返回结果：是否拦截状态发送。 true 为拦截
- * @param complete 结束事件处理回调， 返回结果：是否拦截状态发送。 true 为拦截
- * @param failure 异常事件处理回调， 返回结果：是否拦截状态发送。 true 为拦截
- */
-class StateLaunchCallBack(
-    val start: () -> Unit = {  },
-    val complete: () -> Unit = {  },
-    val failure: (t: Throwable) -> Unit = {  },
-) : LaunchCallBack {
-
-    override fun onStart() {
-        start()
-    }
-
-    override fun onFailure(t: Throwable) {
-        failure(t)
-    }
-
-    override fun onComplete() {
-       complete()
-    }
-}

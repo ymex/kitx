@@ -8,7 +8,6 @@ import cn.ymex.kitx.core.lifecycle.MutableLifeData
 import cn.ymex.kitx.sample.anhttp.UserInfo
 import cn.ymex.kitx.sample.anhttp.repository.ApiRepos
 import cn.ymex.kitx.sample.anhttp.repository.vo.Image
-import cn.ymex.kitx.sample.anhttp.stateLaunch
 import kotlinx.coroutines.*
 
 
@@ -32,15 +31,13 @@ class ApiViewModel(val apiRepos: ApiRepos) : ActionViewModel() {
         })
     }
 
-    fun getImages(size: Int,loading:Boolean = false) {
+    fun getImages(size: Int, loading: Boolean = false) {
         //使用协程支持的http请求
-        stateLaunch(loading) {
-            delay(3000)
+        httpLaunch(start = { if (loading) sendStartState() }) {
+            delay(2000)
             val result = apiRepos.getImages2("js", 0, size)
             liveImagesData.value = result.images
         }
-
-
         //异步http请求
 //        anHttpRequest<BingImageResult?>({
 //            apiRepos.getImages("js", 0, size)
