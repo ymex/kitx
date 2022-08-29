@@ -223,11 +223,19 @@ public class DelegateAdapter extends RecyclerAdapter<Object, ItemViewHolder> {
     }
 
 
-    public void notifyItemChanged(WrapType wrapType) {
-        if (wrapType != null && wrapType.getIndex() >= 0) {
-            notifyItemChanged(wrapType.getIndex());
+    public void notifyItemChanged(Object item) {
+
+        if (item instanceof WrapType && ((WrapType<?>) item).getIndex() >= 0) {
+            notifyItemChanged(((WrapType<?>) item).getIndex());
+        }else {
+            for (int i = 0; i < getData().size(); i++) {
+                if (item == getData().get(i)){
+                    notifyItemChanged(i);
+                }
+            }
         }
     }
+
 
     public ItemViewBinder<?, ? extends ItemViewHolder> getBinder(int position) {
         return manager.get(getItemViewType(position));

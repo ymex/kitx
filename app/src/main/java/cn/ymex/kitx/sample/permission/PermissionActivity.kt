@@ -6,6 +6,13 @@ import android.view.View
 import cn.ymex.kitx.core.permission.PermissionRequest
 import cn.ymex.kitx.sample.databinding.PermissionActivityBinding
 import cn.ymex.kitx.start.app.ViewBindingActivity
+import android.content.Intent
+
+import android.content.DialogInterface
+import android.net.Uri
+import android.provider.Settings
+import androidx.appcompat.app.AlertDialog
+
 
 class PermissionActivity : ViewBindingActivity<PermissionActivityBinding>() {
 
@@ -55,6 +62,20 @@ class PermissionActivity : ViewBindingActivity<PermissionActivityBinding>() {
                 true
             }
         }
+    }
+
+
+    private fun showWaringDialog() {
+       AlertDialog.Builder(this)
+            .setTitle("警告！")
+            .setMessage("请前往设置->应用->权限中打开相关权限，否则功能无法正常运行！")
+            .setPositiveButton("确定", DialogInterface.OnClickListener { dialog, which ->
+                val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+                val uri: Uri = Uri.fromParts("package", packageName, null)
+                intent.data = uri
+                startActivity(intent)
+                dialog.dismiss()
+            }).show()
     }
 
 }
