@@ -45,26 +45,27 @@ fun String.toSafeDouble(defValue: Double = 0.0): Double {
 /**
  * 格式化小数后N位
  */
-fun Double.format(scale: Int = 2): String {
+fun Double.format(scale: Int = 2,mode:RoundingMode =  RoundingMode.HALF_UP): String {
     var bd = BigDecimal(this)
-    bd = bd.setScale(scale, RoundingMode.HALF_UP)
+    bd = bd.setScale(scale,mode)
     return bd.toString()
 }
 
 /**
  * 格式化小数后N位
  */
-fun Float.format(scale: Int = 2): String {
+fun Float.format(scale: Int = 2,mode:RoundingMode =  RoundingMode.HALF_UP): String {
     var bd = BigDecimal(this.toDouble())
-    bd = bd.setScale(scale, RoundingMode.HALF_UP)
+    bd = bd.setScale(scale, mode)
     return bd.toString()
 }
 
 /**
  * 格式化小数后N位
  */
-fun String.formatNumber(scale: Int = 2): String {
-    return format("%.${scale}f", this)
+fun String.format(scale: Int = 2,mode:RoundingMode =  RoundingMode.HALF_UP): String {
+    val dn = toSafeDouble()
+    return dn.format(scale,mode)
 }
 
 
@@ -72,21 +73,9 @@ fun <T> Boolean.judge(t: T, f: T): T {
     return if (this) t else f
 }
 
-/**
- * 除正常的
- * 大于0时为true，小于等于0 时为 false
- */
-fun String.toSafeBoolean(defValue: Boolean): Boolean {
-    var value = defValue
-    try {
-        value = this.toBoolean()
-    } catch (e: Exception) {
-        e.printStackTrace()
-    }
-    return value
-}
 
 
-fun Int.toBoolean(): Boolean {
+fun Number.toBoolean(): Boolean {
     return (this != 0).judge(t = true, f = false)
 }
+

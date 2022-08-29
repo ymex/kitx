@@ -1,5 +1,6 @@
 package cn.ymex.kitx.snippet
 
+import cn.ymex.kitx.snippet.text.format
 import org.junit.Test
 
 import org.junit.Assert.*
@@ -13,5 +14,14 @@ class ExampleUnitTest {
     @Test
     fun addition_isCorrect() {
         assertEquals(4, 2 + 2)
+    }
+
+    @Test
+    fun formatNumber(){
+        val pi = 3.1415926
+
+        println("------${ pi.format(4)}")
+        println("------${ pi.toString().format(4)}")
+
     }
 }

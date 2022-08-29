@@ -4,13 +4,14 @@
     package="cn.ymex.kitx.sample">
 
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
     <uses-permission
         android:name="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE"
         tools:ignore="ProtectedPermissions" />
-    <uses-sdk tools:overrideLibrary=""/>
+
     <application
         tools:replace="android:allowBackup"
         android:name=".AppContext"
@@ -21,24 +22,28 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".umeng.UmengActivity"></activity>
-        <activity android:name=".MainActivity">
+        <activity android:name=".umeng.UmengActivity" android:exported="false"/>
+        <activity
+            android:exported="true"
+            android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".adapter.AdapterActivity" />
-        <activity android:name=".permission.PermissionActivity" />
-        <activity android:name=".webview.BridgeActivity" />
-        <activity android:name=".anhttp.AnhttpStartActivity" />
-        <activity android:name=".updater.UpdaterActivity" />
+        <activity android:name=".adapter.AdapterActivity" android:exported="false"/>
+        <activity android:name=".permission.PermissionActivity" android:exported="false"/>
+        <activity android:name=".webview.BridgeActivity" android:exported="false"/>
+        <activity android:name=".anhttp.AnhttpStartActivity" android:exported="false"/>
+        <activity android:name=".updater.UpdaterActivity" android:exported="false"/>
 
         <service
+            android:exported="true"
             android:name=".core.MutService"
             android:process=":mut" />
         <service
+            android:exported="true"
             android:name=".permission.NoticeService"
             android:label="通知使用权测试程序"
             android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">

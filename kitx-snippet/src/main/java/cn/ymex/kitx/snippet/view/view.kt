@@ -10,11 +10,18 @@ import java.util.concurrent.atomic.AtomicInteger
  */
 fun <T : View> View.find(@IdRes id: Int): T = findViewById(id)
 
+
 /**
  * 显示组件
  */
 fun View.visibilityShow() {
     visibility = View.VISIBLE
+}
+
+fun visibilityShow(vararg views: View){
+    views.forEach {
+        it.visibilityShow()
+    }
 }
 
 /**
@@ -24,11 +31,23 @@ fun View.visibilityHidden() {
     visibility = View.INVISIBLE
 }
 
+
+fun visibilityHidden(vararg views: View){
+    views.forEach {
+        it.visibilityHidden()
+    }
+}
 /**
  * 显示组件隐藏组件（View.GONE）
  */
 fun View.visibilityGone() {
     visibility = View.GONE
+}
+
+fun visibilityGone(vararg views: View){
+    views.forEach {
+        it.visibilityGone()
+    }
 }
 
 
