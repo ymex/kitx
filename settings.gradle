@@ -1,3 +1,35 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+
+        maven { url 'https://maven.aliyun.com/nexus/content/repositories/central' }
+        maven { url 'https://maven.aliyun.com/repository/google' }
+        maven { url 'https://maven.aliyun.com/repository/jcenter' }
+        maven { url 'https://www.jitpack.io' }
+
+        google()
+        mavenCentral()
+
+        maven { url 'https://developer.huawei.com/repo/' }
+        maven { url 'https://repo1.maven.org/maven2/' }
+    }
+}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        maven { url 'https://maven.aliyun.com/nexus/content/repositories/central' }
+        maven { url 'https://maven.aliyun.com/repository/google' }
+        maven { url 'https://maven.aliyun.com/repository/jcenter' }
+        maven { url 'https://www.jitpack.io' }
+
+        google()
+        mavenCentral()
+
+        maven { url 'https://developer.huawei.com/repo/' }
+        maven { url 'https://repo1.maven.org/maven2/' }
+    }
+}
+
 include ':app'
 include ':kitx-core'
 include ':kitx-widget'

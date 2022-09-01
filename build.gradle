@@ -1,91 +1,63 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
-ext {
-    github = "com.github.ymex.kitx"
-    lib = "com.ymex.kitx"
 
-    kitx = [
-            anhttp : [
-                    name   : "anhttp",
-                    version: "1.0.7",
-                    bintray: true
-            ],
-            core   : [
-                    name   : "core",
-                    version: "1.0.6",
-                    bintray: true
-            ],
-            glide  : [
-                    name   : "glide",
-                    version: "1.0.0",
-                    bintray: true
-            ],
-            snippet: [
-                    name   : "snippet",
-                    version: "0.0.6",
-                    bintray: true
-            ],
-            webview: [
-                    name   : "webview",
-                    version: "1.0.0",
-                    bintray: true
-            ],
-            widget : [
-                    name   : "widget",
-                    version: "1.0.2",
-                    bintray: true
-            ],
-            umeng  : [
-                    name   : "umeng",
-                    version: "0.0.3",
-                    bintray: true
-            ],
-            start  : [
-                    name   : "start",
-                    version: "0.1.1",
-                    bintray: true
-            ]
-    ]
-}
 buildscript {
-    ext.kotlin_version = '1.6.10'
-    repositories {
-        maven { url 'https://maven.aliyun.com/nexus/content/repositories/central' }
-        maven { url 'https://maven.aliyun.com/repository/google' }
-        maven { url 'https://maven.aliyun.com/repository/jcenter' }
+    ext {
+        github = "com.github.ymex.kitx"
+        lib = "com.ymex.kitx"
 
-        maven { url 'https://www.jitpack.io' }
-        google()
-        mavenCentral()
-
-        maven { url 'https://developer.huawei.com/repo/' }
-        maven { url 'https://repo1.maven.org/maven2/' }
-
+        kitx = [
+                anhttp : [
+                        name   : "anhttp",
+                        version: "1.0.7",
+                        bintray: true
+                ],
+                core   : [
+                        name   : "core",
+                        version: "1.0.6",
+                        bintray: true
+                ],
+                glide  : [
+                        name   : "glide",
+                        version: "1.0.0",
+                        bintray: true
+                ],
+                snippet: [
+                        name   : "snippet",
+                        version: "0.0.6",
+                        bintray: true
+                ],
+                webview: [
+                        name   : "webview",
+                        version: "1.0.0",
+                        bintray: true
+                ],
+                widget : [
+                        name   : "widget",
+                        version: "1.0.2",
+                        bintray: true
+                ],
+                umeng  : [
+                        name   : "umeng",
+                        version: "0.0.3",
+                        bintray: true
+                ],
+                start  : [
+                        name   : "start",
+                        version: "0.1.1",
+                        bintray: true
+                ]
+        ]
     }
+
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.0.4'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath 'com.huawei.agconnect:agcp:1.4.2.300'
     }
 }
 
-allprojects {
-    repositories {
-        maven { url 'https://maven.aliyun.com/nexus/content/repositories/central' }
-        maven { url 'https://maven.aliyun.com/repository/google' }
-        maven { url 'https://maven.aliyun.com/repository/jcenter' }
-
-        maven { url 'https://www.jitpack.io' }
-        google()
-        mavenCentral()
-
-        maven { url 'https://developer.huawei.com/repo/' }
-        maven { url 'https://repo1.maven.org/maven2/' }
-    }
-
-    tasks.withType(Javadoc) {
-        options.addStringOption('Xdoclint:none', '-quiet')  //忽略javadoc错误
-        options.encoding = "UTF-8"
-    }
+plugins {
+    id 'com.android.application' version '7.2.2' apply false
+    id 'com.android.library' version '7.2.2' apply false
+    id 'org.jetbrains.kotlin.android' version '1.5.31' apply false
 }
 
 task clean(type: Delete) {
