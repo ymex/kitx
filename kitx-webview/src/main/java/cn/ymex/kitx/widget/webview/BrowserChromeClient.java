@@ -1,5 +1,6 @@
 package cn.ymex.kitx.widget.webview;
 
+import android.annotation.SuppressLint;
 import android.net.Uri;
 import android.util.Log;
 import android.webkit.ConsoleMessage;
@@ -8,10 +9,14 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.widget.TextView;
 
+import cn.ymex.kitx.widget.webview.proxy.ProgressChange;
+
 
 public class BrowserChromeClient extends WebChromeClient {
-    private BrowserView.ProgressChange progressView;
+    private ProgressChange progressView;
     private TextView textView;
+    public static int maxTitleTextLength = 12;
+
 
     public BrowserChromeClient() {
     }
@@ -20,12 +25,12 @@ public class BrowserChromeClient extends WebChromeClient {
         this.textView = textView;
     }
 
-    public BrowserChromeClient(BrowserView.ProgressChange progressView, TextView textView) {
+    public BrowserChromeClient(ProgressChange progressView, TextView textView) {
         this.progressView = progressView;
         this.textView = textView;
     }
 
-    public BrowserChromeClient(BrowserView.ProgressChange progressView) {
+    public BrowserChromeClient(ProgressChange progressView) {
         this.progressView = progressView;
     }
 
@@ -37,12 +42,13 @@ public class BrowserChromeClient extends WebChromeClient {
         }
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onReceivedTitle(WebView webView, String title) {
         super.onReceivedTitle(webView, title);
-        if (title.length() > 8) {
+        if (title.length() > maxTitleTextLength) {
             if (textView != null) {
-                textView.setText((title.substring(8) + "..."));
+                textView.setText((title.substring(maxTitleTextLength) + "..."));
             }
         } else {
             if (textView != null) {
@@ -53,9 +59,11 @@ public class BrowserChromeClient extends WebChromeClient {
 
     @Override
     public boolean onConsoleMessage(ConsoleMessage consoleMessage) {
-        Log.e("JS-"+consoleMessage.messageLevel().name(),
-                        consoleMessage.message() + "  " + consoleMessage.sourceId()+" -> ["+consoleMessage.lineNumber()+"] ");
-        return true;//super.onConsoleMessage(consoleMessage);
+        if (BrowserView.consoleMessage) {
+            Log.e("JS-"+consoleMessage.messageLevel().name(),
+                    consoleMessage.message() + "  " + consoleMessage.sourceId()+" -> ["+consoleMessage.lineNumber()+"] ");
+        }
+        return true;
     }
 
     @Override

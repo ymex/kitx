@@ -1,4 +1,32 @@
-# BrowserView  [ ![Download](https://api.bintray.com/packages/ymex/maven/widget-webview/images/download.svg) ](https://bintray.com/ymex/maven/widget-webview/_latestVersion)
+# BrowserView [![](https://jitpack.io/v/ymex/kitx.svg)](https://jitpack.io/#ymex/kitx)
+
+功能：
+- 页面加载进度条
+- 选择文件
+
+## H5页面调试
+工具eruda、vconsole 、chrome://inspect/#devices
+
+- eruda、vconsole 需要在H5源码中引用。`chrome://inspect/#devices`不需要在源码中引用就可使用chrome调试工具。
+
+- 关于微信里的H5调试。
+
+```微信浏览器内核x5已经换为xweb。debugx5.qq.com已经无法使用。现在要使用 chrome://inspect/#devices```
+
+1、手机开启使用usb调试、连接至电脑
+2、微信内访问 http://debugxweb.qq.com/?inspector=true
+3、微信内打开所需调试网址
+4、chrome浏览器打开 chrome://inspect/#devices
+5、在点击chrome链接下的 inspect 直接调试
+
+
+以下内容仅在 0.1.14 版本及之前版本中使用。
+以下内容仅在 0.1.14 版本及之前版本中使用。
+以下内容仅在 0.1.14 版本及之前版本中使用。
+
+```shell
+  implementation 'com.github.ymex.kitx:webview:0.1.14'
+```
 
 
 BrowserView使用腾讯X5 WebView内核。 集成页面加载进度条、jsbridge 通信的功能。 

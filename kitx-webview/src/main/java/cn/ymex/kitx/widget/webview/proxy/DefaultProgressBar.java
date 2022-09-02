@@ -12,7 +12,7 @@ import cn.ymex.kitx.widget.webview.BrowserView;
 /**
  * 进度条
  */
-public class DefaultProgressBar extends ProgressBar implements BrowserView.ProgressChange {
+public class DefaultProgressBar extends ProgressBar implements ProgressChange {
     public DefaultProgressBar(Context context) {
         super(context);
     }

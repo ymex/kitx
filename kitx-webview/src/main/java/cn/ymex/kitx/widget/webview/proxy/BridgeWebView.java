@@ -2,23 +2,16 @@ package cn.ymex.kitx.widget.webview.proxy;
 
 import static android.webkit.WebSettings.MIXED_CONTENT_ALWAYS_ALLOW;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Build;
-import android.os.Handler;
-import android.os.Looper;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.webkit.CookieManager;
-import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
-
-import androidx.annotation.Keep;
 
 import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
 
 
 /**
@@ -27,24 +20,7 @@ import java.util.Map;
 
 public class BridgeWebView extends WebView {
 
-    private static final String LOG_TAG = "kitx_webview";
-
-    private String bridgeScriptFile = "bridge.js";
-    private String vConsoleScriptFile = "vconsole.js";
-
-    private static boolean isDebug = false;
-
     private String APP_CACHE_DIRNAME;
-    int callID = 0;
-    private WebChromeClient webChromeClient;
-    private WebViewClient webViewClient;
-    private volatile boolean alertBoxBlock = true;
-
-
-
-    private Handler mainHandler = new Handler(Looper.getMainLooper());
-    Map<Integer, OnReturnValue> handlerMap = new HashMap<>();
-
 
     public BridgeWebView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -57,7 +33,7 @@ public class BridgeWebView extends WebView {
     }
 
 
-    @Keep
+    @SuppressLint("SetJavaScriptEnabled")
     private void init() {
         APP_CACHE_DIRNAME = getContext().getFilesDir().getAbsolutePath() + "/webcache";
         WebSettings settings = getSettings();

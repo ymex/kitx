@@ -5,10 +5,18 @@ import android.content.Context;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.webkit.CookieManager;
+import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
+import android.webkit.WebViewClient;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
+import cn.ymex.kitx.widget.webview.BrowserChromeClient;
+import cn.ymex.kitx.widget.webview.BrowserClient;
 
 public  class ProxyWebView extends BridgeWebView {
-        private boolean debug = false;
+
 
         public ProxyWebView(Context context, AttributeSet attrs) {
             super(context, attrs);
@@ -26,8 +34,23 @@ public  class ProxyWebView extends BridgeWebView {
             initSetting();
         }
 
+    @Override
+    public void setWebViewClient(@NonNull WebViewClient client) {
+        super.setWebViewClient(client);
+        if (!(client instanceof BrowserClient)){
+            throw new IllegalArgumentException(client.getClass().getName() + "need extends BrowserClient.");
+        }
+    }
 
-        @SuppressLint("SetJavaScriptEnabled")
+    @Override
+    public void setWebChromeClient(@Nullable WebChromeClient client) {
+        super.setWebChromeClient(client);
+        if (!(client instanceof BrowserChromeClient)){
+            throw new IllegalArgumentException(client.getClass().getName() + "need extends BrowserChromeClient.");
+        }
+    }
+
+    @SuppressLint("SetJavaScriptEnabled")
         private void initSetting() {
             WebSettings webSetting = this.getSettings();
             webSetting.setJavaScriptEnabled(true);
@@ -53,9 +76,9 @@ public  class ProxyWebView extends BridgeWebView {
             // this.getSettingsExtension().setPageCacheCapacity(IX5WebSettings.DEFAULT_CACHE_CAPACITY);//extension
 
             // Enable remote debugging via chrome://inspect
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                setWebContentsDebuggingEnabled(debug);
-            }
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+//                setWebContentsDebuggingEnabled(true);
+//            }
 
             // Allow use of Local Storage
             webSetting.setDomStorageEnabled(true);

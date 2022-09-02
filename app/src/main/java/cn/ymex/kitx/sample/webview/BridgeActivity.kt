@@ -1,12 +1,15 @@
 package cn.ymex.kitx.sample.webview
 
+import android.R
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import cn.ymex.kitx.sample.databinding.ActivityBridgeBinding
 import cn.ymex.kitx.start.app.ViewBindingActivity
-import cn.ymex.kitx.widget.webview.proxy.BridgeWebView
-import cn.ymex.kitx.widget.webview.proxy.OnReturnValue
+import cn.ymex.kitx.widget.webview.BrowserChromeClient
+import cn.ymex.kitx.widget.webview.BrowserClient
+import cn.ymex.kitx.widget.webview.BrowserView
+import cn.ymex.kitx.widget.webview.proxy.DefaultProgressBar
+import cn.ymex.kitx.widget.webview.proxy.ProgressChange
 
 
 class BridgeActivity : ViewBindingActivity<ActivityBridgeBinding>() {
@@ -21,16 +24,22 @@ class BridgeActivity : ViewBindingActivity<ActivityBridgeBinding>() {
         super.onViewCreated(view, savedInstanceState)
         vb = ActivityBridgeBinding.inflate(layoutInflater)
         setContentView(vb.root)
-        // set debug mode
 
+        vb.vBrowser.run {
+            webContentsDebuggingEnabled(true)
+            BrowserView.setConsoleMessage(true)
+            val progress: ProgressChange =
+                DefaultProgressBar(context, null, R.attr.progressBarStyleHorizontal)
+            setWebViewClient(object : BrowserClient(progress) {
 
-        var url =
-            "https://wawah5.szsget.cn/channel/?mobile=12345678901&code=94654343&nonce_str=77WWCFU09607OTTIDLVYIAV8K&sign=2850EA81FE1F6C0433DC2DC0AD99AF06#/"
-        url = "file:///android_asset/js_bridge_test.html"
-//        vBrowser.loadUrl("http://wechatfe.github.io/vconsole/demo.html")
+            })
+            setWebChromeClient(object : BrowserChromeClient(progress) {
+
+            })
+        }
+
+//        val url = "file:///android_asset/js_bridge_test.html";
+        val url = "https://www.baidu.com/";
         vb.vBrowser.loadUrl(url)
-
-
-
     }
 }
