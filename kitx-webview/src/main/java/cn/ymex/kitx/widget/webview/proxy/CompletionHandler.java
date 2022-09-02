@@ -1,4 +1,4 @@
-package cn.ymex.kitx.widget.webview.bridge;
+package cn.ymex.kitx.widget.webview.proxy;
 
 
 

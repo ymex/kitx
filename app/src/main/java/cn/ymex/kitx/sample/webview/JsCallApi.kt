@@ -2,7 +2,7 @@ package cn.ymex.kitx.sample.webview
 
 import android.os.CountDownTimer
 import android.webkit.JavascriptInterface
-import cn.ymex.kitx.widget.webview.bridge.CompletionHandler
+import cn.ymex.kitx.widget.webview.proxy.CompletionHandler
 
 class JsCallApi {
     /**

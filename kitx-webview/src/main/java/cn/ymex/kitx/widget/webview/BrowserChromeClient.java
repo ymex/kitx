@@ -1,12 +1,16 @@
 package cn.ymex.kitx.widget.webview;
 
+import android.net.Uri;
+import android.util.Log;
+import android.webkit.ConsoleMessage;
+import android.webkit.ValueCallback;
+import android.webkit.WebChromeClient;
+import android.webkit.WebView;
 import android.widget.TextView;
 
-import com.tencent.smtt.sdk.WebChromeClient;
-import com.tencent.smtt.sdk.WebView;
 
 public class BrowserChromeClient extends WebChromeClient {
-    private BrowserView.Progressable progressView;
+    private BrowserView.ProgressChange progressView;
     private TextView textView;
 
     public BrowserChromeClient() {
@@ -16,12 +20,12 @@ public class BrowserChromeClient extends WebChromeClient {
         this.textView = textView;
     }
 
-    public BrowserChromeClient(BrowserView.Progressable progressView, TextView textView) {
+    public BrowserChromeClient(BrowserView.ProgressChange progressView, TextView textView) {
         this.progressView = progressView;
         this.textView = textView;
     }
 
-    public BrowserChromeClient(BrowserView.Progressable progressView) {
+    public BrowserChromeClient(BrowserView.ProgressChange progressView) {
         this.progressView = progressView;
     }
 
@@ -45,5 +49,17 @@ public class BrowserChromeClient extends WebChromeClient {
                 textView.setText(title);
             }
         }
+    }
+
+    @Override
+    public boolean onConsoleMessage(ConsoleMessage consoleMessage) {
+        Log.e("JS-"+consoleMessage.messageLevel().name(),
+                        consoleMessage.message() + "  " + consoleMessage.sourceId()+" -> ["+consoleMessage.lineNumber()+"] ");
+        return true;//super.onConsoleMessage(consoleMessage);
+    }
+
+    @Override
+    public boolean onShowFileChooser(WebView webView, ValueCallback<Uri[]> filePathCallback, FileChooserParams fileChooserParams) {
+        return super.onShowFileChooser(webView, filePathCallback, fileChooserParams);
     }
 }

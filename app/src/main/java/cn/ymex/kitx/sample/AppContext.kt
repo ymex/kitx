@@ -5,7 +5,6 @@ import androidx.multidex.MultiDex
 import cn.ymex.kitx.anhttp.AnHttpManager
 import cn.ymex.kitx.anhttp.anHttp
 import cn.ymex.kitx.core.ApplicationContext
-import cn.ymex.kitx.widget.webview.Browser
 
 /**
  * Created by ymex on 2020/2/14.
@@ -14,7 +13,7 @@ import cn.ymex.kitx.widget.webview.Browser
 class AppContext : ApplicationContext() {
     override fun onCreate() {
         super.onCreate()
-        Browser.create(this, true)
+
         val retrofit =
             AnHttpManager.newRetrofitBuilder(baseUrl = "https://cn.bing.com/")
                 .build()
