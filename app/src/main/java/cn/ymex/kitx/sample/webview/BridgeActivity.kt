@@ -25,12 +25,8 @@ class BridgeActivity : ViewBindingActivity<ActivityBridgeBinding>() {
         vb.vBrowser.run {
             webNavigateBarEnabled(true)
             BrowserView.webConsoleMessage(true)
-            setWebViewClient(object : BrowserClient() {
-
-            })
-            setWebChromeClient(object : BrowserChromeClient() {
-
-            })
+            setWebViewClient(object : BrowserClient() {})
+            setWebChromeClient(object : BrowserChromeClient() {})
         }
 
         val url = "file:///android_asset/js_bridge_test.html";
