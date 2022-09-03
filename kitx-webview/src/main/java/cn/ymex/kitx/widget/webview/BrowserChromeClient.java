@@ -10,33 +10,33 @@ import android.webkit.WebView;
 import android.widget.TextView;
 
 import cn.ymex.kitx.widget.webview.proxy.ProgressChange;
+import cn.ymex.kitx.widget.webview.proxy.ProxyWebView;
 
 
 public class BrowserChromeClient extends WebChromeClient {
-    private ProgressChange progressView;
-    private TextView textView;
+
     public static int maxTitleTextLength = 12;
 
 
-    public BrowserChromeClient() {
+    public ProgressChange getProgressView(WebView webView) {
+        if (webView instanceof ProxyWebView){
+            return ((ProxyWebView) webView).getProgressView();
+        }
+        return null;
     }
 
-    public BrowserChromeClient(TextView textView) {
-        this.textView = textView;
+    public TextView getTitleView(WebView webView){
+        if (webView instanceof ProxyWebView){
+            return ((ProxyWebView) webView).getTitleView();
+        }
+        return null;
     }
 
-    public BrowserChromeClient(ProgressChange progressView, TextView textView) {
-        this.progressView = progressView;
-        this.textView = textView;
-    }
-
-    public BrowserChromeClient(ProgressChange progressView) {
-        this.progressView = progressView;
-    }
 
     @Override
     public void onProgressChanged(WebView webView, int progress) {
         super.onProgressChanged(webView, progress);
+        ProgressChange progressView = getProgressView(webView);
         if (progressView != null) {
             progressView.onProgressChanged(progress);
         }
@@ -46,6 +46,7 @@ public class BrowserChromeClient extends WebChromeClient {
     @Override
     public void onReceivedTitle(WebView webView, String title) {
         super.onReceivedTitle(webView, title);
+        TextView textView = getTitleView(webView);
         if (title.length() > maxTitleTextLength) {
             if (textView != null) {
                 textView.setText((title.substring(maxTitleTextLength) + "..."));

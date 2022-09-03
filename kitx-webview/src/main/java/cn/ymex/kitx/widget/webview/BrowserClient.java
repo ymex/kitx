@@ -9,6 +9,7 @@ import android.webkit.WebResourceRequest;
 import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
@@ -19,18 +20,9 @@ import java.io.InputStream;
 import java.nio.charset.Charset;
 
 import cn.ymex.kitx.widget.webview.proxy.ProgressChange;
+import cn.ymex.kitx.widget.webview.proxy.ProxyWebView;
 
 public class BrowserClient extends WebViewClient {
-
-    private ProgressChange progressChange;
-
-
-    public BrowserClient() {
-    }
-
-    public BrowserClient(ProgressChange progressChange) {
-        this.progressChange = progressChange;
-    }
 
 
 //    private WebResourceResponse interceptScriptResource(Context context, String url) {
@@ -74,18 +66,52 @@ public class BrowserClient extends WebViewClient {
         return super.shouldInterceptRequest(view, url);
     }
 
+    private void setUrlTip(WebView webView,String url){
+        if (webView instanceof ProxyWebView){
+            ((ProxyWebView) webView).setUrlViewText(url);
+        }
+    }
 
     @Override
     public boolean shouldOverrideUrlLoading(WebView webView, String url) {
-//        webView.loadUrl(url);
-//        return true;
-        System.out.println("--------------:"+url);
+        setUrlTip(webView,url);
+        if (!interceptUrlRole(url)){
+            webView.loadUrl(url);
+        }
+        return true;//super.shouldOverrideUrlLoading(webView, url);
+    }
+
+
+    /**
+     * shouldOverrideUrlLoading 拦截url 规则。
+     * @param url url
+     * @return
+     */
+    public boolean interceptUrlRole(String url){
+        if (url.startsWith("http://")||url.startsWith("https://")){
+            return false;
+        }
         return true;
+    }
+
+    private String cacheUrl = "";
+    @Override
+    public void onLoadResource(WebView webView, String url) {
+        super.onLoadResource(webView, url);
+        if (!cacheUrl.equals( webView.getUrl())){
+            cacheUrl = webView.getUrl();
+            onPageUrlChange(cacheUrl);
+        }
+    }
+
+    public void onPageUrlChange(String url){
+
     }
 
     @Override
     public void onPageStarted(WebView webView, String s, Bitmap bitmap) {
         super.onPageStarted(webView, s, bitmap);
+        ProgressChange progressChange = getProgressView(webView);
         if (progressChange != null) {
             progressChange.onStart();
         }
@@ -94,6 +120,7 @@ public class BrowserClient extends WebViewClient {
     @Override
     public void onPageFinished(WebView webView, String s) {
         super.onPageFinished(webView, s);
+        ProgressChange progressChange = getProgressView(webView);
         if (progressChange != null) {
             progressChange.onFinish();
         }
@@ -129,5 +156,19 @@ public class BrowserClient extends WebViewClient {
             }
         }
         return "";
+    }
+
+    public ProgressChange getProgressView(WebView webView) {
+        if (webView instanceof ProxyWebView){
+            return ((ProxyWebView) webView).getProgressView();
+        }
+        return null;
+    }
+
+    public TextView getTitleView(WebView webView){
+        if (webView instanceof ProxyWebView){
+            return ((ProxyWebView) webView).getTitleView();
+        }
+        return null;
     }
 }

@@ -5,14 +5,17 @@ import android.content.res.Resources;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.util.TypedValue;
+import android.view.Gravity;
+import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.webkit.WebView;
+import android.widget.EditText;
 import android.widget.FrameLayout;
-import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -25,7 +28,9 @@ import cn.ymex.kitx.widget.webview.proxy.ProxyWebView;
 public class BrowserView extends FrameLayout {
 
     protected static boolean consoleMessage = false;
-
+    private ProgressChange mProgressChange;
+    private TextView mTitleView;
+    private View mNavView;
 
     public BrowserView(@NonNull Context context) {
         super(context);
@@ -48,32 +53,46 @@ public class BrowserView extends FrameLayout {
         init();
     }
 
-    private ProxyWebView mProxyWebView = new ProxyWebView(getContext());
-    private ProgressChange mProgress = new DefaultProgressBar(getContext(), null, android.R.attr.progressBarStyleHorizontal);
+    private final ProxyWebView mProxyWebView = new ProxyWebView(getContext());
 
-    private TextView titleView = null;
 
     private void init() {
         addView(mProxyWebView, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
-        if (mProgress instanceof View) {
-            addView((View) mProgress, new LayoutParams(LayoutParams.MATCH_PARENT, dip2px(2.4F)));
-        }
-        LinearLayout linearLayout = new LinearLayout(getContext());
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-
-        addView(linearLayout,layoutParams);
-
-
-        initSetting(mProgress);
+        ProgressChange pv = new DefaultProgressBar(getContext(), null, android.R.attr.progressBarStyleHorizontal);
+        setProgressView(pv, true);
+        webNavigateBarEnabled(false);
+        initSetting();
     }
 
-//    private ImageView genIconImage(){
-//        ImageView imageView = new ImageView(getContext());
-//        ViewGroup.LayoutParams  layoutParams = new ViewGroup.LayoutParams(dip2px(22f),dip2px(22f));
-//        imageView.setLayoutParams(layoutParams);
-//        imageView.setImageResource();
-//        return imageView;
-//    }
+
+    public void setProgressView(ProgressChange progressChange) {
+        setProgressView(progressChange, false);
+    }
+
+    /**
+     * @param progressView
+     * @param attach       是否为视图加入到BrowserView中 。
+     */
+    public void setProgressView( ProgressChange progressView, Boolean attach) {
+        if (this.mProgressChange != null && progressView instanceof View) {
+            removeView((View) this.mProgressChange);
+        }
+
+        if (attach) {
+            if (progressView instanceof View) {
+                addView((View) progressView, new LayoutParams(LayoutParams.MATCH_PARENT, dip2px(2F)));
+                ((View) progressView).setVisibility(GONE);
+            }
+        }
+        this.mProgressChange = progressView;
+        getWebView().setProgressView(progressView);
+    }
+
+    public void setTitleView(TextView titleView) {
+        this.mTitleView = titleView;
+        getWebView().setTitleView(titleView);
+    }
+
 
     private void showDebugView() {
 
@@ -90,9 +109,9 @@ public class BrowserView extends FrameLayout {
         );
     }
 
-    private void initSetting(ProgressChange progressChange) {
-        getWebView().setWebViewClient(new BrowserClient(progressChange));
-        getWebView().setWebChromeClient(new BrowserChromeClient(progressChange, titleView));
+    private void initSetting() {
+        getWebView().setWebViewClient(new BrowserClient());
+        getWebView().setWebChromeClient(new BrowserChromeClient());
     }
 
     /**
@@ -107,35 +126,18 @@ public class BrowserView extends FrameLayout {
      * webview progress
      */
     public ProgressChange getProgress() {
-        return mProgress;
+        return mProgressChange;
     }
 
 
-    /**
-     * set progress  for browser
-     */
-    public void setProgress(ProgressChange progress, LayoutParams params) {
-        if (progress instanceof View) {
-            if (mProgress instanceof View) {
-                removeView((View) mProgress);
-            }
-            if (params != null) {
-                addView((View) progress, params);
-            } else {
-                addView((View) progress);
-            }
-        }
 
-        mProgress = progress;
-    }
 
     /**
      * load html or file or url
      */
     public void loadHtml(String data) {
-        mProxyWebView.loadDataWithBaseURL(null, data, "text/html", "utf-8", null);
+        getWebView().loadDataWithBaseURL(null, data, "text/html", "utf-8", null);
     }
-
 
     /**
      * load url
@@ -156,7 +158,7 @@ public class BrowserView extends FrameLayout {
 
 
     public void destroyWebView() {
-        mProxyWebView.destroy();
+        getWebView().destroy();
     }
 
     /**
@@ -173,8 +175,52 @@ public class BrowserView extends FrameLayout {
      *
      * @param consoleMessage 是否打印log
      */
-    public static void setConsoleMessage(boolean consoleMessage) {
+    public static void webConsoleMessage(boolean consoleMessage) {
         BrowserView.consoleMessage = consoleMessage;
     }
 
+    /**
+     * 开启操作导航条
+     * @param enable
+     */
+    public void webNavigateBarEnabled(boolean enable) {
+        if (enable) {
+            if (mNavView == null) {
+                mNavView = LayoutInflater.from(getContext()).inflate(R.layout.layout_webview_nav, null);
+                LayoutParams layoutParams =  new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+                layoutParams.gravity = Gravity.BOTTOM;
+                addView(mNavView,layoutParams);
+                EditText editText = mNavView.findViewById(R.id.etUrl);
+                getWebView().setUrlView(editText);
+                editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                    @Override
+                    public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                        if (actionId == EditorInfo.IME_ACTION_GO) {
+                            getWebView().loadUrl(editText.getText().toString());
+                            return true;
+                        }
+                        return false;
+                    }
+                });
+                ImageView ivRefresh = mNavView.findViewById(R.id.ivRefresh);
+                ImageView ivForward = mNavView.findViewById(R.id.ivForward);
+                ImageView ivBack = mNavView.findViewById(R.id.ivBack);
+                ImageView ivDebug = mNavView.findViewById(R.id.ivDebug);
+                ivRefresh.setOnClickListener(v -> getWebView().reload());
+                ivForward.setOnClickListener(v -> getWebView().goForward());
+                ivBack.setOnClickListener(v -> getWebView().goBack());
+                ivDebug.setOnClickListener(v -> {
+                    webContentsDebuggingEnabled(true);
+                    Toast.makeText(getContext(), "已开启调试，使用 chrome://inspect/#devices ", Toast.LENGTH_LONG).show();
+                });
+            } else {
+                mNavView.setVisibility(VISIBLE);
+            }
+        } else {
+            if (mNavView != null) {
+                mNavView.setVisibility(GONE);
+            }
+        }
+
+    }
 }
