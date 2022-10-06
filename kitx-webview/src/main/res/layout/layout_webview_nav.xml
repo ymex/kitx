@@ -9,7 +9,6 @@
     android:orientation="horizontal"
     tools:ignore="MissingDefaultResource">
     <ImageView
-        android:id="@+id/ivRefresh"
         android:layout_width="36dp"
         android:layout_height="36dp"
         android:padding="8dp"

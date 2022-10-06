@@ -1,6 +1,7 @@
 package cn.ymex.kitx.snippet.context
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.*
 import android.content.*
 import android.content.pm.ApplicationInfo
@@ -191,6 +192,7 @@ fun Context.getWindowManager(): WindowManager {
 }
 
 
+@SuppressLint("WrongConstant")
 @RequiresPermission(value = Manifest.permission.SYSTEM_ALERT_WINDOW)
 fun Context.createFloatWindow(
     view: View,

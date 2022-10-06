@@ -57,7 +57,7 @@ public class FalsifyFooter extends InternalAbstract implements RefreshFooter {
             canvas.drawRect(d, d, thisView.getWidth() - d, thisView.getBottom() - d, paint);
 
             TextView textView = new TextView(context);
-            textView.setText(context.getString(R.string.srl_component_falsify, getClass().getSimpleName(), SmartUtil.px2dp(thisView.getHeight())));
+            textView.setText(String.format(context.getString(R.string.srl_component_falsify),getClass().getSimpleName(), SmartUtil.px2dp(thisView.getHeight())));
             textView.setTextColor(0xcccccccc);
             textView.setGravity(Gravity.CENTER);
             //noinspection UnnecessaryLocalVariable
