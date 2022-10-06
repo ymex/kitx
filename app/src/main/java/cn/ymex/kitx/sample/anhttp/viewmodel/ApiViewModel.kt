@@ -55,7 +55,7 @@ class ApiViewModel(val apiRepos: ApiRepos) : ActionViewModel() {
  * Factory for [LoginVMFactory].
  */
 object LoginVMFactory : ViewModelProvider.Factory {
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
 
         return ApiViewModel(ApiRepos(createRetrofitService())) as T
     }

@@ -36,11 +36,7 @@ buildscript {
                         version: "1.0.2",
                         bintray: true
                 ],
-//                umeng  : [
-//                        name   : "umeng",
-//                        version: "0.0.3",
-//                        bintray: true
-//                ],
+
                 start  : [
                         name   : "start",
                         version: "0.1.1",
