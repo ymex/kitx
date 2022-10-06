@@ -56,10 +56,11 @@ class MainActivity : ViewBindingActivity<MainActivityBinding>() {
             }, ActInt("update version") {
                 val intent = Intent(this, UpdaterActivity::class.java)
                 startActivity(intent)
-            }, ActInt("umeng") {
-                val intent = Intent(this, UmengActivity::class.java)
-                startActivity(intent)
-            },
+            }
+//            , ActInt("umeng") {
+//                val intent = Intent(this, UmengActivity::class.java)
+//                startActivity(intent)
+//            },
         ) as List<Any>?
     }
 

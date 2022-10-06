@@ -5,7 +5,7 @@ import android.view.View
 import cn.ymex.kitx.sample.databinding.ActivityUmengBinding
 import cn.ymex.kitx.start.app.ViewBindingActivity
 import cn.ymex.kitx.snippet.context.requestActivity
-import cn.ymex.kitx.tps.umeng.utdId
+
 
 class UmengActivity : ViewBindingActivity<ActivityUmengBinding>() {
 
@@ -15,7 +15,7 @@ class UmengActivity : ViewBindingActivity<ActivityUmengBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        println("------utdid:"+requestActivity()?.utdId())
-        vb.tvInfo.text =requestActivity()?.utdId()
+//        println("------utdid:"+requestActivity()?.utdId())
+//        vb.tvInfo.text =requestActivity()?.utdId()
     }
 }

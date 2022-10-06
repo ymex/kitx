@@ -9,9 +9,6 @@ pluginManagement {
 
         google()
         mavenCentral()
-
-        maven { url 'https://developer.huawei.com/repo/' }
-        maven { url 'https://repo1.maven.org/maven2/' }
     }
 }
 dependencyResolutionManagement {
@@ -24,9 +21,6 @@ dependencyResolutionManagement {
 
         google()
         mavenCentral()
-
-        maven { url 'https://developer.huawei.com/repo/' }
-        maven { url 'https://repo1.maven.org/maven2/' }
     }
 }
 
@@ -38,5 +32,5 @@ include ':kitx-webview'
 include ':kitx-anhttp'
 include ':kitx-app-start'
 include ':kitx-snippet'
-include ':kitx-tps-umeng'
+
 rootProject.name='ymex.kitx'

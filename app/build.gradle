@@ -73,7 +73,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
     api project(path: ':kitx-app-start')
-    api project(path: ':kitx-tps-umeng')
+//    api project(path: ':kitx-tps-umeng')
 
 //    api 'cn.ymex.kitx:kitx-start:0.1.2'
 //    api 'cn.ymex.kitx:kitx-tps-umeng:0.1.2'
