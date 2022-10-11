@@ -120,16 +120,6 @@ public abstract class ListViewAdapter<E extends Object, V extends ListViewAdapte
      * append entities
      *
      * @param data
-     * @deprecated
-     */
-    public void appendData(List<E> data) {
-        appendDataList(data);
-    }
-
-    /**
-     * append entities
-     *
-     * @param data
      */
     public void appendDataList(List<E> data) {
         if (isNull(data)) {

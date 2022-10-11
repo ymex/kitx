@@ -41,14 +41,4 @@ public class ItemViewHolder extends RecyclerView.ViewHolder {
     public static ItemViewHolder create(ViewGroup parent, @LayoutRes int layout) {
         return new ItemViewHolder(LayoutInflater.from(parent.getContext()).inflate(layout, parent, false));
     }
-
-    /**
-     * @deprecated
-     * @param inflater inflater
-     * @param layout layout
-     * @return
-     */
-    public static ItemViewHolder create(LayoutInflater inflater, @LayoutRes int layout) {
-        return new ItemViewHolder(inflater.inflate(layout, null, false));
-    }
 }
