@@ -20,7 +20,7 @@ import java.io.File;
 
 public class BridgeWebView extends WebView {
 
-    private String APP_CACHE_DIRNAME;
+    private String APP_CACHE_DIRNAME="/";
 
     public BridgeWebView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -35,7 +35,10 @@ public class BridgeWebView extends WebView {
 
     @SuppressLint("SetJavaScriptEnabled")
     private void init() {
-        APP_CACHE_DIRNAME = getContext().getFilesDir().getAbsolutePath() + "/webcache";
+        if (isInEditMode()){
+            return;
+        }
+        //APP_CACHE_DIRNAME = getContext().getFilesDir().getAbsolutePath() + "/webcache";
         WebSettings settings = getSettings();
         settings.setDomStorageEnabled(true);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

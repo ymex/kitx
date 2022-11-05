@@ -71,6 +71,9 @@ public class ProxyWebView extends BridgeWebView {
 
     @SuppressLint("SetJavaScriptEnabled")
     private void initSetting() {
+        if (isInEditMode()) {
+            return;
+        }
         WebSettings webSetting = this.getSettings();
         webSetting.setJavaScriptEnabled(true);
         webSetting.setJavaScriptCanOpenWindowsAutomatically(true);

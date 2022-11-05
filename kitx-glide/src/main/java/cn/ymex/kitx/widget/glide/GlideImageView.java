@@ -85,7 +85,10 @@ public class GlideImageView extends FrameLayout implements RequestListener<Drawa
 
 
     private void init(Context context, AttributeSet attrs, int defStyleAttr) {
-        requestManager = Glide.with(this);
+        if (!isInEditMode()){
+            requestManager = Glide.with(this);
+        }
+
         contentImageView = new ImageView(getContext(), attrs, defStyleAttr);
 
         final TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.GlideImageView);
@@ -154,14 +157,14 @@ public class GlideImageView extends FrameLayout implements RequestListener<Drawa
     /**
      * 加载bitmap
      *
-     * @param bitmip
+     * @param bitmap
      * @param requestOptions
      */
-    public void setImageBitmip(Bitmap bitmip, RequestOptions requestOptions) {
+    public void setImageBitmap(Bitmap bitmap, RequestOptions requestOptions) {
         if (requestOptions == null) {
             requestOptions = options();
         }
-        requestManager.load(bitmip).apply(requestOptions).listener(this).into(contentImageView);
+        requestManager.load(bitmap).apply(requestOptions).listener(this).into(contentImageView);
     }
 
     /**
@@ -175,7 +178,10 @@ public class GlideImageView extends FrameLayout implements RequestListener<Drawa
         if (requestOptions == null) {
             requestOptions = options();
         }
-
+        if (isInEditMode()){
+            contentImageView.setImageDrawable(imageDrawable);
+            return;
+        }
         requestManager.load(imageDrawable).apply(requestOptions).listener(this).into(contentImageView);
     }
 
