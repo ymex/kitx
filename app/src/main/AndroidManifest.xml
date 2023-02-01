@@ -4,7 +4,8 @@
     package="cn.ymex.kitx.sample">
 
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         tools:ignore="ScopedStorage" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
@@ -13,7 +14,6 @@
         tools:ignore="ProtectedPermissions" />
 
     <application
-        tools:replace="android:allowBackup"
         android:name=".AppContext"
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
@@ -21,32 +21,50 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:ignore="GoogleAppIndexingWarning">
+        tools:ignore="GoogleAppIndexingWarning"
+        tools:replace="android:allowBackup">
+        <activity
+            android:name=".textlabel.TextLabelActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
         <activity
             android:name=".umeng.UmengActivity"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
-            android:exported="true"
-            android:name=".MainActivity">
+            android:name=".MainActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".adapter.AdapterActivity" android:exported="false"/>
-        <activity android:name=".permission.PermissionActivity" android:exported="false"/>
-        <activity android:name=".webview.BridgeActivity" android:exported="false"/>
-        <activity android:name=".anhttp.AnhttpStartActivity" android:exported="false"/>
-        <activity android:name=".updater.UpdaterActivity" android:exported="false"/>
+        <activity
+            android:name=".adapter.AdapterActivity"
+            android:exported="false" />
+        <activity
+            android:name=".permission.PermissionActivity"
+            android:exported="false" />
+        <activity
+            android:name=".webview.BridgeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".anhttp.AnhttpStartActivity"
+            android:exported="false" />
+        <activity
+            android:name=".updater.UpdaterActivity"
+            android:exported="false" />
 
         <service
-            android:exported="true"
             android:name=".core.MutService"
+            android:exported="true"
             android:process=":mut" />
         <service
-            android:exported="true"
             android:name=".permission.NoticeService"
+            android:exported="true"
             android:label="通知使用权测试程序"
             android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
             <intent-filter>
