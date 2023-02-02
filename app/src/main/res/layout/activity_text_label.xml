@@ -4,12 +4,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="16dip"
     android:gravity="center"
+    android:orientation="vertical"
     tools:context=".textlabel.TextLabelActivity">
-    <cn.ymex.kitx.widget.label.TextLabel
 
-        app:startLinkColor="@color/colorPrimary"
+    <cn.ymex.kitx.widget.label.TextLabel
+        android:padding="32dip"
+        android:background="@color/colorPrimary"
+        android:id="@+id/tvFormatLabel"
+        app:startText="金额："
+        app:startTextColor="@color/white"
+        android:text="9527"
+        app:startTextSize="14sp"
+        android:textSize="20sp"
+        app:endTextSize="12sp"
+        app:endText=" 元"
+        android:textColor="@android:color/holo_red_dark"
+        app:endTextColor="@color/blue_dark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <cn.ymex.kitx.widget.label.TextLabel
+        android:layout_marginTop="24dp"
         android:layout_width="match_parent"
-        android:id="@+id/tvLicenseGuideClick"
+        android:id="@+id/tvLinkSpan"
         android:layout_height="wrap_content"/>
 </LinearLayout>

@@ -84,7 +84,7 @@ public class SpanCell {
 
     /**
      * 图文点击事件
-     *
+     * spanCell 可点击时， 文字颜色为linkColor
      * @param listener
      */
     public SpanCell setClickableSpan(OnClickListener listener) {

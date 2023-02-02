@@ -20,6 +20,10 @@ import androidx.annotation.StringRes;
 import androidx.annotation.StyleableRes;
 import androidx.appcompat.widget.AppCompatTextView;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import cn.ymex.kitx.widget.R;
 
 
@@ -30,7 +34,9 @@ public class TextLabel extends AppCompatTextView {
 
     private SpanCell startSpanCell;
     private SpanCell endSpanCell;
+    //当 extraTextSpanCells有值时 textSpanCell无效 只显示其中一个
     private SpanCell textSpanCell;
+    private final List<SpanCell> extraTextSpanCells = new ArrayList<>();
     private CharSequence stringFormat;
 
 
@@ -57,17 +63,7 @@ public class TextLabel extends AppCompatTextView {
 
     }
 
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        linkHit = false;
-        boolean res = super.onTouchEvent(event);
 
-        if (dontConsumeNonUrlClicks) {
-            return linkHit;
-        }
-        return res;
-
-    }
 
     @Override
     public boolean hasFocusable() {
@@ -86,6 +82,8 @@ public class TextLabel extends AppCompatTextView {
         textSpanCell = SpanCell.build().text(text)
                 .textColor(textColor).textSize(textSize)
                 .linkColor(linkColor);
+
+
 
         startSpanCell = resolveAttr(typedArray, R.styleable.TextLabel_startText,
                 R.styleable.TextLabel_startTextColor,
@@ -139,11 +137,20 @@ public class TextLabel extends AppCompatTextView {
 
     @Override
     public CharSequence getText() {
+        if (extraTextSpanCells!=null && !extraTextSpanCells.isEmpty()){
+            SpannableStringBuilder builder = new SpannableStringBuilder();
+            for (SpanCell textSpanCell : extraTextSpanCells) {
+                builder.append(textSpanCell.text);
+            }
+            return builder.subSequence(0, builder.length());
+        }
         return textSpanCell == null ? super.getText() : textSpanCell.text;
     }
 
-    public SpanCell getTextSpanCell() {
-        return textSpanCell;
+
+    public List<SpanCell> getTextSpanCell() {
+
+        return extraTextSpanCells;
     }
 
     /**
@@ -152,7 +159,16 @@ public class TextLabel extends AppCompatTextView {
      * @return
      */
     public CharSequence getDisplayText() {
-        return buildSpannableString(startSpanCell, textSpanCell, endSpanCell).toString();
+        if (extraTextSpanCells.isEmpty()){
+           return buildSpannableString(startSpanCell, textSpanCell, endSpanCell).toString();
+        }
+        SpanCell[] spanCells = new SpanCell[extraTextSpanCells.size()+2];
+        spanCells[0] = startSpanCell;
+        for (int i = 0; i < extraTextSpanCells.size(); i++) {
+            spanCells[i+1] = extraTextSpanCells.get(i);
+        }
+        spanCells[spanCells.length-1] = endSpanCell;
+        return buildSpannableString(spanCells).toString();
     }
 
     private CharSequence buildSpannableString(SpanCell... spanCells) {
@@ -168,24 +184,38 @@ public class TextLabel extends AppCompatTextView {
         return builder.subSequence(0, builder.length());
     }
 
-
     @Override
     public void setText(CharSequence text, BufferType type) {
-        if (textSpanCell != null) {
-            textSpanCell.text = text;
-            super.setText(buildSpannableString(startSpanCell, textSpanCell, endSpanCell), type);
+
+        if (extraTextSpanCells !=null && !extraTextSpanCells.isEmpty()){
+            SpanCell[] spanCells = new SpanCell[extraTextSpanCells.size()+2];
+            spanCells[0] = startSpanCell;
+            for (int i = 0; i < extraTextSpanCells.size(); i++) {
+                spanCells[i+1] = extraTextSpanCells.get(i);
+            }
+            spanCells[spanCells.length-1] = endSpanCell;
+            super.setText(buildSpannableString(spanCells), type);
             return;
+        }else {
+            if (textSpanCell != null) {
+                textSpanCell.text = text;
+                super.setText(buildSpannableString(startSpanCell, textSpanCell, endSpanCell), type);
+                return;
+            }
         }
         super.setText(text, type);
+    }
+
+    public void clearSpanCell(){
+        extraTextSpanCells.clear();
     }
 
     public void setText(SpanCell... spanCells) {
         if (spanCells == null || spanCells.length <= 0) {
             return;
         }
-        textSpanCell.textColor(spanCells[0].getTextColor())
-                .textSize(spanCells[0].getTextSize())
-                .linkColor(spanCells[0].getLinkColor());
+        extraTextSpanCells.clear();
+        extraTextSpanCells.addAll(Arrays.asList(spanCells));
         setText(buildSpannableString(spanCells));
     }
 
@@ -257,7 +287,7 @@ public class TextLabel extends AppCompatTextView {
 
     public void setStartText(SpanCell startSpanCell) {
         this.startSpanCell = startSpanCell;
-        setText(textSpanCell == null ? SpanCell.build().text("") : textSpanCell);
+        setText(extraTextSpanCells.toArray(new SpanCell[extraTextSpanCells.size()]));
     }
 
     /**
@@ -275,7 +305,8 @@ public class TextLabel extends AppCompatTextView {
 
     public void setEndText(SpanCell endSpanCell) {
         this.endSpanCell = endSpanCell;
-        setText(textSpanCell == null ? SpanCell.build().text("") : textSpanCell);
+
+        setText(extraTextSpanCells.toArray(new SpanCell[extraTextSpanCells.size()]));
     }
 
     /**
@@ -309,6 +340,14 @@ public class TextLabel extends AppCompatTextView {
     }
 
 
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        linkHit = false;
+        boolean res = super.onTouchEvent(event);
+        return res;
+
+    }
+
     public static class LocalLinkMovementMethod extends LinkMovementMethod {
         static LocalLinkMovementMethod sInstance;
 
@@ -324,7 +363,6 @@ public class TextLabel extends AppCompatTextView {
         public boolean onTouchEvent(TextView widget,
                                     Spannable buffer, MotionEvent event) {
             int action = event.getAction();
-
             if (action == MotionEvent.ACTION_UP ||
                     action == MotionEvent.ACTION_DOWN) {
                 int x = (int) event.getX();
@@ -359,7 +397,6 @@ public class TextLabel extends AppCompatTextView {
                 } else {
                     Selection.removeSelection(buffer);
                     Touch.onTouchEvent(widget, buffer, event);
-                    return false;
                 }
             }
             return Touch.onTouchEvent(widget, buffer, event);
