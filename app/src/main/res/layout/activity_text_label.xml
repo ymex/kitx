@@ -30,4 +30,10 @@
         android:layout_width="match_parent"
         android:id="@+id/tvLinkSpan"
         android:layout_height="wrap_content"/>
+
+    <cn.ymex.kitx.widget.label.TextLabel
+        android:layout_marginTop="24dp"
+        android:id="@+id/tvTextImage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 </LinearLayout>
