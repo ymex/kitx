@@ -34,7 +34,7 @@ class Param(common: Boolean) : LinkedHashMap<String, Any>() {
             builder.append(", ")
         }
         builder.append("}")
-        return "Param()"
+        return "Param(${builder})"
     }
 
 
