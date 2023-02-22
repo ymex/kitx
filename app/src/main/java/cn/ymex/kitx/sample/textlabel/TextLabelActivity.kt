@@ -24,9 +24,11 @@ class TextLabelActivity : ViewBindingActivity<ActivityTextLabelBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         vb.tvFormatLabel.setOnClickListener {
-            vb.tvFormatLabel.text = "3.1415"
-            Toast.makeText(this@TextLabelActivity, vb.tvFormatLabel.text, Toast.LENGTH_SHORT).show()
 
+            Toast.makeText(this@TextLabelActivity, vb.tvFormatLabel.text, Toast.LENGTH_SHORT).show()
+            vb.tvFormatLabel.setStartText(System.currentTimeMillis().toString())
+            vb.tvFormatLabel.setEndText(System.currentTimeMillis().toString())
+            vb.tvFormatLabel.setText("3.1415")
         }
         linkSpanCell()
         dear()

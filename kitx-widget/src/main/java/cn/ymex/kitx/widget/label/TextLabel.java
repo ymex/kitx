@@ -211,9 +211,9 @@ public class TextLabel extends AppCompatTextView {
     }
 
     public void setText(SpanCell... spanCells) {
-        if (spanCells == null || spanCells.length <= 0) {
-            return;
-        }
+//        if (spanCells == null || spanCells.length <= 0) {
+//            return;
+//        }
         extraTextSpanCells.clear();
         extraTextSpanCells.addAll(Arrays.asList(spanCells));
         setText(buildSpannableString(spanCells));
