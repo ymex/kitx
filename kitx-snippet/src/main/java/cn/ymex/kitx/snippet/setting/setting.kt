@@ -192,7 +192,6 @@ fun Context.getNotificationsSettingIntent(): Intent {
         intent.action = "android.settings.APP_NOTIFICATION_SETTINGS"
         intent.putExtra("app_package", packageName)
         intent.putExtra("app_uid", this.applicationInfo.uid)
-        startActivity(intent)
     } else if (Build.VERSION.SDK_INT == Build.VERSION_CODES.KITKAT) { //4.4
         intent.action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
         intent.addCategory(Intent.CATEGORY_DEFAULT)
@@ -207,6 +206,17 @@ fun Context.getNotificationsSettingIntent(): Intent {
         )
     }
 
+    return intent
+}
+
+fun getNotificationsSettingIntent2(context: Context):Intent {
+    // Links to this app's notification settings.
+    val intent = Intent()
+    intent.action = "android.settings.APP_NOTIFICATION_SETTINGS"
+    intent.putExtra("app_package", context.packageName)
+    intent.putExtra("app_uid", context.applicationInfo.uid)
+    // for Android 8 and above
+    intent.putExtra("android.provider.extra.APP_PACKAGE", context.packageName)
     return intent
 }
 
