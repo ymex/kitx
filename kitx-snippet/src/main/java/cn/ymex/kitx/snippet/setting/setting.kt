@@ -1,6 +1,7 @@
 package cn.ymex.kitx.snippet.setting
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.ActivityManager
 import android.content.ComponentName
 import android.content.Context
@@ -13,6 +14,7 @@ import android.provider.Settings
 import androidx.annotation.RequiresApi
 import androidx.annotation.RequiresPermission
 import androidx.core.app.NotificationManagerCompat
+import java.lang.reflect.Method
 import java.util.*
 
 
@@ -271,3 +273,19 @@ fun Context.isServiceExisted(className: String): Boolean {
     }
     return false
 }
+
+//已测MIUI10/MIUI11/MIU13可用
+fun Context.isMuiAllowAutoStart(): Boolean {
+    try {
+        @SuppressLint("PrivateApi")
+        val method: Method = Class.forName("android.miui.AppOpsUtils")
+            .getMethod("getApplicationAutoStart", Context::class.java, String::class.java)
+        return method.invoke(null, this, this.packageName) as Int == 0 //0已允许, 1已拒绝
+    } catch (e: Exception) {
+        e.printStackTrace()
+    }
+    //如果系统更新改了api可能导致没法判断
+    return false
+}
+
+

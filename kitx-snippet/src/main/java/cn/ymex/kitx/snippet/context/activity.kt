@@ -12,7 +12,7 @@ import cn.ymex.kitx.snippet.context.showInputKeyBoard
 
 fun <T : View> Activity.find(@IdRes id: Int): T = findViewById(id)
 
-fun Activity.hideInputKeyBoard() {
+fun Activity.hideInputKeyBoard(view: View?=null) {
     baseContext.hideInputKeyBoard(this.window.peekDecorView())
 }
 
